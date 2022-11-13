@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Micronaut,Groovy,Gradle,Java,文档,中文">
+    <meta name="description" content="Micronaut Groovy Gradle Java 文档 中文">
+    <meta name="author" content="林威羽">
+    
+    <title>
+        
+            Compose file deploy reference |
+        
+        林威羽的笔记
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"rgb(153,153,0)","avatar":"/images/avatar.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"400px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"def contains🚀 = ['Micronaut', 'Groovy', 'Gradle', 'etc']"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                林威羽的笔记
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/linweiyu21/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
+        viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+        aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg></a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+
+      @keyframes octocat-wave {
+
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Compose file deploy reference</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">林威羽</span>
+                        
+                            <span class="author-label">Lv8</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-30 10:41:22</span>
+        <span class="mobile">2022-05-30 10:41</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Docker-Compose/">Docker - Compose</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Notes/">Notes</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Docker-Compose/">Docker Compose</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <!-- TOC -->
+
+<ul>
+<li><a href="#definitions-%E5%AE%9A%E4%B9%89">Definitions (定义)</a><ul>
+<li><a href="#endpoint_mode">endpoint_mode</a></li>
+<li><a href="#labels">labels</a></li>
+<li><a href="#mode">mode</a></li>
+<li><a href="#placement">placement</a><ul>
+<li><a href="#constraints">constraints</a></li>
+<li><a href="#preferences">preferences</a></li>
+</ul>
+</li>
+<li><a href="#replicas">replicas</a></li>
+<li><a href="#resources">resources</a><ul>
+<li><a href="#cpus">cpus</a></li>
+<li><a href="#memory">memory</a></li>
+<li><a href="#pids">pids</a></li>
+<li><a href="#devices">devices</a></li>
+</ul>
+</li>
+<li><a href="#restart_policy">restart_policy</a></li>
+<li><a href="#rollback_config">rollback_config</a></li>
+<li><a href="#update_config">update_config</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+
+<p>支持应用程序模型部署的 Compose 实现可能需要一些额外的元数据，因为 Compose 应用程序模型过于抽象，无法反映每个服务的实际基础架构需求或生命周期约束</p>
+<p>Compose 规范部署允许用户在 service 上声明额外的元数据，以便 Compose 实现获取相关数据以在平台上分配足够的资源并配置它们以满足用户的需求</p>
+<h2 id="Definitions-定义"><a href="#Definitions-定义" class="headerlink" title="Definitions (定义)"></a>Definitions (定义)</h2><p>Compose 规范被扩展以支持关于服务的可选 <code>deploy</code> 小节。 本节定义服务的运行时要求</p>
+<h3 id="endpoint-mode"><a href="#endpoint-mode" class="headerlink" title="endpoint_mode"></a>endpoint_mode</h3><p><code>endpoint_mode</code> 为连接到服务的外部客户端指定服务发现方法。 默认值和可用值是特定于平台的，无论如何 Compose 规范定义了两个规范值:</p>
+<ul>
+<li><code>endpoint_mode: vip</code>: 为服务分配一个虚拟 IP (VIP)，作为客户端访问网络上的服务的前端。 平台在客户端和运行服务的节点之间路由请求，而客户端不知道有多少节点参与服务或其 IP 地址或端口</li>
+<li><code>endpoint_mode: dnsrr</code>: 平台为服务设置 DNS 条目，以便对服务名称的 DNS 查询返回 IP 地址列表（DNS 循环），客户端直接连接到其中一个</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span> <span class="string">awesome/webapp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;8080:80&quot;</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">replicated</span></span><br><span class="line">    <span class="attr">replicas:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">endpoint_mode:</span> <span class="string">vip</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="labels"><a href="#labels" class="headerlink" title="labels"></a>labels</h3><p>服务的 <code>labels</code> 元数据。 这些 labels 必须只设置在服务上，而不是服务的任何容器上。 这假设平台有一些可以匹配 Compose 应用程序模型的本地 “service” 概念</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">com.example.description:</span> <span class="string">&quot;This is label will appear on the web service&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h3><p><code>mode</code> 定义了用于在平台上运行服务的复制模型。 <code>global</code>（每个物理节点只有一个容器）或 <code>replicated</code>（指定数量的容器）。 默认为 <code>replicated</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">mode:</span> <span class="string">global</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="placement"><a href="#placement" class="headerlink" title="placement"></a>placement</h3><p><code>placement</code> 指定平台选择物理节点来运行服务容器的约束和偏好</p>
+<h4 id="constraints"><a href="#constraints" class="headerlink" title="constraints"></a>constraints</h4><p><code>constraints</code> 定义了平台节点必须满足才能运行服务容器的必需属性。 可以通过列表或带有字符串值的映射设置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span></span><br><span class="line">          <span class="attr">disktype:</span> <span class="string">ssd</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">disktype=ssd</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="preferences"><a href="#preferences" class="headerlink" title="preferences"></a>preferences</h4><p><code>preferences</code> 定义了平台节点应该满足以运行服务容器的属性。 可以通过列表或带有字符串值的映射设置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">preferences:</span></span><br><span class="line">          <span class="attr">datacenter:</span> <span class="string">us-east</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">datacenter=us-east</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="replicas"><a href="#replicas" class="headerlink" title="replicas"></a>replicas</h3><p>如果服务是 <code>replicated</code>（这是默认值），<code>replicas</code> 指定在任何给定时间应该运行的容器数量</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">mode:</span> <span class="string">replicated</span></span><br><span class="line">      <span class="attr">replicas:</span> <span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="resources"><a href="#resources" class="headerlink" title="resources"></a>resources</h3><p><code>resources</code> 配置容器在平台上运行的物理资源约束。 这些约束可以配置为:</p>
+<ul>
+<li><code>limits</code>: 平台必须阻止容器分配更多</li>
+<li><code>reservations</code>: 平台必须保证容器至少可以分配配置的数量</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">resources:</span></span><br><span class="line">        <span class="attr">limits:</span></span><br><span class="line">          <span class="attr">cpus:</span> <span class="string">&#x27;0.50&#x27;</span></span><br><span class="line">          <span class="attr">memory:</span> <span class="string">50M</span></span><br><span class="line">          <span class="attr">pids:</span> <span class="number">1</span></span><br><span class="line">        <span class="attr">reservations:</span></span><br><span class="line">          <span class="attr">cpus:</span> <span class="string">&#x27;0.25&#x27;</span></span><br><span class="line">          <span class="attr">memory:</span> <span class="string">20M</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="cpus"><a href="#cpus" class="headerlink" title="cpus"></a>cpus</h4><p><code>cpus</code> 为容器可以使用多少可用 CPU 资源（作为核心数）配置限制或预留</p>
+<h4 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h4><p><code>memory</code> 配置容器可以分配的内存量的限制或保留，设置为表示字节值的字符串</p>
+<h4 id="pids"><a href="#pids" class="headerlink" title="pids"></a>pids</h4><p><code>pids</code> 调整容器的 PID 限制，设置为整数</p>
+<h4 id="devices"><a href="#devices" class="headerlink" title="devices"></a>devices</h4><p><code>devices</code> 配置容器可以使用的 reservations 设备。 它包含一个 reservations 列表，每个都设置为具有以下参数的对象：<code>capabilities</code>、<code>driver</code>、<code>count</code>、<code>device_ids</code> 和 <code>options</code></p>
+<p>使用功能列表保留设备，使 <code>capabilities</code> 成为唯一必填字段。 设备必须满足成功预订所需的所有功能</p>
+<h3 id="restart-policy"><a href="#restart-policy" class="headerlink" title="restart_policy"></a>restart_policy</h3><p><code>restart_policy</code> 配置是否以及如何在容器退出时重新启动容器。 如果 <code>restart_policy</code> 未设置，Compose 实现必须考虑服务配置设置的 <code>restart</code> 字段</p>
+<ul>
+<li><code>condition</code>: <code>none</code>,<code>on-failure</code>,<code>any</code> 中的一个 (默认为 <code>any</code>)</li>
+<li><code>delay</code>: 尝试重新启动之间的等待时间，指定为持续时间（默认值：0）。</li>
+<li><code>max_attempts</code>: 在放弃之前尝试重新启动容器的次数（默认值：一直不放弃）。 如果在配置的 <code>window</code> 内重启没有成功，则此尝试不计入配置的 <code>max_attempts</code> 值。 例如，如果<code>max_attempts</code> 设置为 “2”，并且第一次尝试重新启动失败，则必须尝试两次以上的重新启动</li>
+<li><code>window</code>: 在决定重启是否成功之前等待多长时间，指定为持续时间（默认值：立即决定）</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">restart_policy:</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">on-failure</span></span><br><span class="line">        <span class="attr">delay:</span> <span class="string">5s</span></span><br><span class="line">        <span class="attr">max_attempts:</span> <span class="number">3</span></span><br><span class="line">        <span class="attr">window:</span> <span class="string">120s</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="rollback-config"><a href="#rollback-config" class="headerlink" title="rollback_config"></a>rollback_config</h3><p><code>rollback_config</code> 配置在更新失败的情况下如何回滚服务</p>
+<ul>
+<li><code>parallelism</code>: 一次回滚的容器数。 如果设置为 0，所有容器同时回滚</li>
+<li><code>delay</code>: 每个容器组回滚之间的等待时间（默认 0s）</li>
+<li><code>failure_action</code>: 如果回滚失败怎么办。 <code>continue</code> 或 <code>pause</code> 之一（默认为 <code>pause</code>）</li>
+<li><code>monitor</code>: 每次任务更新后监控失败的持续时间（<code>ns</code>|<code>us</code>|<code>ms</code>|<code>s</code>|<code>m</code>|<code>h</code>）（默认 0s）</li>
+<li><code>max_failure_ratio</code>: 回滚期间容忍的失败率（默认 0）</li>
+<li><code>order</code>: 回滚期间的操作顺序。 <code>stop-first</code>（旧任务在开始新任务之前停止）或 <code>start-first</code>（新任务首先启动，正在运行的任务短暂重叠）之一（默认为 <code>stop-first</code> ）</li>
+</ul>
+<h3 id="update-config"><a href="#update-config" class="headerlink" title="update_config"></a>update_config</h3><p><code>update_config</code> 配置应该如何更新服务。 用于配置滚动更新</p>
+<ul>
+<li><code>parallelism</code>: 一次更新的容器数</li>
+<li><code>delay</code>: 更新一组容器之间的等待时间</li>
+<li><code>failure_action</code>: 如果更新失败怎么办。 <code>continue</code>、<code>rollback</code> 或 <code>pause</code> 之一（默认值：<code>pause</code>）</li>
+<li><code>monitor</code>: 每次任务更新后监控失败的持续时间（<code>ns</code>|<code>us</code>|ms<code>|</code>s<code>|</code>m<code>|</code>h&#96;）（默认 0s）</li>
+<li><code>max_failure_ratio</code>: 更新期间容忍的失败率</li>
+<li><code>order</code>: 更新期间的操作顺序。 <code>stop-first</code>（旧任务在开始新任务之前停止）或 <code>start-first</code>（新任务首先启动，正在运行的任务短暂重叠）之一（默认为 <code>stop-first</code> ）</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">awesome/webapp</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">parallelism:</span> <span class="number">2</span></span><br><span class="line">      <span class="attr">delay:</span> <span class="string">10s</span></span><br><span class="line">      <span class="attr">order:</span> <span class="string">stop-first</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Compose file deploy reference</li>
+        <li>本文作者：林威羽</li>
+        <li>创建时间：2022-05-30 10:41:22</li>
+        <li>
+            本文链接：https://linweiyu21.github.io/docker/compose/compose-file-deploy-reference/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Docker/">#Docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Notes/">#Notes</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Docker-Compose/">#Docker Compose</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/docker/language-specific-guides/java/use-containers-for-development/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Use containers for development</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/docker/compose/compose-specification-summary/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Compose specification 总结</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8xWQ0WFbKUNN4h8ixIO12etk-gzGzoHsz',
+                    appKey: '7cLjTvkIsF6aIuIVSd0um89m',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请开始你的表演',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '林威羽';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">林威羽</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definitions-%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">Definitions (定义)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#endpoint-mode"><span class="nav-number">1.1.</span> <span class="nav-text">endpoint_mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#labels"><span class="nav-number">1.2.</span> <span class="nav-text">labels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mode"><span class="nav-number">1.3.</span> <span class="nav-text">mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#placement"><span class="nav-number">1.4.</span> <span class="nav-text">placement</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#constraints"><span class="nav-number">1.4.1.</span> <span class="nav-text">constraints</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preferences"><span class="nav-number">1.4.2.</span> <span class="nav-text">preferences</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replicas"><span class="nav-number">1.5.</span> <span class="nav-text">replicas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resources"><span class="nav-number">1.6.</span> <span class="nav-text">resources</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cpus"><span class="nav-number">1.6.1.</span> <span class="nav-text">cpus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#memory"><span class="nav-number">1.6.2.</span> <span class="nav-text">memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pids"><span class="nav-number">1.6.3.</span> <span class="nav-text">pids</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#devices"><span class="nav-number">1.6.4.</span> <span class="nav-text">devices</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#restart-policy"><span class="nav-number">1.7.</span> <span class="nav-text">restart_policy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rollback-config"><span class="nav-number">1.8.</span> <span class="nav-text">rollback_config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update-config"><span class="nav-number">1.9.</span> <span class="nav-text">update_config</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

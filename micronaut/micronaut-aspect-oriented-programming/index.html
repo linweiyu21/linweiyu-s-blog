@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Micronaut,Groovy,Gradle,Java,文档,中文">
+    <meta name="description" content="Micronaut Groovy Gradle Java 文档 中文">
+    <meta name="author" content="林威羽">
+    
+    <title>
+        
+            Micronaut 中文文档 Aspect Oriented Programming |
+        
+        林威羽的笔记
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"rgb(153,153,0)","avatar":"/images/avatar.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"400px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"def contains🚀 = ['Micronaut', 'Groovy', 'Gradle', 'etc']"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                林威羽的笔记
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/linweiyu21/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
+        viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+        aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg></a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+
+      @keyframes octocat-wave {
+
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Micronaut 中文文档 Aspect Oriented Programming</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">林威羽</span>
+                        
+                            <span class="author-label">Lv8</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-04-29 09:35:10</span>
+        <span class="mobile">2022-04-29 09:35</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Micronaut-%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/">Micronaut 中文文档</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Micronaut/">Micronaut</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Groovy/">Groovy</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%B8%AD%E6%96%87/">中文</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <!-- TOC -->
+
+<ul>
+<li><a href="#aspect-oriented-programming">Aspect Oriented Programming</a><ul>
+<li><a href="#around-advice-%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5">Around Advice (环绕通知)</a><ul>
+<li><a href="#writing-around-advice-%E7%BC%96%E5%86%99%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5">Writing Around Advice (编写环绕通知)</a></li>
+<li><a href="#customizing-proxy-generation-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%90%86%E7%9A%84%E7%94%9F%E6%88%90">Customizing Proxy Generation (自定义代理的生成)</a></li>
+<li><a href="#aop-advice-on-factory-beans-%E5%9C%A8-factory-beas-%E4%B8%8A%E7%9A%84-aop-%E9%80%9A%E7%9F%A5">AOP Advice on <code>@Factory</code> Beans (在 <code>@Factory</code> Beas 上的 AOP 通知)</a></li>
+</ul>
+</li>
+<li><a href="#introduction-advice-%E5%BC%95%E5%85%A5-advice">Introduction Advice (引入 Advice)</a></li>
+<li><a href="#method-adapter-advice-%E6%96%B9%E6%B3%95%E9%80%82%E9%85%8D%E5%99%A8-advice">Method Adapter Advice (方法适配器 Advice)</a></li>
+<li><a href="#bean-life-cycle-advice-bean-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-advice">Bean Life Cycle Advice (Bean 生命周期 Advice)</a></li>
+<li><a href="#validation-advice-%E6%A0%A1%E9%AA%8C-advice">Validation Advice (校验 Advice)</a></li>
+<li><a href="#cache-advice-%E7%BC%93%E5%AD%98-advice">Cache Advice (缓存 Advice)</a><ul>
+<li><a href="#cache-annotations-%E7%BC%93%E5%AD%98%E6%B3%A8%E8%A7%A3">Cache Annotations (缓存注解)</a></li>
+<li><a href="#configuration-caches-%E9%85%8D%E7%BD%AE%E7%BC%93%E5%AD%98">Configuration Caches (配置缓存)</a><ul>
+<li><a href="#naming-caches-%E5%91%BD%E5%90%8D%E7%BC%93%E5%AD%98">Naming Caches (命名缓存)</a></li>
+</ul>
+</li>
+<li><a href="#dynamic-cache-creation-%E5%8A%A8%E6%80%81%E7%BC%93%E5%AD%98%E5%88%9B%E5%BB%BA">Dynamic Cache Creation (动态缓存创建)</a></li>
+</ul>
+</li>
+<li><a href="#retry-advice-%E9%87%8D%E8%AF%95-advice">Retry Advice (重试 Advice)</a><ul>
+<li><a href="#simple-retry-%E7%AE%80%E5%8D%95%E9%87%8D%E8%AF%95">Simple Retry (简单重试)</a></li>
+<li><a href="#reactive-retry-%E5%93%8D%E5%BA%94%E5%BC%8F%E9%87%8D%E8%AF%95">Reactive Retry (响应式重试)</a></li>
+<li><a href="#circuit-breaker-%E6%96%AD%E8%B7%AF%E5%99%A8">Circuit Breaker (断路器)</a></li>
+<li><a href="#factory-bean-retry-%E5%B7%A5%E5%8E%82-bean-%E9%87%8D%E8%AF%95">Factory Bean Retry (工厂 Bean 重试)</a></li>
+<li><a href="#retry-events-%E9%87%8D%E8%AF%95%E4%BA%8B%E4%BB%B6">Retry Events (重试事件)</a></li>
+</ul>
+</li>
+<li><a href="#scheduled-tasks-%E5%AE%9A%E6%9C%9F%E4%BB%BB%E5%8A%A1">Scheduled Tasks (定期任务)</a><ul>
+<li><a href="#using-the-scheduled-annotation-%E4%BD%BF%E7%94%A8-scheduled-%E6%B3%A8%E8%A7%A3">Using the <code>@Scheduled</code> Annotation (使用 <code>@Scheduled</code> 注解)</a><ul>
+<li><a href="#scheduling-at-a-fixed-rate-%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%9B%BA%E5%AE%9A%E9%A2%91%E7%8E%87%E4%B8%8A%E8%B0%83%E5%BA%A6">Scheduling at a Fixed Rate (在一个固定频率上调度)</a></li>
+<li><a href="#scheduling-with-a-fixed-delay-%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%9B%BA%E5%AE%9A%E7%9A%84%E5%BB%B6%E8%BF%9F%E5%90%8E%E8%B0%83%E5%BA%A6">Scheduling with a Fixed Delay (在一个固定的延迟后调度)</a></li>
+<li><a href="#scheduling-a-cron-task-%E5%9C%A8-cron-%E9%85%8D%E7%BD%AE%E7%9A%84%E6%97%B6%E9%97%B4%E4%B8%8A%E8%B0%83%E5%BA%A6">Scheduling a Cron Task (在 Cron 配置的时间上调度)</a></li>
+<li><a href="#scheduling-with-only-a-initial-delay-%E5%9C%A8%E4%BB%85%E4%BB%85%E4%B8%80%E4%B8%AA%E5%BB%B6%E8%BF%9F%E4%B9%8B%E5%90%8E%E8%BF%9B%E8%A1%8C%E8%B0%83%E5%BA%A6">Scheduling with only a Initial Delay (在仅仅一个延迟之后进行调度)</a></li>
+</ul>
+</li>
+<li><a href="#programmatically-scheduling-tasks-%E7%BC%96%E7%A8%8B%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6">Programmatically Scheduling Tasks (编程式任务调度)</a></li>
+<li><a href="#configuring-scheduled-tasks-with-annotation-metadata-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%85%83%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E8%B0%83%E5%BA%A6%E4%BB%BB%E5%8A%A1">Configuring Scheduled Tasks with Annotation Metadata (使用注解元数据配置调度任务)</a></li>
+<li><a href="#configuring-the-scheduled-task-thread-pool-%E9%85%8D%E7%BD%AE%E8%B0%83%E5%BA%A6%E4%BB%BB%E5%8A%A1%E7%BA%BF%E7%A8%8B%E6%B1%A0">Configuring the Scheduled Task Thread Pool (配置调度任务线程池)</a></li>
+<li><a href="#handling-exceptions-%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8">Handling Exceptions (处理异常)</a></li>
+<li><a href="#bridging-spring-aop-%E6%A1%A5%E6%8E%A5-spring-aop">Bridging Spring AOP (桥接 Spring AOP)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+
+<h1 id="Aspect-Oriented-Programming"><a href="#Aspect-Oriented-Programming" class="headerlink" title="Aspect Oriented Programming"></a>Aspect Oriented Programming</h1><blockquote>
+<p>Generally AOP can be thought of as a way to define cross-cutting concerns (logging, transactions, tracing, etc.) separate from application code in the form of aspects that define advice.</p>
+</blockquote>
+<p>通常来说 AOP 可以被认为是定义横切关注点(日志, 事务, 跟踪等)的一种方式, 它以定义通知的方面的形式与应用程序代码分开</p>
+<p>通常有两种形式的 通知(advice):</p>
+<ul>
+<li>环绕通知(Around Advice), 包装一个方法或类</li>
+<li>引导通知(Introduction Advice), 引入一个新的行为到一个类中</li>
+</ul>
+<p>在现代的 Java 应用程序中, 声明 通知(advice) 通常使用注解的形式. Java 世界中最出名的注解通知(advice)可能是 <code>@Transactional</code>, 这个注解标定了 Spring 和 Grails 应用程序中的事务边界</p>
+<p>传统 AOP 实现的缺点是非常依赖运行时代理创建和使用反射, 拖慢了应用程序的性能, 使调试更加困难, 增加了内存消耗</p>
+<p>Micronaut 尝试解决这些问题, 通过提供一个简单的不使用反射的编译时 AOP API</p>
+<h2 id="Around-Advice-环绕通知"><a href="#Around-Advice-环绕通知" class="headerlink" title="Around Advice (环绕通知)"></a>Around Advice (环绕通知)</h2><p><strong>声明</strong>:</p>
+<ul>
+<li>本文由本人翻译自<a class="link"   target="_blank" rel="noopener" href="https://docs.micronaut.io/latest/guide" >官方文档<i class="fas fa-external-link-alt"></i></a></li>
+<li>部分内容可能会有修改或删减, 一切以官方文档为准.</li>
+<li>本文翻译时 Micronaut 版本为 3.4.2</li>
+</ul>
+<p>环绕通知允许你包装一个方法的行为</p>
+<h3 id="Writing-Around-Advice-编写环绕通知"><a href="#Writing-Around-Advice-编写环绕通知" class="headerlink" title="Writing Around Advice (编写环绕通知)"></a>Writing Around Advice (编写环绕通知)</h3><p>第一步是编写一个触发 <code>MethodInterceptor</code> 的注解:</p>
+<p>Example - Around Advice Annotation:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.aop.Around</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.annotation.ElementType.*</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.annotation.RetentionPolicy.RUNTIME</span><br><span class="line"></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RUNTIME)         <span class="comment">// 保留策略必须为 RUNTIME</span></span><br><span class="line"><span class="meta">@Target</span>([TYPE, METHOD])     <span class="comment">// 声明注解应用于类和方法上</span></span><br><span class="line"><span class="meta">@Around</span>                     <span class="comment">// 使用 @Around 注解来告诉 Micronaut 这个注解是环绕通知的</span></span><br><span class="line"><span class="meta">@interface</span> NotNull &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二步是实现一个 <code>MethodInterceptor</code>:</p>
+<p>Example - MethodInterceptor:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.aop.InterceptorBean</span><br><span class="line"><span class="keyword">import</span> io.micronaut.aop.MethodInterceptor</span><br><span class="line"><span class="keyword">import</span> io.micronaut.aop.MethodInvocationContext</span><br><span class="line"><span class="keyword">import</span> io.micronaut.core.annotation.Nullable</span><br><span class="line"><span class="keyword">import</span> io.micronaut.core.type.MutableArgumentValue</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jakarta.inject.Singleton</span><br><span class="line"></span><br><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="meta">@InterceptorBean</span>(NotNull)   <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NotNullInterceptor</span> <span class="keyword">implements</span> <span class="title class_">MethodInterceptor</span>&lt;Object, Object&gt; &#123;     <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    Object intercept(MethodInvocationContext&lt;Object, Object&gt; context) &#123;</span><br><span class="line">        Optional&lt;Map.Entry&lt;String, MutableArgumentValue&lt;?&gt;&gt;&gt; nullParam = context.parameters</span><br><span class="line">                                                                                .entrySet()</span><br><span class="line">                                                                                .stream()</span><br><span class="line">                                                                                .filter(&#123;entry -&gt;</span><br><span class="line">                                                                                    MutableArgumentValue&lt;?&gt; argumentValue = entry.value</span><br><span class="line">                                                                                    return Objects.isNull(argumentValue.value)</span><br><span class="line">                                                                                &#125;)</span><br><span class="line">                                                                                .findFirst()        <span class="comment">// 3</span></span><br><span class="line">        if (nullParam.present()) &#123;</span><br><span class="line">            throw new IllegallArgumentException(<span class="string">&quot;Null parameter [$&#123;nullParam.get().key&#125;] not allowed&quot;</span>)      <span class="comment">// 4</span></span><br><span class="line">        &#125;</span><br><span class="line">        return context.proceed()        <span class="comment">// 5</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>1</code> : <code>@InterceptorBean</code> 注解用来指明当前 interceptor 和哪个注解关联. <code>@InterceptorBean</code> 是一个元注解, 默认作用域是 <code>@Singleton</code>, 因此如果要在每个关联拦截的地方创建一个新的拦截器, 使用 <code>@Prototype</code> 注解来修饰当前拦截器</p>
+<p><code>2</code> : 一个实现了 <code>MethodInterceptor</code> 接口的拦截器</p>
+<p><code>3</code> : 传入的 <code>MethodInvocationContext</code> 用来寻找第一个为 null 的参数</p>
+<p><code>4</code> : 如果有一个参数是 null 的, 那么抛出一个异常</p>
+<p><code>5</code> : 否则调用 <code>proceed()</code> 方法来继续进行方法执行</p>
+<p>Micronaut 的 AOP 拦截器不使用反射, 增强了运行性能, 减少了堆栈跟踪大小, 加强了调试能力</p>
+<p>将注解应用到目标类上来使新的 <code>MethodInterceptor</code> 工作:</p>
+<p>Example - Around Advice Usage:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.inject.Singleton</span><br><span class="line"></span><br><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NotNullExample</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="type">void</span> doWork(String taskName) &#123;</span><br><span class="line">        println <span class="string">&quot;Doing job: $taskName&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>无论何时将 <code>NotNullExample</code> Bean 注入到另外一个类中时, 都会注入一个编译时生成的代理, 这个代理使用前面定义的 <code>@NotNull</code> 通知包装方法调用</p>
+<p>测试:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="string">&quot;test not null&quot;</span>() &#123;</span><br><span class="line">    <span class="symbol">when:</span></span><br><span class="line">    <span class="keyword">def</span> applicationContext = ApplicationContext.run()</span><br><span class="line">    <span class="keyword">def</span> exampleBean = applicationContext.getBean(NotNullExample)</span><br><span class="line"></span><br><span class="line">    exampleBean.doWork(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line">    <span class="symbol">then:</span></span><br><span class="line">    IllegalArgumentException e = thrown()</span><br><span class="line">    e.message == <span class="string">&#x27;Null parameter [taskName] not allowed&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="symbol">cleanup:</span></span><br><span class="line">    applicationContext.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为 Micronaut 的注入发生在编译时, 所以通常来说通知应该打包到一个独立的 JAR 文件中, 这个 JAR 文件应该存在于 classpath 上, 在上面的测试类编译时</p>
+<p>测试代码和通知代码不应该在同一个代码库因为你不想测试代码在通知代码之前被编译</p>
+<h3 id="Customizing-Proxy-Generation-自定义代理的生成"><a href="#Customizing-Proxy-Generation-自定义代理的生成" class="headerlink" title="Customizing Proxy Generation (自定义代理的生成)"></a>Customizing Proxy Generation (自定义代理的生成)</h3><blockquote>
+<p>The default behaviour of the Around annotation is to generate a proxy at compile time that is a subclass of the proxied class.</p>
+</blockquote>
+<p>Around 注解的默认行为是在编译时生成一个代理, 这个代理是被代理类的一个子类</p>
+<p>换句话说, 在上面的例子中, 一个编译时的 <code>NotNullExample</code> 类的子类会被创建, 它的代理方法使用拦截器处理逻辑进行包装, 方法的原始行为通过调用 <code>super</code> 来执行</p>
+<p>这种行为更加高效, 因为只需要一个 Bean 实例, 但是在不同的应用场景下, 你可能希望修改这种行为</p>
+<p><code>@Around</code> 注解支持多个属性来允许你修改这个行为, 包括:</p>
+<ul>
+<li><code>proxyTarget</code>, 默认为 <code>false</code>, 如果设置为 <code>true</code>, 代理将会委托给原始的 Bean 实例, 而不是委托给一个子类来调用 <code>super</code></li>
+<li><code>hotswap</code>, 默认为 <code>false</code>, 和 <code>proxyTarget=true</code> 一样, 但除此之外代理还会实现 <code>HotSwappableInterceptedProxy</code> 来包装每个方法在一个 <code>ReentrantReadWriteLock</code> 中, 并允许在运行时切换(swapping)目标实例(target instance)</li>
+<li><code>lazy</code>, 默认为 <code>false</code>, 默认情况下 Micronaut 在 proxy 被创建的时候 eagerly 初始化 proxy target, 如果设置为 <code>true</code> 那么 proxy target 将会被延迟地解析, 在每个方法调用的时候</li>
+</ul>
+<h3 id="AOP-Advice-on-Factory-Beans-在-Factory-Beas-上的-AOP-通知"><a href="#AOP-Advice-on-Factory-Beans-在-Factory-Beas-上的-AOP-通知" class="headerlink" title="AOP Advice on @Factory Beans (在 @Factory Beas 上的 AOP 通知)"></a>AOP Advice on <code>@Factory</code> Beans (在 <code>@Factory</code> Beas 上的 AOP 通知)</h3><p>Bean Factories 上的 AOP advice 语义和不同的类是不一样的:</p>
+<ol>
+<li>使用于 <code>@Factory</code> Bean 类级别上的 AOP advice 将 advice 作用于 Factory 本身, 而不是 Factory 中使用 <code>@Bean</code> 注解修饰的任何 Bean</li>
+<li>使用于一个使用了作用域修饰的方法上的 AOP advice 将会应用由 Factory 提供的 AOP advice</li>
+</ol>
+<p>Example - AOP Advice at the type level of a <code>@Factory</code>:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Timed</span>          <span class="comment">// logs the time it takes to create MyBean bean</span></span><br><span class="line"><span class="meta">@Factory</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyFactory</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Prototype</span></span><br><span class="line">    MyBean myBean() &#123;</span><br><span class="line">        <span class="keyword">new</span> MyBean()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Example - AOP Advice at the method level of a <code>@Factory</code>:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Factory</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyFactory</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Timed</span>      <span class="comment">// logs the time it takes to execute the public methods of the MyBean bean, but not the bean creation</span></span><br><span class="line">    <span class="meta">@Prototype</span></span><br><span class="line">    MyBean myBean() &#123;</span><br><span class="line">        <span class="keyword">new</span> MyBean()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>The rationale for this behaviour is that you may at times wish to apply advice to a factory and at other times apply advice to the bean produced by the factory.</p>
+</blockquote>
+<p>这种行为的基本原理是, 有时你可能希望将 advice 应用到一个 Factory, 而有时则希望将 advice 应用到 Factory 产生的 Bean 上</p>
+<p>现在不能将方法级别的 advice 应用到 <code>@Factory</code> Bean 上, 所有用于 Factory 的 advice 必须应用在类级别上</p>
+<p>你可以通过将方法定义为 non-public 来控制哪个方法是否要应用 advice, non-public 说明方法不应用 advice</p>
+<h2 id="Introduction-Advice-引入-Advice"><a href="#Introduction-Advice-引入-Advice" class="headerlink" title="Introduction Advice (引入 Advice)"></a>Introduction Advice (引入 Advice)</h2><blockquote>
+<p>Introduction advice is distinct from Around advice in that it involves providing an implementation instead of decorating.</p>
+</blockquote>
+<p>Introduction Advice 和 Around Advice 不同的地方是它提供一个实现而不是包装</p>
+<p>Introduction Advice 的例子是 Spring Data, Spring Data 为你实现了持久化逻辑</p>
+<p>另一个例子是 Micronaut 的 <code>@Client</code> 注解, Micronaut 在编译时为你实现 HTTP client 接口</p>
+<p>第一步是定义一个注解:</p>
+<p>Example - Introduction Advice Annotation:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.aop.Introduction</span><br><span class="line"><span class="keyword">import</span> io.micronaut.context.annotation.Bean</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Documented</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.annotation.ElementType.ANNOTATION_TYPE</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.annotation.ElementType.METHOD</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.annotation.ElementType.TYPE</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.annotation.RetentionPolicy.RUNTIME</span><br><span class="line"></span><br><span class="line"><span class="meta">@Introduction</span>       <span class="comment">// The introduction advice is annotated with Introduction</span></span><br><span class="line"><span class="meta">@Bean</span>               <span class="comment">// The Bean annotation is added so that all types annotated with @Stub become beans</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>([TYPE, ANNOTATION_TYPE, METHOD])</span><br><span class="line"><span class="meta">@interface</span> Stub &#123;</span><br><span class="line">    String value() <span class="keyword">default</span> <span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二步是定义一个类, 实现 <code>MethodInterceptor</code> 接口, 引用上面定义的注解:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.aop.MethodInterceptor</span><br><span class="line"><span class="keyword">import</span> io.micronaut.aop.MethodInvocationContext</span><br><span class="line"><span class="keyword">import</span> io.micronaut.aop.InterceptorBean</span><br><span class="line"><span class="keyword">import</span> io.micronaut.core.annotation.Nullable</span><br><span class="line"><span class="keyword">import</span> jakarta.inject.Singleton</span><br><span class="line"></span><br><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="meta">@InterceptorBean</span>(Stub)  <span class="comment">// The InterceptorBean annotation is used to associate the interceptor with the @Stub annotation</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">StubIntroduction</span> <span class="keyword">implements</span> <span class="title class_">MethodInterceptor</span>&lt;Object, Object&gt; &#123;   <span class="comment">// The class is annotationed with @Singleton and implements the MethodInterceptor interface</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    Object intercept(MethodInvocationContext&lt;Object, Object&gt; context) &#123;</span><br><span class="line">        context.getValue(stub, context.returnType.type)                 <span class="comment">// The value of the @Stub annotation is read from the context and an attempt made to convert the value to the return type</span></span><br><span class="line">               .orElse(<span class="literal">null</span>)                                            <span class="comment">// Otherwise null is returned</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后在抽象类或者接口上使用第一步中创建的 <code>@Stub</code> 来使用这个 Introduction advice:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Stub</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">StubExample</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Stub</span>(<span class="string">&quot;10&quot;</span>)</span><br><span class="line">    <span class="type">int</span> getNumber()</span><br><span class="line"></span><br><span class="line">    LocalDateTime getDate()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所有委托给 <code>StubIntroduction</code> 类的抽象方法会被实现</p>
+<p>Example - Testing Introduction Advice:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">when:</span></span><br><span class="line"><span class="keyword">def</span> stubExample = applicationContext.getBean(StubExample)</span><br><span class="line"></span><br><span class="line"><span class="attr">then:</span></span><br><span class="line">stubExample.number == <span class="number">10</span></span><br><span class="line">stubExample.date == <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<p>如果 Introduction Advice 不能实现一个方法, 那么调用 <code>MethodInvocationContext</code> 的 <code>proceed()</code> 方法, 这个方法会让其他 Introduciton Advice 拦截器来实现这个方法, 如果没有 Advice 能够实现这个方法将会抛出一个 <code>UnsupportedOperationException</code></p>
+<p>如果有多个 Introduction Advice, 你可以重写 <code>MethodInterceptor</code> 的 <code>getOrder()</code> 方法来控制 Advice 的优先级</p>
+<h2 id="Method-Adapter-Advice-方法适配器-Advice"><a href="#Method-Adapter-Advice-方法适配器-Advice" class="headerlink" title="Method Adapter Advice (方法适配器 Advice)"></a>Method Adapter Advice (方法适配器 Advice)</h2><p>基于一个方法上存在的注解来创建一个新的 Bean</p>
+<p>例如, 每个方法上的 <code>@EventListener</code> 注解会创建一个 <code>ApplicationEventListener</code> 接口的实现来调用这个被修饰的方法</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.context.event.StartupEvent</span><br><span class="line"><span class="keyword">import</span> io.micronaut.runtime.event.annotation.EventListener</span><br><span class="line"></span><br><span class="line"><span class="meta">@EventListener</span></span><br><span class="line"><span class="type">void</span> onStartup(StartupEvent event) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码片段中表示, 在 <code>ApplicationContext</code> 启动的时候将会运行 <code>onStartup()</code> 方法中的逻辑</p>
+<p><code>@EventListener</code> 注解的存在导致了 Micronaut 去创建一个新的类来实现 <code>ApplicationEventListener</code> 并调用定义在 Bean 中的 <code>onStartup()</code> 方法</p>
+<p><code>@EventListener</code> 注解简单地使用了 <code>@Adapter</code> 注解来指明它适配哪个 SAM(Simple Abstract Method) 类</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.aop.Adapter;</span><br><span class="line"><span class="keyword">import</span> io.micronaut.context.event.ApplicationEventListener;</span><br><span class="line"><span class="keyword">import</span> io.micronaut.core.annotation.Indexed;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.annotation.RetentionPolicy.RUNTIME;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(&#123;ElementType.ANNOTATION_TYPE, ElementType.METHOD&#125;)</span><br><span class="line"><span class="meta">@Adapter</span>(ApplicationEventListener.<span class="keyword">class</span>)    <span class="comment">// The @Adapter annotation indicates which SAM type to adapt, in this case ApplicationEventListener</span></span><br><span class="line"><span class="meta">@Indexed</span>(ApplicationEventListener)</span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EventListener &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Micronaut 还会自动校准 SAM 接口的泛型, 如果 SAM 接口声明了泛型</p>
+<p>根据这个机制可以定义自定义注解, 使用 <code>@Adapter</code> 注解和一个 SAM 接口来在编译时自动实现 Bean</p>
+<p>参考 <code>ApplicationEventListener</code> 获取更多信息</p>
+<h2 id="Bean-Life-Cycle-Advice-Bean-生命周期-Advice"><a href="#Bean-Life-Cycle-Advice-Bean-生命周期-Advice" class="headerlink" title="Bean Life Cycle Advice (Bean 生命周期 Advice)"></a>Bean Life Cycle Advice (Bean 生命周期 Advice)</h2><p>有 3 种方式可以将 Advice 应用到 Bean 的生命周期中:</p>
+<ul>
+<li>拦截 Bean 的创建</li>
+<li>拦截 Bean 的 <code>@PostConstruct</code> 调用</li>
+<li>拦截 Bean 的 <code>@PreDestroy</code> 调用</li>
+</ul>
+<p>Micronaut 通过定义额外的 <code>@InterceptorBinding</code> 元注解来支持这 3 种场景</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.aop.*</span><br><span class="line"><span class="keyword">import</span> io.micronaut.context.annotation.Prototype</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*</span><br><span class="line"></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@AroundConstruct</span>                                                <span class="comment">// 1</span></span><br><span class="line"><span class="meta">@InterceptorBinding</span>(kind = InterceptorKind.POST_CONSTRUCT)      <span class="comment">// 2</span></span><br><span class="line"><span class="meta">@InterceptorBinding</span>(kind = InterceptorKind.PRE_DESTROY)         <span class="comment">// 3</span></span><br><span class="line"><span class="meta">@Prototype</span>                                                      <span class="comment">// 4</span></span><br><span class="line"><span class="meta">@interface</span> ProductionBean &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>1</code> : The <code>@AroundConstruct</code> annotation is added to indicate that interception of the constructor should occur</p>
+<p><code>2</code> : An <code>@InterceptorBinding</code> definition is used to indicate that <code>@PostConstruct</code> interception should occur</p>
+<p><code>3</code> : An <code>@InterceptorBinding</code> definition is used to indicate that <code>@PreDestroy</code> interception should occur</p>
+<p><code>4</code> : The bean is defined as <code>@Prototype</code> so a new instance is required for each injection point</p>
+<p>然后将这个注解 <code>@ProductionBean</code> 应用到目标类上:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.context.annotation.Parameter</span><br><span class="line"><span class="keyword">import</span> jakarta.annotation.PreDestroy</span><br><span class="line"></span><br><span class="line"><span class="meta">@ProductBean</span>                                    <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> String productName</span><br><span class="line">    <span class="type">boolean</span> active = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    Product(<span class="meta">@Parameter</span> String productName) &#123;    <span class="comment">// 2</span></span><br><span class="line">        <span class="variable language_">this</span>.productName = productName</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PreDestroy</span>                                 <span class="comment">// 3</span></span><br><span class="line">    <span class="type">void</span> disable() &#123;</span><br><span class="line">        active = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>1</code> : The <code>@ProductBean</code> annotation is defined on a class of type <code>Product</code></p>
+<p><code>2</code> : The <code>@Parameter</code> annotation indicates that this bean requires an argument to complete constructions</p>
+<p><code>3</code> : Any <code>@PreDestroy</code> or <code>@PostConstruct</code> methods are executed last in the interceptor chain</p>
+<p>然后定义 <code>ConstructorInterceptor</code> Bean 来拦截构造器, 定义 <code>MethodInterceptor</code> Bean 来拦截 <code>@PostConstruct</code> 或 <code>@PreDestroy</code></p>
+<p>下面例子的 Factory 定义一个 <code>ConstructorInterceptor</code> 来拦截 <code>Product</code> 实例的构造并将这些实例注册给一个假想的 <code>ProductService</code> 来验证产品名称:</p>
+<p>Example - Defining a constructor interceptor:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.micronaut.aop.*</span><br><span class="line"><span class="keyword">import</span> io.micronaut.context.annotation.Factory</span><br><span class="line"></span><br><span class="line"><span class="meta">@Factory</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ProductInterceptors</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ProductService productService</span><br><span class="line"></span><br><span class="line">    ProductInterceptors(ProductService productService) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.productService = productService</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@InterceptorBean</span>(ProductBean.<span class="keyword">class</span>)</span><br><span class="line">    ConstructorInterceptor&lt;Product&gt; aroundConstruct() &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; context -&gt;</span><br><span class="line">            <span class="keyword">final</span> Object[] parameterValues = context.parameterValues</span><br><span class="line">            <span class="keyword">final</span> Object parameterValue = parameterValues[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">if</span> (parameterValue == <span class="literal">null</span> || parameterValues[<span class="number">0</span>].toString().isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegallArgumentException(<span class="string">&quot;Invalid product name&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            String productName = parameterValues[<span class="number">0</span>].toString().toUpperCase()</span><br><span class="line">            parameterValues[<span class="number">0</span>] = productName</span><br><span class="line">            <span class="keyword">final</span> Product product = context.proceed()</span><br><span class="line">            productService.addProduct(product)</span><br><span class="line">            <span class="keyword">return</span> product</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@InterceptorBean</span>(ProductBean.<span class="keyword">class</span>)</span><br><span class="line">    MethodInterceptor&lt;Product, Object&gt; aroundInvoke() &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; context -&gt;</span><br><span class="line">            <span class="keyword">final</span> Product product = context.getTarget()</span><br><span class="line">            <span class="keyword">switch</span> (context.kind) &#123;</span><br><span class="line">                <span class="keyword">case</span> InterceptorKind.<span class="attr">POST_CONSTRUCT:</span></span><br><span class="line">                    product.setActive(<span class="literal">true</span>)</span><br><span class="line">                    <span class="keyword">return</span> context.proceed()</span><br><span class="line">                <span class="keyword">case</span> InterceptorKind.<span class="attr">PRE_DESTROY:</span></span><br><span class="line">                    productService.removeProduct(product)</span><br><span class="line">                    <span class="keyword">return</span> context.proceed()</span><br><span class="line">                <span class="symbol">default:</span></span><br><span class="line">                    <span class="keyword">return</span> context.proceed()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Validation-Advice-校验-Advice"><a href="#Validation-Advice-校验-Advice" class="headerlink" title="Validation Advice (校验 Advice)"></a>Validation Advice (校验 Advice)</h2><p>校验 Advice 是基于 <code>Bean Validation JSR 380</code> 的</p>
+<p>使用 <code>javax.validation</code> 注解, 例如 <code>@NotNull</code>, <code>@Min</code>, <code>@Max</code></p>
+<p>Micronaut 为 <code>javax.validation</code> 注解提供原生支持, 通过提供 <code>micronaut-validation</code> 依赖:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation(<span class="string">&quot;io.micronaut:micronaut-validation&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>或者使用完整的 JSR 380 规范:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation(<span class="string">&quot;io.micronaut:micronaut-hibernate-validator&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Cache-Advice-缓存-Advice"><a href="#Cache-Advice-缓存-Advice" class="headerlink" title="Cache Advice (缓存 Advice)"></a>Cache Advice (缓存 Advice)</h2><p>Micronaut 在 <code>io.micronaut.cache</code> 包中提供缓存注解</p>
+<p><code>CacheManager</code> 接口允许根据需要插入不同的缓存实现</p>
+<p><code>SyncCache</code> 接口提供一个同步的 API 用来缓存, 同时 <code>AsyncCache</code> API 允许非阻塞的操作</p>
+<h3 id="Cache-Annotations-缓存注解"><a href="#Cache-Annotations-缓存注解" class="headerlink" title="Cache Annotations (缓存注解)"></a>Cache Annotations (缓存注解)</h3><p>支持如下缓存注解:</p>
+<ul>
+<li><code>@Cacheable</code> : 指明一个方法在指定缓存中是可缓存的</li>
+<li><code>@CachePut</code> : 指明一个方法调用的返回值应该被缓存起来. 不像 <code>@Cacheable</code> 那样, 方法的执行永远不会被跳过</li>
+<li><code>@CacheInvalidate</code>: 指明方法的调用应该导致一个或多个缓存无效</li>
+</ul>
+<p>使用上面其中一个注解会激活 <code>CacheInterceptor</code></p>
+<p>如果方法的返回类似是非阻塞类型, 则缓存生成的结果</p>
+<p>如果缓存实现支持非阻塞操作, 那么缓存值可以不阻塞的方式进行读取</p>
+<h3 id="Configuration-Caches-配置缓存"><a href="#Configuration-Caches-配置缓存" class="headerlink" title="Configuration Caches (配置缓存)"></a>Configuration Caches (配置缓存)</h3><p>默认情况下, 在应用配置中 <code>Caffeine</code> 被用来创建缓存:</p>
+<p>Example - Cache Configuration Example:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">micronaut:</span><br><span class="line">    caches:</span><br><span class="line">        my-cache:</span><br><span class="line">            maximum-<span class="keyword">size</span>: <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Naming-Caches-命名缓存"><a href="#Naming-Caches-命名缓存" class="headerlink" title="Naming Caches (命名缓存)"></a>Naming Caches (命名缓存)</h4><p>在 <code>micronaut.caches</code> 下使用 kebab-case 方式定义缓存的名称</p>
+<p>如果你使用了驼峰命名, 这个驼峰名称将会被转换为 kebeb-case</p>
+<p>例如, <code>myCache</code> 转换为 <code>my-cache</code></p>
+<p>kebab-case 形式的名称必须在 <code>@Cacheable</code> 注解中用来引用缓存</p>
+<p>要配置一个和 <code>maximumWeight</code> 配置一起使用的 <code>weigher</code>, 创建一个实现 <code>io.micronaut.caffeine.cache.Weigher</code> 的 Bean</p>
+<p>要关联一个给定的 <code>weigher</code> 到一个指定的缓存上, 使用 <code>@Named(&lt;cache name&gt;)</code> 注解来修饰这个 <code>weigher</code> Bean</p>
+<p>没有 named qualifier 的 <code>weigher</code> 将会应用到所有没有一个 <code>named weigher</code> 的缓存中</p>
+<p>如果没有 <code>weigher</code> Bean, 那么将会使用一个默认实现</p>
+<h3 id="Dynamic-Cache-Creation-动态缓存创建"><a href="#Dynamic-Cache-Creation-动态缓存创建" class="headerlink" title="Dynamic Cache Creation (动态缓存创建)"></a>Dynamic Cache Creation (动态缓存创建)</h3><p>在缓存不能提前配置的情况下, 可以注册一个 <code>DynamicCacheManager</code> Bean</p>
+<p>当尝试获取一个还没有提前定义的缓存时, 动态缓存管理器将会被调用来创建并返回一个缓存</p>
+<p>默认情况下, 如果没有其他动态缓存管理器定义在应用中, Micronaut 注册一个 <code>DefaultDynamicCacheManager</code> 实例使用默认值来创建 Caffeine 缓存</p>
+<h2 id="Retry-Advice-重试-Advice"><a href="#Retry-Advice-重试-Advice" class="headerlink" title="Retry Advice (重试 Advice)"></a>Retry Advice (重试 Advice)</h2><p>Micronaut 提供了 <code>Retryable</code> 注解来进行操作重试</p>
+<h3 id="Simple-Retry-简单重试"><a href="#Simple-Retry-简单重试" class="headerlink" title="Simple Retry (简单重试)"></a>Simple Retry (简单重试)</h3><p>应用重试最简单的方式是在一个类或方法上使用 <code>@Retryable</code> 注解进行修饰</p>
+<p><code>@Retryable</code> 注解默认会重试三次, 每次重试之间的使用一秒的指数级进行延迟</p>
+<p>第一次尝试使用 1 秒延迟, 第二次延迟使用 2 秒延迟, 第三次延迟使用 3 秒延迟</p>
+<p>Example - Simple Retry:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retryable</span></span><br><span class="line">List&lt;Book&gt; listBooks()</span><br></pre></td></tr></table></figure>
+
+<p>如果上面例子中的 <code>listBooks()</code> 方法抛出一个 <code>RuntimeException</code>, 它将会重试直到达到最大的尝试次数</p>
+<p><code>@Retryable</code> 注解的 <code>multiplier</code> 值可以用来配置一个 乘法器(multiplier) 来计算每次重试之间的延迟, 支持指数级重试</p>
+<p>要自定义重试行为, 设置 <code>attempts</code> 和 <code>delay</code> 属性:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retryable</span>(attempts = <span class="string">&quot;5&quot;</span>, delay = <span class="string">&quot;2s&quot;</span>)</span><br><span class="line">Book findBook(String title) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还可以在上面两个属性中使用属性占位符:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retryable</span>(attempts = <span class="string">&#x27;$&#123;book.retry.attempts:3&#125;&#x27;</span>, delay = <span class="string">&#x27;$&#123;book.retry.delay:1s&#125;&#x27;</span>)</span><br><span class="line">Book findBook(String title) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reactive-Retry-响应式重试"><a href="#Reactive-Retry-响应式重试" class="headerlink" title="Reactive Retry (响应式重试)"></a>Reactive Retry (响应式重试)</h3><p><code>@Retryable</code> 注解还可以应用到返回响应式类型的方法上, 例如 <code>Publisher</code>, <code>Flux</code>, <code>Flowable</code></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retryable</span></span><br><span class="line">Flux&lt;Book&gt; streamBooks() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Circuit-Breaker-断路器"><a href="#Circuit-Breaker-断路器" class="headerlink" title="Circuit Breaker (断路器)"></a>Circuit Breaker (断路器)</h3><p><code>Circuit Breaker</code> 模式的设计目的是通过允许一定数量的失败请求, 然后就打开一个断路, 该断路在允许额外的的重试尝试之前保持打开一段时间, 从而解决失败重试请求过多的问题</p>
+<p><code>@CircuitBreaker</code> 注解是 <code>@Retryable</code> 注解的变体, 这个注解有一个 <code>reset</code> 成员属性来指定断路器在重置之前要打开多久, 默认是 20 秒</p>
+<p>Example - Applying CircuitBreaker Advice:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CircuitBreaker</span>(reset = <span class="string">&quot;30s&quot;</span>)</span><br><span class="line">List&lt;Book&gt; findBooks() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中将重试 <code>findBooks()</code> 方法 3 次, 然后打开断路器 30 秒, 并抛出原始的异常, 防止大量潜在的下行数据请求, 例如 HTTP 请求, I&#x2F;O 操作冲垮系统</p>
+<h3 id="Factory-Bean-Retry-工厂-Bean-重试"><a href="#Factory-Bean-Retry-工厂-Bean-重试" class="headerlink" title="Factory Bean Retry (工厂 Bean 重试)"></a>Factory Bean Retry (工厂 Bean 重试)</h3><p>当 <code>@Retryable</code> 应用到 Bean 工厂方法上时, 它的行为就像将这个注解放在要返回的类型上</p>
+<p>重试行为将会在返回对象上的方法被调用时被应用</p>
+<p>Bean Factory 本身是不可以重试的, 如果你想要实现重试创建 Bean 的功能, 你应该将这个行为委托给另一个使用了 <code>@Retryable</code> 注解的单例Bean</p>
+<p>Example:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Factory</span>                                            <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Neo4jDriverFactory</span> &#123;</span><br><span class="line">    <span class="meta">@Retryable</span>(ServiceUnavailableException.<span class="keyword">class</span>)   <span class="comment">// 2</span></span><br><span class="line">    <span class="meta">@Bean</span>(preDestroy = <span class="string">&quot;close&quot;</span>)</span><br><span class="line">    <span class="keyword">public</span> Driver buildDriver() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>1</code> : A factory bean is created that defines methods that create beans</p>
+<p><code>2</code> : The <code>@Retryable</code> annotation is used to catch exceptions thrown from methods executed on the <code>Driver</code></p>
+<h3 id="Retry-Events-重试事件"><a href="#Retry-Events-重试事件" class="headerlink" title="Retry Events (重试事件)"></a>Retry Events (重试事件)</h3><p>可以注册 <code>RetryEventListener</code> 实例作为 Bean 来监听每次一个操作重试时产生的 <code>RetryEvent</code> 事件</p>
+<p>除此之外, 还可以注册监听 <code>CircuitOpenEvent</code> 事件的监听器来监听断路器开启事件, 或监听  <code>CircuitClosedEvent</code> 断路器关闭事件</p>
+<h2 id="Scheduled-Tasks-定期任务"><a href="#Scheduled-Tasks-定期任务" class="headerlink" title="Scheduled Tasks (定期任务)"></a>Scheduled Tasks (定期任务)</h2><p>Micronaut 提供一个 <code>Scheduled</code> 注解来定期调度后台任务</p>
+<h3 id="Using-the-Scheduled-Annotation-使用-Scheduled-注解"><a href="#Using-the-Scheduled-Annotation-使用-Scheduled-注解" class="headerlink" title="Using the @Scheduled Annotation (使用 @Scheduled 注解)"></a>Using the <code>@Scheduled</code> Annotation (使用 <code>@Scheduled</code> 注解)</h3><p><code>@Scheduled</code> 注解可以被添加到 Bean 上面的任何一个方法, 应该设置注解上 <code>fixedRate</code>,<code>fixedDelay</code>,<code>cron</code> 中的一个成员属性</p>
+<p>Bean 的作用域影响行为, 一个 <code>@Singleton</code> Bean 在每次定期方法执行时共享状态(实例的字段), 一个 <code>@Prototype</code> Bean 在每次执行时创建一个新的 Bean 实例</p>
+<h4 id="Scheduling-at-a-Fixed-Rate-在一个固定频率上调度"><a href="#Scheduling-at-a-Fixed-Rate-在一个固定频率上调度" class="headerlink" title="Scheduling at a Fixed Rate (在一个固定频率上调度)"></a>Scheduling at a Fixed Rate (在一个固定频率上调度)</h4><p>使用 <code>fixedRate</code> 成员属性进行配置:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedRate = <span class="string">&quot;5m&quot;</span>)</span><br><span class="line"><span class="type">void</span> everyFiveMinutes() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中每五分钟执行一次方法</p>
+<h4 id="Scheduling-with-a-Fixed-Delay-在一个固定的延迟后调度"><a href="#Scheduling-with-a-Fixed-Delay-在一个固定的延迟后调度" class="headerlink" title="Scheduling with a Fixed Delay (在一个固定的延迟后调度)"></a>Scheduling with a Fixed Delay (在一个固定的延迟后调度)</h4><p>Example - Fixed Delay:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedDelay = <span class="string">&quot;5m&quot;</span>)</span><br><span class="line"><span class="type">void</span> fiveMinutesAfterLastExecution() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上一次任务执行结束五分钟后再次执行这个任务</p>
+<h4 id="Scheduling-a-Cron-Task-在-Cron-配置的时间上调度"><a href="#Scheduling-a-Cron-Task-在-Cron-配置的时间上调度" class="headerlink" title="Scheduling a Cron Task (在 Cron 配置的时间上调度)"></a>Scheduling a Cron Task (在 Cron 配置的时间上调度)</h4><p>Example:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(cron = <span class="string">&quot;0 15 10 ? * MON&quot;</span>)</span><br><span class="line"><span class="type">void</span> everyMondayAtTenFifteenAm() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中, 任务在应用程序的时区的每个星期一早上的十点十分执行</p>
+<h4 id="Scheduling-with-only-a-Initial-Delay-在仅仅一个延迟之后进行调度"><a href="#Scheduling-with-only-a-Initial-Delay-在仅仅一个延迟之后进行调度" class="headerlink" title="Scheduling with only a Initial Delay (在仅仅一个延迟之后进行调度)"></a>Scheduling with only a Initial Delay (在仅仅一个延迟之后进行调度)</h4><p>在应用启动后运行任务一次, 使用 <code>initialDelay</code> 成员属性:</p>
+<p>Example - Initial Delay:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(initialDelay = <span class="string">&quot;1m&quot;</span>)</span><br><span class="line"><span class="type">void</span> onceOneMinuteAfterStartup() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面例子的任务只运行一次, 在服务启动一分钟之后开始运行</p>
+<h3 id="Programmatically-Scheduling-Tasks-编程式任务调度"><a href="#Programmatically-Scheduling-Tasks-编程式任务调度" class="headerlink" title="Programmatically Scheduling Tasks (编程式任务调度)"></a>Programmatically Scheduling Tasks (编程式任务调度)</h3><p>使用 <code>TaskScheduler</code> Bean:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject</span></span><br><span class="line"><span class="meta">@Named</span>(TaskExecutors.SCHEDULED)</span><br><span class="line">TaskScheduler taskScheduler</span><br></pre></td></tr></table></figure>
+
+<h3 id="Configuring-Scheduled-Tasks-with-Annotation-Metadata-使用注解元数据配置调度任务"><a href="#Configuring-Scheduled-Tasks-with-Annotation-Metadata-使用注解元数据配置调度任务" class="headerlink" title="Configuring Scheduled Tasks with Annotation Metadata (使用注解元数据配置调度任务)"></a>Configuring Scheduled Tasks with Annotation Metadata (使用注解元数据配置调度任务)</h3><p>为了让你的应用程序任务是可配置的, 你可以使用注解元数据和属性占位符配置:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedRate = <span class="string">&#x27;$&#123;my.task.rate:5m&#125;&#x27;</span>, initialDelay = <span class="string">&#x27;$&#123;my.task.delay:1m&#125;&#x27;</span>)</span><br><span class="line"><span class="type">void</span> configuredTask() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Configuring-the-Scheduled-Task-Thread-Pool-配置调度任务线程池"><a href="#Configuring-the-Scheduled-Task-Thread-Pool-配置调度任务线程池" class="headerlink" title="Configuring the Scheduled Task Thread Pool (配置调度任务线程池)"></a>Configuring the Scheduled Task Thread Pool (配置调度任务线程池)</h3><p>通过 <code>@Scheduled</code> 执行的任务默认运行在一个配置了可用处理器数两倍的线程数的 <code>ScheduledExecutorService</code> 上</p>
+<p>可以在 <code>application.yml</code> 中配置这个线程池:</p>
+<p>Example - Configuring Scheduled Task Thread Pool:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">micronaut:</span></span><br><span class="line">    <span class="symbol">executors:</span></span><br><span class="line">        <span class="symbol">scheduled:</span></span><br><span class="line">            <span class="symbol">type:</span> scheduled</span><br><span class="line">            core-pool-<span class="attr">size:</span> <span class="number">30</span></span><br></pre></td></tr></table></figure>
+
+<p>Table - Configuration Properties for UserExecutorConfiguration:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>micronaut.executors.*.n-threads</code></td>
+<td align="left">java.lang.Integer</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>micronaut.executors.*.type</code></td>
+<td align="left">ExecutorType</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>micronaut.executors.*.parallelism</code></td>
+<td align="left">java.lang.Integer</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>micronaut.executors.*.core-pool-size</code></td>
+<td align="left">java.lang.Integer</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>micronaut.executors.*.thread-factory-class</code></td>
+<td align="left">java.lang.Class</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>micronaut.executors.*.name</code></td>
+<td align="left">java.lang.String</td>
+<td align="left">Sets the executor name.</td>
+</tr>
+<tr>
+<td align="left"><code>micronaut.executors.*.number-of-threads</code></td>
+<td align="left">java.lang.Integer</td>
+<td align="left">Sets the number of threads for FIXED. Default value (2 * Number of processors available to the Java virtual machine)</td>
+</tr>
+</tbody></table>
+<h3 id="Handling-Exceptions-处理异常"><a href="#Handling-Exceptions-处理异常" class="headerlink" title="Handling Exceptions (处理异常)"></a>Handling Exceptions (处理异常)</h3><p>默认情况下, Micronaut 包含了一个实现了 <code>TaskExceptionHandler</code> 接口的 <code>DefaultTaskExceptionHandler</code> Bean 来简单地日志记录执行调度任务产生的异常</p>
+<h3 id="Bridging-Spring-AOP-桥接-Spring-AOP"><a href="#Bridging-Spring-AOP-桥接-Spring-AOP" class="headerlink" title="Bridging Spring AOP (桥接 Spring AOP)"></a>Bridging Spring AOP (桥接 Spring AOP)</h3><p>可以在 Micronaut 中使用 Spring 中不直接依赖 Spring 容器的功能</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Micronaut 中文文档 Aspect Oriented Programming</li>
+        <li>本文作者：林威羽</li>
+        <li>创建时间：2022-04-29 09:35:10</li>
+        <li>
+            本文链接：https://linweiyu21.github.io/micronaut/micronaut-aspect-oriented-programming/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Micronaut/">#Micronaut</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Groovy/">#Groovy</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E4%B8%AD%E6%96%87/">#中文</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/micronaut/micronaut-the-http-server/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Micronaut 中文文档 The HTTP Server</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/micronaut/micronaut-application-configuration/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Micronaut 中文文档 Application Configuration</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8xWQ0WFbKUNN4h8ixIO12etk-gzGzoHsz',
+                    appKey: '7cLjTvkIsF6aIuIVSd0um89m',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请开始你的表演',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '林威羽';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">林威羽</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Aspect-Oriented-Programming"><span class="nav-number">1.</span> <span class="nav-text">Aspect Oriented Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Around-Advice-%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5"><span class="nav-number">1.1.</span> <span class="nav-text">Around Advice (环绕通知)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Writing-Around-Advice-%E7%BC%96%E5%86%99%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5"><span class="nav-number">1.1.1.</span> <span class="nav-text">Writing Around Advice (编写环绕通知)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Customizing-Proxy-Generation-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%90%86%E7%9A%84%E7%94%9F%E6%88%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">Customizing Proxy Generation (自定义代理的生成)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP-Advice-on-Factory-Beans-%E5%9C%A8-Factory-Beas-%E4%B8%8A%E7%9A%84-AOP-%E9%80%9A%E7%9F%A5"><span class="nav-number">1.1.3.</span> <span class="nav-text">AOP Advice on @Factory Beans (在 @Factory Beas 上的 AOP 通知)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-Advice-%E5%BC%95%E5%85%A5-Advice"><span class="nav-number">1.2.</span> <span class="nav-text">Introduction Advice (引入 Advice)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Method-Adapter-Advice-%E6%96%B9%E6%B3%95%E9%80%82%E9%85%8D%E5%99%A8-Advice"><span class="nav-number">1.3.</span> <span class="nav-text">Method Adapter Advice (方法适配器 Advice)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bean-Life-Cycle-Advice-Bean-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-Advice"><span class="nav-number">1.4.</span> <span class="nav-text">Bean Life Cycle Advice (Bean 生命周期 Advice)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Validation-Advice-%E6%A0%A1%E9%AA%8C-Advice"><span class="nav-number">1.5.</span> <span class="nav-text">Validation Advice (校验 Advice)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache-Advice-%E7%BC%93%E5%AD%98-Advice"><span class="nav-number">1.6.</span> <span class="nav-text">Cache Advice (缓存 Advice)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Annotations-%E7%BC%93%E5%AD%98%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.6.1.</span> <span class="nav-text">Cache Annotations (缓存注解)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuration-Caches-%E9%85%8D%E7%BD%AE%E7%BC%93%E5%AD%98"><span class="nav-number">1.6.2.</span> <span class="nav-text">Configuration Caches (配置缓存)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Naming-Caches-%E5%91%BD%E5%90%8D%E7%BC%93%E5%AD%98"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">Naming Caches (命名缓存)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Cache-Creation-%E5%8A%A8%E6%80%81%E7%BC%93%E5%AD%98%E5%88%9B%E5%BB%BA"><span class="nav-number">1.6.3.</span> <span class="nav-text">Dynamic Cache Creation (动态缓存创建)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Retry-Advice-%E9%87%8D%E8%AF%95-Advice"><span class="nav-number">1.7.</span> <span class="nav-text">Retry Advice (重试 Advice)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Simple-Retry-%E7%AE%80%E5%8D%95%E9%87%8D%E8%AF%95"><span class="nav-number">1.7.1.</span> <span class="nav-text">Simple Retry (简单重试)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reactive-Retry-%E5%93%8D%E5%BA%94%E5%BC%8F%E9%87%8D%E8%AF%95"><span class="nav-number">1.7.2.</span> <span class="nav-text">Reactive Retry (响应式重试)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Circuit-Breaker-%E6%96%AD%E8%B7%AF%E5%99%A8"><span class="nav-number">1.7.3.</span> <span class="nav-text">Circuit Breaker (断路器)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Factory-Bean-Retry-%E5%B7%A5%E5%8E%82-Bean-%E9%87%8D%E8%AF%95"><span class="nav-number">1.7.4.</span> <span class="nav-text">Factory Bean Retry (工厂 Bean 重试)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Retry-Events-%E9%87%8D%E8%AF%95%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.7.5.</span> <span class="nav-text">Retry Events (重试事件)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scheduled-Tasks-%E5%AE%9A%E6%9C%9F%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.8.</span> <span class="nav-text">Scheduled Tasks (定期任务)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-the-Scheduled-Annotation-%E4%BD%BF%E7%94%A8-Scheduled-%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.8.1.</span> <span class="nav-text">Using the @Scheduled Annotation (使用 @Scheduled 注解)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Scheduling-at-a-Fixed-Rate-%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%9B%BA%E5%AE%9A%E9%A2%91%E7%8E%87%E4%B8%8A%E8%B0%83%E5%BA%A6"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">Scheduling at a Fixed Rate (在一个固定频率上调度)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scheduling-with-a-Fixed-Delay-%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%9B%BA%E5%AE%9A%E7%9A%84%E5%BB%B6%E8%BF%9F%E5%90%8E%E8%B0%83%E5%BA%A6"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">Scheduling with a Fixed Delay (在一个固定的延迟后调度)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scheduling-a-Cron-Task-%E5%9C%A8-Cron-%E9%85%8D%E7%BD%AE%E7%9A%84%E6%97%B6%E9%97%B4%E4%B8%8A%E8%B0%83%E5%BA%A6"><span class="nav-number">1.8.1.3.</span> <span class="nav-text">Scheduling a Cron Task (在 Cron 配置的时间上调度)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scheduling-with-only-a-Initial-Delay-%E5%9C%A8%E4%BB%85%E4%BB%85%E4%B8%80%E4%B8%AA%E5%BB%B6%E8%BF%9F%E4%B9%8B%E5%90%8E%E8%BF%9B%E8%A1%8C%E8%B0%83%E5%BA%A6"><span class="nav-number">1.8.1.4.</span> <span class="nav-text">Scheduling with only a Initial Delay (在仅仅一个延迟之后进行调度)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Programmatically-Scheduling-Tasks-%E7%BC%96%E7%A8%8B%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="nav-number">1.8.2.</span> <span class="nav-text">Programmatically Scheduling Tasks (编程式任务调度)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Scheduled-Tasks-with-Annotation-Metadata-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%85%83%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E8%B0%83%E5%BA%A6%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.8.3.</span> <span class="nav-text">Configuring Scheduled Tasks with Annotation Metadata (使用注解元数据配置调度任务)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-the-Scheduled-Task-Thread-Pool-%E9%85%8D%E7%BD%AE%E8%B0%83%E5%BA%A6%E4%BB%BB%E5%8A%A1%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">1.8.4.</span> <span class="nav-text">Configuring the Scheduled Task Thread Pool (配置调度任务线程池)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handling-Exceptions-%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8"><span class="nav-number">1.8.5.</span> <span class="nav-text">Handling Exceptions (处理异常)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bridging-Spring-AOP-%E6%A1%A5%E6%8E%A5-Spring-AOP"><span class="nav-number">1.8.6.</span> <span class="nav-text">Bridging Spring AOP (桥接 Spring AOP)</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Micronaut,Groovy,Gradle,Java,文档,中文">
+    <meta name="description" content="Micronaut Groovy Gradle Java 文档 中文">
+    <meta name="author" content="林威羽">
+    
+    <title>
+        
+            深入掌握 Pod |
+        
+        林威羽的笔记
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"rgb(153,153,0)","avatar":"/images/avatar.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"400px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"def contains🚀 = ['Micronaut', 'Groovy', 'Gradle', 'etc']"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                林威羽的笔记
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/linweiyu21/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
+        viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+        aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg></a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+
+      @keyframes octocat-wave {
+
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">深入掌握 Pod</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">林威羽</span>
+                        
+                            <span class="author-label">Lv8</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-06-16 09:56:29</span>
+        <span class="mobile">2022-06-16 09:56</span>
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Notes/">Notes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <!-- TOC -->
+
+<ul>
+<li><a href="#pod-%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">Pod 的基本用法</a></li>
+<li><a href="#%E9%9D%99%E6%80%81-pod">静态 Pod</a></li>
+<li><a href="#pod-%E5%AE%B9%E5%99%A8%E5%85%B1%E4%BA%AB-volume">Pod 容器共享 Volume</a></li>
+<li><a href="#pod-%E7%9A%84%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86">Pod 的配置管理</a><ul>
+<li><a href="#%E7%9B%B4%E6%8E%A5%E9%80%9A%E8%BF%87-kubectl-create-configmap-%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA">直接通过 <code>kubectl create configmap</code> 方式创建</a></li>
+<li><a href="#%E5%9C%A8-pod-%E4%B8%AD%E4%BD%BF%E7%94%A8-configmap">在 Pod 中使用 ConfigMap</a><ul>
+<li><a href="#%E9%80%9A%E8%BF%87-volumemount-%E4%BD%BF%E7%94%A8-configmap">通过 <code>volumeMount</code> 使用 ConfigMap</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8-configmap-%E7%9A%84%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6">使用 ConfigMap 的限制条件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9C%A8%E5%AE%B9%E5%99%A8%E5%86%85%E8%8E%B7%E5%8F%96-pod-%E4%BF%A1%E6%81%AF-downward-api">在容器内获取 Pod 信息 (Downward API)</a></li>
+<li><a href="#pod-%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%8F%AF%E7%94%A8%E6%80%A7%E6%A3%80%E6%9F%A5">Pod 健康检查和服务可用性检查</a><ul>
+<li><a href="#livenessprobe">LivenessProbe</a></li>
+<li><a href="#readinessprob">ReadinessProb</a></li>
+<li><a href="#%E8%BF%99%E4%B8%A4%E7%A7%8D%E6%8E%A2%E9%92%88%E9%83%BD%E6%94%AF%E6%8C%81%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F">这两种探针都支持三种实现方式</a></li>
+<li><a href="#pod-readiness-gates-%E6%9C%BA%E5%88%B6">Pod Readiness Gates 机制</a></li>
+</ul>
+</li>
+<li><a href="#%E7%8E%A9%E8%BD%AC-pod-%E8%B0%83%E5%BA%A6">玩转 Pod 调度</a><ul>
+<li><a href="#deployment-%E5%85%A8%E8%87%AA%E5%8A%A8%E8%B0%83%E5%BA%A6">Deployment 全自动调度</a></li>
+<li><a href="#nodeselector-%E5%AE%9A%E5%90%91%E8%B0%83%E5%BA%A6">NodeSelector 定向调度</a></li>
+<li><a href="#nodeaffinity-node%E4%BA%B2%E5%92%8C%E6%80%A7%E8%B0%83%E5%BA%A6">NodeAffinity Node亲和性调度</a></li>
+<li><a href="#podaffinity-pod-%E4%BA%B2%E5%92%8C%E4%B8%8E%E4%BA%92%E6%96%A5%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5">PodAffinity Pod 亲和与互斥调度策略</a></li>
+<li><a href="#taints-%E5%92%8C-tolerations-%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D">Taints 和 Tolerations (污点和容忍)</a></li>
+<li><a href="#pod-priority-preemption-pod-%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6">Pod Priority Preemption (Pod 优先级调度)</a></li>
+<li><a href="#daemonset-%E5%9C%A8%E6%AF%8F%E4%B8%AA-node-%E4%B8%8A%E9%83%BD%E8%B0%83%E5%BA%A6%E4%B8%80%E4%B8%AA-pod">DaemonSet (在每个 Node 上都调度一个 Pod)</a></li>
+<li><a href="#job-%E6%89%B9%E5%A4%84%E7%90%86%E8%B0%83%E5%BA%A6">Job (批处理调度)</a></li>
+<li><a href="#cronjob-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1">CronJob (定时任务)</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E5%BA%A6%E5%99%A8">自定义调度器</a></li>
+</ul>
+</li>
+<li><a href="#init-container-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%B9%E5%99%A8">Init Container (初始化容器)</a></li>
+<li><a href="#pod-%E7%9A%84%E5%8D%87%E7%BA%A7%E5%92%8C%E5%9B%9E%E6%BB%9A">Pod 的升级和回滚</a><ul>
+<li><a href="#deployment-%E7%9A%84%E5%8D%87%E7%BA%A7">Deployment 的升级</a></li>
+<li><a href="#deployment-%E7%9A%84%E5%9B%9E%E6%BB%9A">Deployment 的回滚</a></li>
+<li><a href="#%E6%9A%82%E5%81%9C%E5%92%8C%E6%81%A2%E5%A4%8D-deployment-%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C">暂停和恢复 Deployment 的部署操作</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E7%AE%A1%E7%90%86%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5">其他管理对象的更新策略</a><ul>
+<li><a href="#daemonset-%E7%9A%84%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5">DaemonSet 的更新策略</a><ul>
+<li><a href="#ondelete"><code>OnDelete</code></a></li>
+<li><a href="#rollingupdate"><code>RollingUpdate</code></a></li>
+</ul>
+</li>
+<li><a href="#statefulset-%E7%9A%84%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5">StatefulSet 的更新策略</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#pod-%E7%9A%84%E6%89%A9%E7%BC%A9%E5%AE%B9">Pod 的扩缩容</a><ul>
+<li><a href="#%E6%89%8B%E5%8A%A8%E6%89%A9%E7%BC%A9%E5%AE%B9%E6%9C%BA%E5%88%B6">手动扩缩容机制</a></li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E6%89%A9%E7%BC%A9%E5%AE%B9%E6%9C%BA%E5%88%B6">自动扩缩容机制</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="Pod-的基本用法"><a href="#Pod-的基本用法" class="headerlink" title="Pod 的基本用法"></a>Pod 的基本用法</h2><p>Kubernetes 系统中对长时间运行的容器的要求是: 其主程序需要一直<strong>在前台</strong>执行</p>
+<p>对于无法改造为前台执行的应用, 可以使用开源工具 Supervisor 辅助进行前台运行的功能</p>
+<p>Supervisor 提供了一种可以同时启动多个后台应用, 并保持 Supervisor 自身在前台执行的机制</p>
+<h2 id="静态-Pod"><a href="#静态-Pod" class="headerlink" title="静态 Pod"></a>静态 Pod</h2><p>静态 Pod 是由 kubelet 进行管理的<strong>仅存在于</strong>特定 Node 上的 Pod</p>
+<p>它们不能通过 API Server 管理, 无法与 ReplicationController, Deployment 或者 DaemonSet 进行关联</p>
+<p>kubelet 无法对它们进行健康检查</p>
+<p>静态 Pod 总是由 kubelet 创建的, 并且总是在 kubelet 所在的 Node 上运行</p>
+<p>创建静态 Pod 有两种方式: 配置文件方式和 HTTP 方式</p>
+<h2 id="Pod-容器共享-Volume"><a href="#Pod-容器共享-Volume" class="headerlink" title="Pod 容器共享 Volume"></a>Pod 容器共享 Volume</h2><p>同一个 Pod 中的多个容器能够共享<strong>Pod 级别</strong>的存储卷 Volume</p>
+<p>Volume 可以被定义为各种类型, 多个容器各自进行挂载操作</p>
+<h2 id="Pod-的配置管理"><a href="#Pod-的配置管理" class="headerlink" title="Pod 的配置管理"></a>Pod 的配置管理</h2><p>ConfigMap 供容器使用的典型用法:</p>
+<ol>
+<li>生成为容器内的环境变量</li>
+<li>设置容器启动命令的启动参数 (需设置为环境变量)</li>
+<li>以 Volume 的形式挂载为容器内部的文件或目录</li>
+</ol>
+<p>ConfigMap 以键值对的形式保存配置</p>
+<p>value 可以是普通值, 也可以是一个完整的配置文件的内容</p>
+<p>key 为配置文件的别名, value 为配置文件的全部文本内容:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">key-serverxml:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="string">    &lt;Server&gt;</span></span><br><span class="line"><span class="string">    ......</span></span><br><span class="line"><span class="string">    &lt;/Server&gt;</span></span><br><span class="line"><span class="string"></span>  <span class="attr">key-loggingproperties:</span> <span class="string">&quot;</span></span><br><span class="line"><span class="string">  ....</span></span><br><span class="line"><span class="string">  &quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="直接通过-kubectl-create-configmap-方式创建"><a href="#直接通过-kubectl-create-configmap-方式创建" class="headerlink" title="直接通过 kubectl create configmap 方式创建"></a>直接通过 <code>kubectl create configmap</code> 方式创建</h3><p>使用参数 <code>--from-file</code> 或 <code>--from-literal</code> 指定内容, 可以指定参数多次</p>
+<p>使用 <code>--from-file</code> 参数从文件中进行创建:</p>
+<ul>
+<li><code>$ kubectl create configmap cm-server.xml --from-file=server.xml</code></li>
+</ul>
+<p>使用 <code>--from-file</code> 从目录中进行创建. 该目录下的每个配置文件名都被设置为 key, 文件内容被设置为 value:</p>
+<ul>
+<li><code>$ kubectl create configmap cm-appconf --from-file=configfiles</code></li>
+</ul>
+<p>容器应用对 ConfigMap 的使用有以下两种方法:</p>
+<ol>
+<li>通过环境变量获取 ConfigMap 中的内容</li>
+<li>通过 Volume 挂载的方式将 ConfigMap 中的内容挂载为容器内部的文件目录</li>
+</ol>
+<h3 id="在-Pod-中使用-ConfigMap"><a href="#在-Pod-中使用-ConfigMap" class="headerlink" title="在 Pod 中使用 ConfigMap"></a>在 Pod 中使用 ConfigMap</h3><p>使用字段 <code>envFrom</code>, 实现在 Pod 环境中将 ConfigMap 中所定义的 <code>key=value</code> 自动生成为环境变量:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cm-test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cm-test</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;/bin/bash&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;env&quot;</span>]</span><br><span class="line">    <span class="attr">envFrom:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">configMapRef</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">cm-appvars</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="通过-volumeMount-使用-ConfigMap"><a href="#通过-volumeMount-使用-ConfigMap" class="headerlink" title="通过 volumeMount 使用 ConfigMap"></a>通过 <code>volumeMount</code> 使用 ConfigMap</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cm-test-app</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cm-test-app</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">kubeguide/tomcat-app:v1</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> <span class="string">Never</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8080</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">serverxml</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/configfiles</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">serverxml</span></span><br><span class="line">    <span class="attr">configMap:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">cm-appconfigfiles</span></span><br></pre></td></tr></table></figure>
+
+<p>配置的 key 作为文件名, 配置的 value 作为文件内容</p>
+<h3 id="使用-ConfigMap-的限制条件"><a href="#使用-ConfigMap-的限制条件" class="headerlink" title="使用 ConfigMap 的限制条件"></a>使用 ConfigMap 的限制条件</h3><ul>
+<li>ConfigMap 必须在 Pod 之前创建</li>
+<li>ConfigMap 受 Namespace 限制, 只有处于相同 Namespace 中的 Pod 才可以引用它</li>
+<li>ConfigMap 中的配额管理还未实现</li>
+<li>kubelet 只支持可以被 API Server 管理的 Pod 使用 ConfigMap</li>
+<li>在 Pod 对 ConfigMap 进行挂载 (volumeMount) 操作时, 在容器内部只能挂载为”目录”, 无法挂载为”文件”. 容器内的该目录将被挂载的 ConfigMap 覆盖</li>
+</ul>
+<h2 id="在容器内获取-Pod-信息-Downward-API"><a href="#在容器内获取-Pod-信息-Downward-API" class="headerlink" title="在容器内获取 Pod 信息 (Downward API)"></a>在容器内获取 Pod 信息 (Downward API)</h2><p>Downward API 可以通过以下两种方式将 Pod 信息注入容器内部</p>
+<ol>
+<li>环境变量: 用于单个变量, 可以将 Pod 信息和 Container 信息注入容器内部</li>
+<li>Volume 挂载: 将数组类信息生成为文件并挂载到容器内部</li>
+</ol>
+<p>在某些集群中, 集群中的每个节点都需要将自身的标识 (ID) 及进程绑定的 IP 地址等信息事先写入配置文件中, 进程在启动时会读取这些信息, 然后将这些信息发布到某个类似服务注册中心的地方, 以实现集群节点的自动发现功能</p>
+<h2 id="Pod-健康检查和服务可用性检查"><a href="#Pod-健康检查和服务可用性检查" class="headerlink" title="Pod 健康检查和服务可用性检查"></a>Pod 健康检查和服务可用性检查</h2><p>通过两类探针来检查 Pod 的健康状态:</p>
+<ul>
+<li>LivenessProbe</li>
+<li>ReadinessProbe</li>
+</ul>
+<h3 id="LivenessProbe"><a href="#LivenessProbe" class="headerlink" title="LivenessProbe"></a>LivenessProbe</h3><p>用于判断容器是否存活 (Running状态)</p>
+<p>如果 LivenessProbe 探针探测到容器不健康, 则 kubelet 将杀掉该容器, 并根据容器的重启策略做相应的处理</p>
+<p>如果容器没有这个探针, 则 kubelet 认为这个容器的 LivenessProbe 探针返回的值永远是 Success</p>
+<h3 id="ReadinessProb"><a href="#ReadinessProb" class="headerlink" title="ReadinessProb"></a>ReadinessProb</h3><p>用于判断容器是否可用 (Ready状态)</p>
+<p>达到 Ready状态 的 Pod 才可以接收请求</p>
+<p>如果在运行中 Ready状态 变为 False, 则系统自动将这个 Pod 从 Service 的后端 Endpoint 列表中隔离出去</p>
+<p>确保请求不会发送到 Ready状态 为 False 的 Pod</p>
+<h3 id="这两种探针都支持三种实现方式"><a href="#这两种探针都支持三种实现方式" class="headerlink" title="这两种探针都支持三种实现方式"></a>这两种探针都支持三种实现方式</h3><ul>
+<li><code>ExecAction</code>: 在容器内部执行命令, 如果命令返回码为0, 则表明容器健康</li>
+<li><code>TCPSocketAction</code>: 通过容器的 IP 地址和端口号执行 TCP 检查, 如果能够建立 TCP 连接, 则表明容器健康</li>
+<li><code>HTTPGetAction</code>: 通过容器的 IP 地址, 端口号和路径, 调用 HTTP Get 方法, 如果响应的状态码大于等于 200 且小于 400, 则认为容器健康</li>
+</ul>
+<p>Example - <code>HTTPGetAction</code>:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-with-healthcheck</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">livenessProbe:</span></span><br><span class="line">      <span class="attr">httpGet:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/_status/healthz</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">timeoutSeconds:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>对于每种实现方式, 都需要设置 <code>initialDelaySeconds</code> 和 <code>timeoutSeconds</code> 两个参数</p>
+<ul>
+<li><code>initialDelaySeconds</code>: 启动容器后进行首次健康检查的等待时间, 单位为秒</li>
+<li><code>timeoutSeconds</code>: 健康检查发送请求后等待响应的超时时间, 单位为秒</li>
+</ul>
+<h3 id="Pod-Readiness-Gates-机制"><a href="#Pod-Readiness-Gates-机制" class="headerlink" title="Pod Readiness Gates 机制"></a>Pod Readiness Gates 机制</h3><p>通过 Pod Readiness Gates 机制, 用户可以将自定义的 ReadinessProbe 探测方式设置在 Pod 上, 辅助 Kubernetes 设置 Pod 合适达到服务可用状态 (Ready)</p>
+<p>为了使自定义的 ReadinessProbe 生效, 用户需要提供一个外部的控制器 (Controller) 来设置相应的 Condition 状态</p>
+<p>Pod 的 Readiness Gates 在 Pod 定义中的 <code>ReadinessGate</code> 字段进行设置</p>
+<h2 id="玩转-Pod-调度"><a href="#玩转-Pod-调度" class="headerlink" title="玩转 Pod 调度"></a>玩转 Pod 调度</h2><p>ReplicaSet 拥有集合式的标签选择器, 可以选择多个 Pod 标签</p>
+<p>ReplicaSet 被设计成能控制多个不同标签的 Pod 副本:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">selector:</span></span><br><span class="line">  <span class="attr">matchLabels:</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">v2</span></span><br><span class="line">  <span class="attr">matchExpressions:</span></span><br><span class="line">    <span class="bullet">-</span> &#123;<span class="attr">key:</span> <span class="string">version</span>, <span class="attr">operator:</span> <span class="string">In</span>, <span class="string">values:</span>[<span class="string">v1</span>, <span class="string">v2</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Kubernetes 的滚动升级就是巧妙运用 ReplicaSet 的这个特性来完成的</p>
+<p>通过给 Node 打标签, 在 Pod 模板中使用 <code>NodeSelector</code> 可以将这些 Pod 副本调度到标签对应的 Node 上</p>
+<h3 id="Deployment-全自动调度"><a href="#Deployment-全自动调度" class="headerlink" title="Deployment 全自动调度"></a>Deployment 全自动调度</h3><p>自动部署一个容器应用的多份副本, 以及持续监控副本的状态, 在集群内始终维持用户指定的副本数量</p>
+<p>Deployment 会创建一个 ReplicaSet 来关联 Pod</p>
+<p>Example:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deployment</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx:1.7.9</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>可以在 Pod 中使用 <code>NodeSelector</code>,<code>NodeAffinity</code>,<code>PodAffinity</code>,<code>Pod 驱逐</code> 等更加细粒度的调度策略设置</p>
+<h3 id="NodeSelector-定向调度"><a href="#NodeSelector-定向调度" class="headerlink" title="NodeSelector 定向调度"></a>NodeSelector 定向调度</h3><p>Kubernetes Master 上的 Scheduler 服务 (<code>kube-scheduler</code>进程) 负责实现 Pod 的调度</p>
+<p>通过 Node 的 Label 和 Pod 的 NodeSelector 属性, 可以将 Pod 调度到指定的 Node 上</p>
+<p>首先, 给 Node 添加 Label:</p>
+<p><code>$ kubectl label node &lt;node-name&gt; &lt;label-key&gt;=&lt;label-value&gt;</code></p>
+<p>然后, 在 Pod 的定义中使用 NodeSelector 设置:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deployment</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx:1.7.9</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">nodeSelector:</span>           <span class="comment"># 将 Pod 调度到拥有 Label zonez=north 的 Node 上</span></span><br><span class="line">        <span class="attr">zone:</span> <span class="string">north</span></span><br></pre></td></tr></table></figure>
+
+<p>如果指定了 Pod 的 NodeSelector 条件, 且在集群中<strong>不存在</strong>包含响应标签的 Node, 则即使在集群中还有其他可用的 Node, 这个 Pod 也无法被成功调度</p>
+<p>Kubernetes 给 Node 预定义了一些标签:</p>
+<ul>
+<li><code>kubernetes.io.hostname</code></li>
+<li><code>kubernetes.io/os</code></li>
+<li><code>kubernetes.io/arch</code></li>
+</ul>
+<p>可以使用亲和性调度来改善 NodeSelector 不够灵活的缺点</p>
+<h3 id="NodeAffinity-Node亲和性调度"><a href="#NodeAffinity-Node亲和性调度" class="headerlink" title="NodeAffinity Node亲和性调度"></a>NodeAffinity Node亲和性调度</h3><p>Node 亲和性调度策略</p>
+<p>用于替换 NodeSelector 的全新调度策略</p>
+<p>目前有两种节点亲和性表达:</p>
+<ul>
+<li><code>RequiredDuringSchedulingIgnoredDuringExecution</code></li>
+<li><code>PreferredDuringSchedulingIgnoredDuringExecution</code></li>
+</ul>
+<p>末尾的 <code>IgnoredDuringExecution</code> 的意思是: 如果一个 Pod 所在的节点在 Pod 运行期间标签发生了变更, 不再符合该 Pod 的节点亲和性需求, 则系统将<strong>忽略</strong> Node 上的 Label 变化, 该 Pod 能继续在该节点运行</p>
+<p><code>RequiredDuringSchedulingIgnoredDuringExecution</code>:</p>
+<ul>
+<li>必须满足指定的规则才可以调度 Pod 到 Node 上</li>
+<li>相当于<strong>硬限制</strong></li>
+</ul>
+<p><code>PreferredDuringSchedulingIgnoredDuringExecution</code>:</p>
+<ul>
+<li>强调<strong>优先满足</strong>指定规则</li>
+<li>调度器会尝试调度 Pod 到 Node 上, 但并不强求</li>
+<li>相当于<strong>软限制</strong></li>
+<li>多个优先级规则可以设置权重 (weight) 值, 以定义执行的先后顺序</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">nodeAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">        <span class="attr">nodeSelectorTerms:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">kubernetes.io/arch</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">amd64</span></span><br><span class="line">      <span class="attr">preferredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">weight:</span> <span class="number">1</span></span><br><span class="line">        <span class="attr">preference:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">disk-type</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">ssd</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">gcr.io/google_containers/pause:2.0</span></span><br></pre></td></tr></table></figure>
+
+<p>NodeAffinity 语法支持的操作符包括 <code>In</code>,<code>NotIn</code>,<code>Exists</code>,<code>DoesNotExist</code>,<code>Gt</code>,<code>Lt</code></p>
+<p>NodeAffinity 规则设置的注意事项如下:</p>
+<ul>
+<li>如果同时定义了 <code>nodeSelector</code> 和 <code>nodeAffinity</code>, 那么<strong>必须</strong>两个条件<strong>都</strong>得到满足, Pod 才能最终运行在指定的 Node 上</li>
+<li>如果在 <code>nodeSelectorTerms</code> 中有多个 <code>matchExpressions</code>, 则一个节点必须满足<strong>所有</strong> <code>matchExpressions</code> 才能运行该 Pod</li>
+<li>如果 <code>nodeAffinity</code> 指定了多个 <code>nodeSelectorTerms</code>, 那么其中一个能够匹配成功即可</li>
+</ul>
+<h3 id="PodAffinity-Pod-亲和与互斥调度策略"><a href="#PodAffinity-Pod-亲和与互斥调度策略" class="headerlink" title="PodAffinity Pod 亲和与互斥调度策略"></a>PodAffinity Pod 亲和与互斥调度策略</h3><p>根据在 Node 上正在运行的 Pod 的标签进行判断和调度</p>
+<p>要求对 Node标签 和 Pod标签 两个条件进行匹配</p>
+<p>Node标签 是一个集群中的节点, 机架, 区域等概念, 通过 Kubernetes 内置节点标签中的 <code>key</code> 来进行声明. 这个 <code>key</code> 的名字为 <code>topologyKey</code>, 意为表达节点所属的 topology 范围:</p>
+<ul>
+<li><code>kubernetes.io/hostname</code></li>
+<li><code>failure-domain.beta.kubernetes.io/zone</code></li>
+<li><code>failure-domain.beta.kubernetes.io/zone</code></li>
+</ul>
+<p>Pod 亲和与互斥的条件设置也是 <code>requiredDuringSchedulingIgnoredDuringExecution</code> 和 <code>preferredDuringSchedulingIgnoredDuringExecution</code></p>
+<p>Pod 的亲和性被定义在 <code>PodSpec</code> 的 <code>affinity</code> 字段下的 <code>podAffinity</code> 子字段中</p>
+<p>Pod 的互斥性被定义在 <code>PodSpec</code> 的 <code>affinity</code> 字段下的 <code>podAntiAffinity</code> 子字段中</p>
+<p>Example - Pod 的亲和性调度:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-affinity</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">podAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">labelSelector:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">security</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">S1</span></span><br><span class="line">        <span class="attr">topologyKey:</span> <span class="string">kubernetes.io/hostname</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">with-pod-affinity</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">gcr.io/google_containers/pause:2.0</span></span><br></pre></td></tr></table></figure>
+
+<p>Exampel - Pod 的互斥性调度:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">anti-affinity</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">podAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">labelSelector:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">security</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">S1</span></span><br><span class="line">        <span class="attr">topologyKey:</span> <span class="string">failure-domain.beta.kubernetes.io/zone</span></span><br><span class="line">    <span class="attr">podAntiAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">labelSelector:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">app</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">topologyKey:</span> <span class="string">kubernetes.io/hostname</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">anti-affinity</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">gcr.io/google_containers/pause:2.0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Taints-和-Tolerations-污点和容忍"><a href="#Taints-和-Tolerations-污点和容忍" class="headerlink" title="Taints 和 Tolerations (污点和容忍)"></a>Taints 和 Tolerations (污点和容忍)</h3><p>通过 Taint 设置让 Node 拒绝 Pod 的运行</p>
+<p>通过 Tolerations 在 Pod 上声明此 Pod 可以在声明了指定 Taint 的 Node 上运行</p>
+<p>Taint 和 Toleration 是一种处理节点并且让 Pod 进行规避或者驱逐 Pod 的弹性处理方式</p>
+<p>通过自动在故障 Node 上设置 Taint 来驱逐 Pod, 维持集群的正常运行</p>
+<h3 id="Pod-Priority-Preemption-Pod-优先级调度"><a href="#Pod-Priority-Preemption-Pod-优先级调度" class="headerlink" title="Pod Priority Preemption (Pod 优先级调度)"></a>Pod Priority Preemption (Pod 优先级调度)</h3><p>当发生资源不足的情况时, 系统可以选择释放一些不重要的负载 (优先级最低的), 保障最重要的负载能够获取足够的资源稳定运行</p>
+<p>首先, 创建 <code>kind: PriorityClass</code> 的资源对象</p>
+<p>然后, 将这个资源对象在 Pod 的 <code>spec.priorityClassName</code> 中使用</p>
+<p>使用优先级抢占的调度策略可能导致某些 Pod 永远无法被成功调度</p>
+<p>使用优先级抢占的调度策略增加了系统的复杂性, 运维的难度</p>
+<h3 id="DaemonSet-在每个-Node-上都调度一个-Pod"><a href="#DaemonSet-在每个-Node-上都调度一个-Pod" class="headerlink" title="DaemonSet (在每个 Node 上都调度一个 Pod)"></a>DaemonSet (在每个 Node 上都调度一个 Pod)</h3><p>用于管理在集群中每个 Node 上<strong>仅</strong>运行<strong>一份</strong> Pod 的副本实例</p>
+<p>适合用于 GlusterFS存储 或者 Ceph存储 的 Daemon进程</p>
+<p>适合用于 日志采集程序, 例如 Fluentd 或者 Logstach</p>
+<p>适合用于 性能监控程序, 采集该 Node 的运行性能数据, 例如 Prometheus Node Exporter</p>
+<p>支持设置 <code>updateStrategy</code>, 默认 <code>RollingUpdate</code></p>
+<h3 id="Job-批处理调度"><a href="#Job-批处理调度" class="headerlink" title="Job (批处理调度)"></a>Job (批处理调度)</h3><p>通过 Kubernetes Job 资源对象来定义并启动一个批处理任务</p>
+<p>批处理任务可以分为以下几种模式:</p>
+<ul>
+<li>Job Template Expansion 模式: 一个 Job 对象对应一个待处理的 Work item, 有几个 Work item 就产生几个独立的 Job</li>
+<li>Queue with Pod Per Work Item 模式: 采用一个任务队列存放 Work item, 一个 Job 对象作为消费者去完成这些 Work item, Job 会启动 N 个 Pod, 每个 Pod 都对应一个 Work item</li>
+<li>Queue with Variable Pod Count 模式: 采用一个任务队列存放 Work item, 一个 Job 对象作为消费者去完成这些 Work item, Job 启动的 Pod 数量是可变的</li>
+</ul>
+<h3 id="CronJob-定时任务"><a href="#CronJob-定时任务" class="headerlink" title="CronJob (定时任务)"></a>CronJob (定时任务)</h3><p>类似 Linux Cron 的定时任务</p>
+<h3 id="自定义调度器"><a href="#自定义调度器" class="headerlink" title="自定义调度器"></a>自定义调度器</h3><p>一般情况下, 每个新 Pod 都会由默认的调度器进行调度</p>
+<p>如果 Pod 中提供了自定义的调度器名称, 那么默认的调度器会忽略该 Pod, 转由指定的调度器完成 Pod 的调度</p>
+<p>使用 <code>spec.schedulerName</code> 来指定</p>
+<h2 id="Init-Container-初始化容器"><a href="#Init-Container-初始化容器" class="headerlink" title="Init Container (初始化容器)"></a>Init Container (初始化容器)</h2><p>在启动 <code>app contianer</code> 之前启动一个或多个 <code>init contianer</code>, 完成 <code>app container</code> 所需的预置条件</p>
+<p><code>init container</code> 与 <code>app container</code> 本质上是一样的, 但它们是仅运行一次就结束的任务, 并且必须在成功执行完成后, 系统才能继续执行下一个容器</p>
+<p>使用 <code>spec.initContainers</code> 来声明 <code>init container</code></p>
+<h2 id="Pod-的升级和回滚"><a href="#Pod-的升级和回滚" class="headerlink" title="Pod 的升级和回滚"></a>Pod 的升级和回滚</h2><h3 id="Deployment-的升级"><a href="#Deployment-的升级" class="headerlink" title="Deployment 的升级"></a>Deployment 的升级</h3><p>假设有名称为 <code>nginx-deployment</code>, 镜像为 <code>nginx:1.7.9</code> 的 Deployment</p>
+<p>通过 <code>kubectl set image</code> 命令为 Deployment 设置新的镜像名称: <code>$ kubectl set image deployment/nginx-deployment nginx=:1.9.1</code></p>
+<p>或者, 使用 <code>kubectl edit</code> 命令: <code>$ kubectl edit deployment/nginx-deployment</code></p>
+<p>使用 <code>kubectl rollout status</code> 命令查看 Deployment 的更新过程: <code>$ kubectl rollout status deployment/nginx-deployment</code></p>
+<p>默认的 <code>spec.strategy</code> Pod 更新策略为 <code>RollingUpdate</code></p>
+<p><code>RollingUpdate</code> 可以设置 <code>maxUnavailable</code> 和 <code>maxSurge</code>, 分别默认为 <code>25%</code></p>
+<p><code>maxUnavailable</code> 表示更新过程中最多不可用的 Pod 数量</p>
+<p><code>maxSurge</code> 表示更新过程中 Pod 总数超过 Pod 期望副本数部分的最大值</p>
+<p>以上两个参数均以 <code>期望副本数</code> 为基础进行计算</p>
+<p><code>spec.strategy</code> 还可以设置为 <code>Recreate</code>, 表示先杀掉所有在运行的 Pod, 然后创建新的 Pod</p>
+<p>不鼓励更新 Deployment 的标签选择器</p>
+<h3 id="Deployment-的回滚"><a href="#Deployment-的回滚" class="headerlink" title="Deployment 的回滚"></a>Deployment 的回滚</h3><p>首先, 使用 <code>kubectl rollout history</code> 命令检查 Deployment 的历史记录: <code>$ kubectl rollout history deployment/nginx-deployment</code></p>
+<p>在创建 Deployment 时使用 <code>--record</code> 参数, 就可以在 <code>CHANGE-CAUSE</code> 列看到每个版本使用的命令</p>
+<p>Deployment 的更新操作是在 Deployment 进行部署 (Rollout) 时被触发的, 意味着当且仅当 Deployment 的 Pod 模板 (<code>spec.template</code>) 被更改时才会创建新的修订版本</p>
+<p>这也意味着我们将 Deployment 回滚到之前的版本时, 只有 Deployment 的 Pod 模板部分会被修改</p>
+<p>使用 <code>--revision=&lt;N&gt;</code> 参数查看特定版本的详细信息: <code>$ kubectl rollout history deployment/nginx-deployment --revision=3</code></p>
+<p>回滚到上一个版本: <code>$ kubectl rollout undo deployment/nginx-deployment</code></p>
+<p>使用 <code>--to-revision</code> 参数指定回滚到的部署版本号: <code>$ kubectl rollout undo deployment/nginx-deployment --to-revision=2</code></p>
+<h3 id="暂停和恢复-Deployment-的部署操作"><a href="#暂停和恢复-Deployment-的部署操作" class="headerlink" title="暂停和恢复 Deployment 的部署操作"></a>暂停和恢复 Deployment 的部署操作</h3><p>使用 <code>kubectl rollout pause</code> 命令暂停 Deployment 的更新操作: <code>$ kubectl rollout pause deployment/nginx-deployment</code></p>
+<p>然后可以修改 Deployment 的信息</p>
+<p>最后, 使用 <code>$ kubectl rollout resume deploy nginx-deployment</code> 恢复这个 Deployment 的部署操作</p>
+<p>在恢复暂停的 Deployment 之前, 无法回滚该 Deployment</p>
+<h3 id="其他管理对象的更新策略"><a href="#其他管理对象的更新策略" class="headerlink" title="其他管理对象的更新策略"></a>其他管理对象的更新策略</h3><h4 id="DaemonSet-的更新策略"><a href="#DaemonSet-的更新策略" class="headerlink" title="DaemonSet 的更新策略"></a>DaemonSet 的更新策略</h4><h5 id="OnDelete"><a href="#OnDelete" class="headerlink" title="OnDelete"></a><code>OnDelete</code></h5><p>DaemonSet 的默认升级策略</p>
+<p>在创建好新的 DaemonSet 配置之后, 新的 Pod 并不会被自动创建, 直到用户手动删除旧版本的 Pod, 才出发新建操作</p>
+<h5 id="RollingUpdate"><a href="#RollingUpdate" class="headerlink" title="RollingUpdate"></a><code>RollingUpdate</code></h5><p>旧版本的 Pod 将被自动杀掉, 然后自动创建新版本的 DaemonSet Pod</p>
+<p>目前 Kubernetes 不支持查看和管理 DaemonSet 的更新历史记录</p>
+<p>DaemonSet 的 Rollback 并不能如同 Deployment 一样直接通过 <code>kubectl rollback</code> 命令来实现, 必须通过再次提交旧版本配置的方式实现</p>
+<h4 id="StatefulSet-的更新策略"><a href="#StatefulSet-的更新策略" class="headerlink" title="StatefulSet 的更新策略"></a>StatefulSet 的更新策略</h4><p>可以使用 <code>RollingUpdate</code>,<code>Paritioned</code>,<code>OnDelete</code> 的策略</p>
+<h2 id="Pod-的扩缩容"><a href="#Pod-的扩缩容" class="headerlink" title="Pod 的扩缩容"></a>Pod 的扩缩容</h2><p>Kubernetes 对 Pod 的扩缩容操作提供了手动和自动两种模式</p>
+<h3 id="手动扩缩容机制"><a href="#手动扩缩容机制" class="headerlink" title="手动扩缩容机制"></a>手动扩缩容机制</h3><p>使用 <code>kubectl scale</code> 命令与 <code>--replicas</code> 参数</p>
+<p><code>$ kubectl scale deployment &lt;deployment-name&gt; --replicas=5</code></p>
+<h3 id="自动扩缩容机制"><a href="#自动扩缩容机制" class="headerlink" title="自动扩缩容机制"></a>自动扩缩容机制</h3><p>使用 Horizontal Pod Autoscaler (HPA) 控制器</p>
+<p>HPA 控制器基于 Master 的 <code>kube-controller-manager</code> 服务启动参数 <code>--horizontal-pod-autoscaler-sync-period</code> 定义的探测周期 (默认值为 15s), 周期性地监测目标 Pod 的资源性能指标, 并与 HPA 资源对象中的扩缩容条件进行对比, 在满足条件时对 Pod 副本数进行调整</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：深入掌握 Pod</li>
+        <li>本文作者：林威羽</li>
+        <li>创建时间：2022-06-16 09:56:29</li>
+        <li>
+            本文链接：https://linweiyu21.github.io/k8s/kubernetes-权威指南/深入掌握-Pod/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Notes/">#Notes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/k8s/kubernetes-%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/%E6%B7%B1%E5%85%A5%E6%8E%8C%E6%8F%A1-service/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">深入掌握 Service</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/k8s/kubernetes-%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/kubectl-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">kubectl 命令工具</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8xWQ0WFbKUNN4h8ixIO12etk-gzGzoHsz',
+                    appKey: '7cLjTvkIsF6aIuIVSd0um89m',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请开始你的表演',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '林威羽';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">林威羽</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod-%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">Pod 的基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81-Pod"><span class="nav-number">2.</span> <span class="nav-text">静态 Pod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod-%E5%AE%B9%E5%99%A8%E5%85%B1%E4%BA%AB-Volume"><span class="nav-number">3.</span> <span class="nav-text">Pod 容器共享 Volume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod-%E7%9A%84%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">Pod 的配置管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E9%80%9A%E8%BF%87-kubectl-create-configmap-%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA"><span class="nav-number">4.1.</span> <span class="nav-text">直接通过 kubectl create configmap 方式创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-Pod-%E4%B8%AD%E4%BD%BF%E7%94%A8-ConfigMap"><span class="nav-number">4.2.</span> <span class="nav-text">在 Pod 中使用 ConfigMap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-volumeMount-%E4%BD%BF%E7%94%A8-ConfigMap"><span class="nav-number">4.2.1.</span> <span class="nav-text">通过 volumeMount 使用 ConfigMap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ConfigMap-%E7%9A%84%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.3.</span> <span class="nav-text">使用 ConfigMap 的限制条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%AE%B9%E5%99%A8%E5%86%85%E8%8E%B7%E5%8F%96-Pod-%E4%BF%A1%E6%81%AF-Downward-API"><span class="nav-number">5.</span> <span class="nav-text">在容器内获取 Pod 信息 (Downward API)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod-%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%8F%AF%E7%94%A8%E6%80%A7%E6%A3%80%E6%9F%A5"><span class="nav-number">6.</span> <span class="nav-text">Pod 健康检查和服务可用性检查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LivenessProbe"><span class="nav-number">6.1.</span> <span class="nav-text">LivenessProbe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReadinessProb"><span class="nav-number">6.2.</span> <span class="nav-text">ReadinessProb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E4%B8%A4%E7%A7%8D%E6%8E%A2%E9%92%88%E9%83%BD%E6%94%AF%E6%8C%81%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">6.3.</span> <span class="nav-text">这两种探针都支持三种实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod-Readiness-Gates-%E6%9C%BA%E5%88%B6"><span class="nav-number">6.4.</span> <span class="nav-text">Pod Readiness Gates 机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%A9%E8%BD%AC-Pod-%E8%B0%83%E5%BA%A6"><span class="nav-number">7.</span> <span class="nav-text">玩转 Pod 调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deployment-%E5%85%A8%E8%87%AA%E5%8A%A8%E8%B0%83%E5%BA%A6"><span class="nav-number">7.1.</span> <span class="nav-text">Deployment 全自动调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NodeSelector-%E5%AE%9A%E5%90%91%E8%B0%83%E5%BA%A6"><span class="nav-number">7.2.</span> <span class="nav-text">NodeSelector 定向调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NodeAffinity-Node%E4%BA%B2%E5%92%8C%E6%80%A7%E8%B0%83%E5%BA%A6"><span class="nav-number">7.3.</span> <span class="nav-text">NodeAffinity Node亲和性调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PodAffinity-Pod-%E4%BA%B2%E5%92%8C%E4%B8%8E%E4%BA%92%E6%96%A5%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="nav-number">7.4.</span> <span class="nav-text">PodAffinity Pod 亲和与互斥调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Taints-%E5%92%8C-Tolerations-%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D"><span class="nav-number">7.5.</span> <span class="nav-text">Taints 和 Tolerations (污点和容忍)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod-Priority-Preemption-Pod-%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-number">7.6.</span> <span class="nav-text">Pod Priority Preemption (Pod 优先级调度)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonSet-%E5%9C%A8%E6%AF%8F%E4%B8%AA-Node-%E4%B8%8A%E9%83%BD%E8%B0%83%E5%BA%A6%E4%B8%80%E4%B8%AA-Pod"><span class="nav-number">7.7.</span> <span class="nav-text">DaemonSet (在每个 Node 上都调度一个 Pod)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Job-%E6%89%B9%E5%A4%84%E7%90%86%E8%B0%83%E5%BA%A6"><span class="nav-number">7.8.</span> <span class="nav-text">Job (批处理调度)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CronJob-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">7.9.</span> <span class="nav-text">CronJob (定时任务)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E5%BA%A6%E5%99%A8"><span class="nav-number">7.10.</span> <span class="nav-text">自定义调度器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Init-Container-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%B9%E5%99%A8"><span class="nav-number">8.</span> <span class="nav-text">Init Container (初始化容器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod-%E7%9A%84%E5%8D%87%E7%BA%A7%E5%92%8C%E5%9B%9E%E6%BB%9A"><span class="nav-number">9.</span> <span class="nav-text">Pod 的升级和回滚</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deployment-%E7%9A%84%E5%8D%87%E7%BA%A7"><span class="nav-number">9.1.</span> <span class="nav-text">Deployment 的升级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deployment-%E7%9A%84%E5%9B%9E%E6%BB%9A"><span class="nav-number">9.2.</span> <span class="nav-text">Deployment 的回滚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%82%E5%81%9C%E5%92%8C%E6%81%A2%E5%A4%8D-Deployment-%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C"><span class="nav-number">9.3.</span> <span class="nav-text">暂停和恢复 Deployment 的部署操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%AE%A1%E7%90%86%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">9.4.</span> <span class="nav-text">其他管理对象的更新策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DaemonSet-%E7%9A%84%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">9.4.1.</span> <span class="nav-text">DaemonSet 的更新策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OnDelete"><span class="nav-number">9.4.1.1.</span> <span class="nav-text">OnDelete</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RollingUpdate"><span class="nav-number">9.4.1.2.</span> <span class="nav-text">RollingUpdate</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StatefulSet-%E7%9A%84%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">9.4.2.</span> <span class="nav-text">StatefulSet 的更新策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod-%E7%9A%84%E6%89%A9%E7%BC%A9%E5%AE%B9"><span class="nav-number">10.</span> <span class="nav-text">Pod 的扩缩容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E6%89%A9%E7%BC%A9%E5%AE%B9%E6%9C%BA%E5%88%B6"><span class="nav-number">10.1.</span> <span class="nav-text">手动扩缩容机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%89%A9%E7%BC%A9%E5%AE%B9%E6%9C%BA%E5%88%B6"><span class="nav-number">10.2.</span> <span class="nav-text">自动扩缩容机制</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Micronaut,Groovy,Gradle,Java,文档,中文">
+    <meta name="description" content="Micronaut Groovy Gradle Java 文档 中文">
+    <meta name="author" content="林威羽">
+    
+    <title>
+        
+            Spring Boot CLI |
+        
+        林威羽的笔记
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"rgb(153,153,0)","avatar":"/images/avatar.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"400px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"def contains🚀 = ['Micronaut', 'Groovy', 'Gradle', 'etc']"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                林威羽的笔记
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/linweiyu21/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
+        viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+        aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg></a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+
+      @keyframes octocat-wave {
+
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Spring Boot CLI</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">林威羽</span>
+                        
+                            <span class="author-label">Lv8</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-06-01 15:34:18</span>
+        <span class="mobile">2022-06-01 15:34</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/SpringBoot/">SpringBoot</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Notes/">Notes</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CLI/">CLI</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>快速开发 Spring 应用的命令行工具</p>
+<p>可以运行 Groovy 脚本</p>
+<p>可以快速启动一个新项目</p>
+<p>可以编写自定义命令</p>
+<h2 id="Using-the-CLI"><a href="#Using-the-CLI" class="headerlink" title="Using the CLI"></a>Using the CLI</h2><p>运行 <code>spring help &lt;command&gt;</code> 获取特定命令的帮助信息</p>
+<h3 id="创建项目完整例子"><a href="#创建项目完整例子" class="headerlink" title="创建项目完整例子"></a>创建项目完整例子</h3><p>完整使用例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">spring init \</span><br><span class="line">--build=gradle \</span><br><span class="line">--dependencies=web \</span><br><span class="line">--description=<span class="string">&#x27;你好世界&#x27;</span> \</span><br><span class="line">--java-version=11 \</span><br><span class="line">--language=groovy \</span><br><span class="line">--packaging=jar \</span><br><span class="line">--package-name=<span class="string">&#x27;org.daisy&#x27;</span> \</span><br><span class="line">--group-id=<span class="string">&#x27;org.daisy&#x27;</span> \</span><br><span class="line">--version=<span class="string">&#x27;1.0.0&#x27;</span> \</span><br><span class="line">--name=wallet-server \</span><br><span class="line">wallet-server</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Running-Applications-with-the-CLI"><a href="#Running-Applications-with-the-CLI" class="headerlink" title="Running Applications with the CLI"></a>Running Applications with the CLI</h3><p>使用 <code>run</code> 命令可以直接编译并运行 Groovy 源代码</p>
+<p>Example - hello.groovy:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WebApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">    String home() &#123;</span><br><span class="line">        <span class="string">&#x27;Hello World!&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用如下命令编译并运行应用: <code>$ spring run hello.groovy</code></p>
+<p>要传递命令行参数给应用, 先使用 <code>--</code> 分隔 <code>spring</code> 命令的参数: <code>$ spring run hello.groovy -- --server.port=9000</code></p>
+<p>使用 <code>JAVA_OPTS</code> 环境变量来设置 JVM 命令行参数: <code>$ JAVA_OPTS=-Xmx1024m spring run hello.groovy</code></p>
+<h3 id="Deduced-“grab”-Dependencies"><a href="#Deduced-“grab”-Dependencies" class="headerlink" title="Deduced “grab” Dependencies"></a>Deduced “grab” Dependencies</h3><p>使用 <code>@Grab</code> 来进行依赖导入</p>
+<p>当使用了如下元素时, CLI 将会自动进行推断并获取对应依赖</p>
+<table>
+<thead>
+<tr>
+<th align="left">Items</th>
+<th align="left">Grabs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>JdbcTemplate</code>,<code>NamedParameterJdbcTemplate</code>,<code>DataSource</code></td>
+<td align="left">JDBC Application.</td>
+</tr>
+<tr>
+<td align="left"><code>@EnableJms</code></td>
+<td align="left">JMS Application.</td>
+</tr>
+<tr>
+<td align="left"><code>@EnableCaching</code></td>
+<td align="left">Caching abstraction.</td>
+</tr>
+<tr>
+<td align="left"><code>@Test</code></td>
+<td align="left">JUnit.</td>
+</tr>
+<tr>
+<td align="left"><code>@EnableRabbit</code></td>
+<td align="left">RabbitMQ.</td>
+</tr>
+<tr>
+<td align="left">extends <code>Specification</code></td>
+<td align="left">Spock test.</td>
+</tr>
+<tr>
+<td align="left"><code>@EnableBatchProcessing</code></td>
+<td align="left">Spring Batch.</td>
+</tr>
+<tr>
+<td align="left"><code>@MessageEndpoint``@EnableIntegration</code></td>
+<td align="left">Spring Integration.</td>
+</tr>
+<tr>
+<td align="left"><code>@Controller``@RestController``@EnableWebMvc</code></td>
+<td align="left">Spring MVC + Embedded Tomcat.</td>
+</tr>
+<tr>
+<td align="left"><code>@EnableWebSecurity</code></td>
+<td align="left">Spring Security.</td>
+</tr>
+<tr>
+<td align="left"><code>@EnableTransactionManagement</code></td>
+<td align="left">Spring Transaction Management.</td>
+</tr>
+</tbody></table>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tree/v2.7.0/spring-boot-project/spring-boot-cli/src/main/java/org/springframework/boot/cli/compiler/CompilerAutoConfiguration.java" >CompilerAutoConfiguration<i class="fas fa-external-link-alt"></i></a> 获取自定义化信息</p>
+<h3 id="Deduced-“grab”-Coordinates"><a href="#Deduced-“grab”-Coordinates" class="headerlink" title="Deduced “grab” Coordinates"></a>Deduced “grab” Coordinates</h3><p>直接使用 <code>@Grab(&#39;freemarker&#39;)</code> 来获取依赖, 不需要定义 group 和 version</p>
+<p>通过查询 SpringBoot 默认的依赖元数据来获取指定版本的依赖</p>
+<p>依赖的版本和 CLI 的版本绑定, 修改 CLI 版本才会修改依赖的版本</p>
+<p>通过 <a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/dependency-versions.html#appendix.dependency-versions" >appendix<i class="fas fa-external-link-alt"></i></a> 查看指定的依赖和他们的版本</p>
+<h3 id="Default-Import-Statements"><a href="#Default-Import-Statements" class="headerlink" title="Default Import Statements"></a>Default Import Statements</h3><p>许多 <code>import</code> statements 是默认包含的</p>
+<p>很多的 Spring 注解不需要使用 <code>import</code> statements. 在添加 <code>import</code> 前先尝试运行应用来看看是否启动失败</p>
+<h3 id="Automatic-Main-Method"><a href="#Automatic-Main-Method" class="headerlink" title="Automatic Main Method"></a>Automatic Main Method</h3><p>会在 Groovy 脚本中自动添加一个带有 <code>public static void main(String[] args)</code> 方法的 <code>SpringApplication</code></p>
+<h3 id="Custom-Dependency-Management"><a href="#Custom-Dependency-Management" class="headerlink" title="Custom Dependency Management"></a>Custom Dependency Management</h3><p>默认情况下, 解析 <code>@Grab</code> 依赖时, CLI 使用定义在 <code>spring-boot-dependencies</code> 中的依赖管理 (dependency management)</p>
+<p>额外的 dependency management, 用来覆盖默认的 dependency management, 可以使用 <code>@DependencyManagementBom</code> 注解进行配置</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DependencyManagementBom</span>([</span><br><span class="line">    <span class="string">&#x27;com.example.custom-bom:1.0.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;com.example.another-bom:1.0.0&#x27;</span></span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>在任何可以使用 <code>@Grab</code> 的地方都可以使用 <code>@DependencyManagementBom</code></p>
+<p>在应用中至多使用一次 <code>@DependencyManagementBom</code></p>
+<h2 id="Applications-with-Multiple-Source-Files"><a href="#Applications-with-Multiple-Source-Files" class="headerlink" title="Applications with Multiple Source Files"></a>Applications with Multiple Source Files</h2><p>您可以对所有接受文件输入的命令使用 shell 通配符</p>
+<p>这样做可以让您使用单个目录中的多个文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring run *.groovy</span><br></pre></td></tr></table></figure>
+
+<h2 id="Packaging-Your-Application"><a href="#Packaging-Your-Application" class="headerlink" title="Packaging Your Application"></a>Packaging Your Application</h2><p>使用 <code>jar</code> 命令打包应用到一个自包含的可执行 jar 文件中:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring jar my-app.jar *.groovy</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>--include</code> 和 <code>--exclude</code> 分别进行包含和排除</p>
+<p>默认包含如下元素:</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public/**, resources/**, static/**, templates/**, META-INF/**, *</span><br></pre></td></tr></table></figure>
+
+<p>默认排除如下元素:</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.*, repository/**, build/**, target/**, **/*.jar, **.*.groovy</span><br></pre></td></tr></table></figure>
+
+<h2 id="Initialize-a-New-Project"><a href="#Initialize-a-New-Project" class="headerlink" title="Initialize a New Project"></a>Initialize a New Project</h2><p><code>init</code> 命令使用 <a class="link"   target="_blank" rel="noopener" href="https://start.spring.io/" >start.spring.io<i class="fas fa-external-link-alt"></i></a> 创建一个新项目</p>
+<p><code>$ spring init &lt;命令选项&gt; 项目目录</code></p>
+<p>将会在 <code>项目目录</code> 中创建项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">$ spring <span class="built_in">help</span> init</span><br><span class="line">spring init - Initialize a new project using Spring Initializr (start.spring.io)</span><br><span class="line"></span><br><span class="line">usage: spring init [options] [location]</span><br><span class="line"></span><br><span class="line">Option                       Description                                       </span><br><span class="line">------                       -----------                                       </span><br><span class="line">-a, --artifact-id &lt;String&gt;   Project coordinates; infer archive name (<span class="keyword">for</span>      </span><br><span class="line">                               example <span class="string">&#x27;test&#x27;</span>)                                 </span><br><span class="line">-b, --boot-version &lt;String&gt;  Spring Boot version (<span class="keyword">for</span> example <span class="string">&#x27;1.2.0.RELEASE&#x27;</span>) </span><br><span class="line">--build &lt;String&gt;             Build system to use (<span class="keyword">for</span> example <span class="string">&#x27;maven&#x27;</span> or       </span><br><span class="line">                               <span class="string">&#x27;gradle&#x27;</span>) (default: maven)                      </span><br><span class="line">-d, --dependencies &lt;String&gt;  Comma-separated list of dependency identifiers to </span><br><span class="line">                               include <span class="keyword">in</span> the generated project                </span><br><span class="line">--description &lt;String&gt;       Project description                               </span><br><span class="line">-f, --force                  Force overwrite of existing files                 </span><br><span class="line">--format &lt;String&gt;            Format of the generated content (<span class="keyword">for</span> example      </span><br><span class="line">                               <span class="string">&#x27;build&#x27;</span> <span class="keyword">for</span> a build file, <span class="string">&#x27;project&#x27;</span> <span class="keyword">for</span> a       </span><br><span class="line">                               project archive) (default: project)             </span><br><span class="line">-g, --group-id &lt;String&gt;      Project coordinates (<span class="keyword">for</span> example <span class="string">&#x27;org.test&#x27;</span>)      </span><br><span class="line">-j, --java-version &lt;String&gt;  Language level (<span class="keyword">for</span> example <span class="string">&#x27;1.8&#x27;</span>)                </span><br><span class="line">-l, --language &lt;String&gt;      Programming language  (<span class="keyword">for</span> example <span class="string">&#x27;java&#x27;</span>)        </span><br><span class="line">--list                       List the capabilities of the service. Use it to   </span><br><span class="line">                               discover the dependencies and the types that are</span><br><span class="line">                               available                                       </span><br><span class="line">-n, --name &lt;String&gt;          Project name; infer application name              </span><br><span class="line">-p, --packaging &lt;String&gt;     Project packaging (<span class="keyword">for</span> example <span class="string">&#x27;jar&#x27;</span>)             </span><br><span class="line">--package-name &lt;String&gt;      Package name                                      </span><br><span class="line">-t, --<span class="built_in">type</span> &lt;String&gt;          Project <span class="built_in">type</span>. Not normally needed <span class="keyword">if</span> you use --   </span><br><span class="line">                               build and/or --format. Check the capabilities of</span><br><span class="line">                               the service (--list) <span class="keyword">for</span> more details           </span><br><span class="line">--target &lt;String&gt;            URL of the service to use (default: https://start.</span><br><span class="line">                               spring.io)                                      </span><br><span class="line">-v, --version &lt;String&gt;       Project version (<span class="keyword">for</span> example <span class="string">&#x27;0.0.1-SNAPSHOT&#x27;</span>)    </span><br><span class="line">-x, --extract                Extract the project archive. Inferred <span class="keyword">if</span> a        </span><br><span class="line">                               location is specified without an extension      </span><br><span class="line"></span><br><span class="line">examples:</span><br><span class="line"></span><br><span class="line">    To list all the capabilities of the service:</span><br><span class="line">        $ spring init --list</span><br><span class="line"></span><br><span class="line">    To creates a default project:</span><br><span class="line">        $ spring init</span><br><span class="line"></span><br><span class="line">    To create a web my-app.zip:</span><br><span class="line">        $ spring init -d=web my-app.zip</span><br><span class="line"></span><br><span class="line">    To create a web/data-jpa gradle project unpacked:</span><br><span class="line">        $ spring init -d=web,jpa --build=gradle my-dir</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-a</code> <code>--artifact-id</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定项目坐标 (coordinates); 推断 archive name (例如 <code>wallet-server</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-b</code> <code>--boot-version</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定 Spring Boot 版本 (例如 <code>1.2.0.RELEASE</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>--build</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定构建系统 (<code>maven</code> 或 <code>gradle</code>) (默认 <code>maven</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-d</code> <code>--dependencies</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定项目使用的依赖, 使用逗号进行分隔 (例如 <code>-d=web,data-jpa</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>--description</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定项目描述</td>
+</tr>
+<tr>
+<td align="left"><code>-f</code> <code>--force</code></td>
+<td align="left">强制覆盖已存在的文件</td>
+</tr>
+<tr>
+<td align="left"><code>--format</code> <code>&lt;String&gt;</code></td>
+<td align="left">生成的内容的格式 (<code>project</code> 或 <code>build</code>) (<code>build</code> 即只生成构建文件 <code>pom.xml</code> 或 <code>build.gradle</code>) (默认 <code>project</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-g</code> <code>--group-id</code> <code>&lt;String&gt;</code></td>
+<td align="left">设置项目的 Group Id (例如 <code>org.daisy</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-j</code> <code>--java-version</code> <code>&lt;String&gt;</code></td>
+<td align="left">设置 Java 版本 (例如 <code>1.8</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-l</code> <code>--language</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定编程语言 (默认 <code>java</code>) (例如 <code>-l=groovy</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>--list</code></td>
+<td align="left">列出服务的功能</td>
+</tr>
+<tr>
+<td align="left"><code>-n</code> <code>--name</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定项目名称; 推断语言名称</td>
+</tr>
+<tr>
+<td align="left"><code>-p</code> <code>--packaging</code> <code>&lt;String&gt;</code></td>
+<td align="left">项目打包类型 (例如 <code>jar</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>--package-name</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定包名 (例如 <code>org.daisy</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-t</code> <code>--type</code> <code>&lt;String&gt;</code></td>
+<td align="left">项目类型. 不常使用</td>
+</tr>
+<tr>
+<td align="left"><code>--target</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定 service 的 URL (默认 <code>https://start.spring.io</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-v</code> <code>--version</code> <code>&lt;String&gt;</code></td>
+<td align="left">指定项目版本 (例如 <code>0.0.1-SNAPSHOT</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>-x</code> <code>--extract</code></td>
+<td align="left">解压缩项目. 如果坐标没有指定扩展名则进行推断</td>
+</tr>
+</tbody></table>
+<p>执行 <code>spring init list</code> 查看 service 所有可用功能:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br></pre></td><td class="code"><pre><span class="line">$ spring init --list</span><br><span class="line">  .   ____          _            __ _ _</span><br><span class="line"> /\\ / ___<span class="string">&#x27;_ __ _ _(_)_ __  __ _ \ \ \ \</span></span><br><span class="line"><span class="string">( ( )\___ | &#x27;</span>_ | <span class="string">&#x27;_| | &#x27;</span>_ \/ _` | \ \ \ \</span><br><span class="line"> \\/  ___)| |_)| | | | | || (_| |  ) ) ) )</span><br><span class="line">  <span class="string">&#x27;  |____| .__|_| |_|_| |_\__, | / / / /</span></span><br><span class="line"><span class="string"> =========|_|==============|___/=/_/_/_/</span></span><br><span class="line"><span class="string">:: Service capabilities ::  https://start.spring.io</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Supported dependencies</span></span><br><span class="line"><span class="string">+--------------------------------------+--------------------------------------------------------------+-------------------------------+</span></span><br><span class="line"><span class="string">| Id                                   | Description                                                  | Required version              |</span></span><br><span class="line"><span class="string">+--------------------------------------+--------------------------------------------------------------+-------------------------------+</span></span><br><span class="line"><span class="string">| activemq                             | Spring JMS support with Apache ActiveMQ &#x27;</span>Classic<span class="string">&#x27;.           | &gt;=2.0.0.RELEASE and &lt;3.0.0-M1 |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| actuator                             | Supports built in (or custom) endpoints that let you monitor |                               |</span></span><br><span class="line"><span class="string">|                                      | and manage your application - such as application health,    |                               |</span></span><br><span class="line"><span class="string">|                                      | metrics, sessions, etc.                                      |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| amqp                                 | Gives your applications a common platform to send and        |                               |</span></span><br><span class="line"><span class="string">|                                      | receive messages, and your messages a safe place to live     |                               |</span></span><br><span class="line"><span class="string">|                                      | until received.                                              |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| artemis                              | Spring JMS support with Apache ActiveMQ Artemis.             |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| azure-active-directory               | Spring Security integration with Azure Active Directory for  | &gt;=2.5.0-M1 and &lt;3.0.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | authentication.                                              |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| azure-cosmos-db                      | Fully managed NoSQL database service for modern app          | &gt;=2.5.0-M1 and &lt;3.0.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | development, including Spring Data support.                  |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| azure-keyvault-secrets               | Manage application secrets.                                  | &gt;=2.5.0-M1 and &lt;3.0.0-M1      |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| azure-storage                        | Azure Storage service integration.                           | &gt;=2.5.0-M1 and &lt;3.0.0-M1      |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| azure-support                        | Auto-configuration for Azure Services (Service Bus, Storage, | &gt;=2.5.0-M1 and &lt;3.0.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | Active Directory, Key Vault, and more).                      |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| batch                                | Batch applications with transactions, retry/skip and chunk   |                               |</span></span><br><span class="line"><span class="string">|                                      | based processing.                                            |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cache                                | Provides cache-related operations, such as the ability to    |                               |</span></span><br><span class="line"><span class="string">|                                      | update the content of the cache, but does not provide the    |                               |</span></span><br><span class="line"><span class="string">|                                      | actual data store.                                           |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| camel                                | Apache Camel is an open source integration framework that    | &gt;=2.0.0.M1 and &lt;2.7.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | empowers you to quickly and easily integrate various systems |                               |</span></span><br><span class="line"><span class="string">|                                      | consuming or producing data.                                 |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-bus                            | Links nodes of a distributed system with a lightweight       | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | message broker which can used to broadcast state changes or  |                               |</span></span><br><span class="line"><span class="string">|                                      | other management instructions (requires a binder, e.g.       |                               |</span></span><br><span class="line"><span class="string">|                                      | Apache Kafka or RabbitMQ).                                   |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-cloudfoundry-discovery         | Service discovery with Cloud Foundry.                        | &gt;=2.3.0.M1 and &lt;3.0.0-M1      |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-config-client                  | Client that connects to a Spring Cloud Config Server to      | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | fetch the application&#x27;</span>s configuration.                       |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-config-server                  | Central management <span class="keyword">for</span> configuration via Git, SVN, or        | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | HashiCorp Vault.                                             |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-contract-stub-runner           | Stub Runner <span class="keyword">for</span> HTTP/Messaging based communication. Allows   | &gt;=2.3.0.M1 and &lt;3.0.0-M1      |</span><br><span class="line">|                                      | creating WireMock stubs from RestDocs tests.                 |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-contract-verifier              | Moves TDD to the level of software architecture by enabling  | &gt;=2.3.0.M1 and &lt;3.0.0-M1      |</span><br><span class="line">|                                      | Consumer Driven Contract (CDC) development.                  |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-eureka                         | A REST based service <span class="keyword">for</span> locating services <span class="keyword">for</span> the purpose   | &gt;=2.3.0.M1 and &lt;3.0.0-M1      |</span><br><span class="line">|                                      | of load balancing and failover of middle-tier servers.       |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-eureka-server                  | spring-cloud-netflix Eureka Server.                          | &gt;=2.3.0.M1 and &lt;3.0.0-M1      |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-feign                          | Declarative REST Client. OpenFeign creates a dynamic         | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | implementation of an interface decorated with JAX-RS or      |                               |</span><br><span class="line">|                                      | Spring MVC annotations.                                      |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-function                       | Promotes the implementation of business logic via <span class="built_in">functions</span>  | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | and supports a uniform programming model across serverless   |                               |</span><br><span class="line">|                                      | providers, as well as the ability to run standalone (locally |                               |</span><br><span class="line">|                                      | or <span class="keyword">in</span> a PaaS).                                               |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-gateway                        | Provides a simple, yet effective way to route to APIs and    | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | provide cross cutting concerns to them such as security,     |                               |</span><br><span class="line">|                                      | monitoring/metrics, and resiliency.                          |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-gcp                            | Contains auto-configuration support <span class="keyword">for</span> every Spring Cloud   | &gt;=2.4.0-M1 and &lt;2.7.0-M1      |</span><br><span class="line">|                                      | GCP integration. Most of the auto-configuration code is only |                               |</span><br><span class="line">|                                      | enabled <span class="keyword">if</span> other dependencies are added to the classpath.    |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-gcp-pubsub                     | Adds the GCP Support entry and all the required dependencies | &gt;=2.4.0-M1 and &lt;2.7.0-M1      |</span><br><span class="line">|                                      | so that the Google Cloud Pub/Sub integration work out of the |                               |</span><br><span class="line">|                                      | box.                                                         |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-gcp-storage                    | Adds the GCP Support entry and all the required dependencies | &gt;=2.4.0-M1 and &lt;2.7.0-M1      |</span><br><span class="line">|                                      | so that the Google Cloud Storage integration work out of the |                               |</span><br><span class="line">|                                      | box.                                                         |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-loadbalancer                   | Client-side load-balancing with Spring Cloud LoadBalancer.   | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-resilience4j                   | Spring Cloud Circuit breaker with Resilience4j as the        | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | underlying implementation.                                   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-starter                        | Non-specific Spring Cloud features, unrelated to external    | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | libraries or integrations (e.g. Bootstrap context and        |                               |</span><br><span class="line">|                                      | @RefreshScope).                                              |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-starter-consul-config          | Enable and configure the common patterns inside your         | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | application and build large distributed systems with         |                               |</span><br><span class="line">|                                      | Hashicorp’s Consul. The patterns provided include Service    |                               |</span><br><span class="line">|                                      | Discovery, Distributed Configuration and Control Bus.        |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-starter-consul-discovery       | Service discovery with Hashicorp Consul.                     | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-starter-sleuth                 | Distributed tracing via logs with Spring Cloud Sleuth.       | &gt;=2.3.0.M1 and &lt;3.0.0-M1      |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| cloud-starter-vault-config           | Provides client-side support <span class="keyword">for</span> externalized configuration  | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | <span class="keyword">in</span> a distributed system. Using HashiCorp<span class="string">&#x27;s Vault you have a  |                               |</span></span><br><span class="line"><span class="string">|                                      | central place to manage external secret properties for       |                               |</span></span><br><span class="line"><span class="string">|                                      | applications across all environments.                        |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-starter-zipkin                 | Distributed tracing with an existing Zipkin installation and | &gt;=2.3.0.M1 and &lt;3.0.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | Spring Cloud Sleuth Zipkin.                                  |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-starter-zookeeper-config       | Enable and configure common patterns inside your application | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | and build large distributed systems with Apache Zookeeper    |                               |</span></span><br><span class="line"><span class="string">|                                      | based components. The provided patterns include Service      |                               |</span></span><br><span class="line"><span class="string">|                                      | Discovery and Configuration.                                 |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-starter-zookeeper-discovery    | Service discovery with Apache Zookeeper.                     | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-stream                         | Framework for building highly scalable event-driven          | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | microservices connected with shared messaging systems        |                               |</span></span><br><span class="line"><span class="string">|                                      | (requires a binder, e.g. Apache Kafka, RabbitMQ or Solace    |                               |</span></span><br><span class="line"><span class="string">|                                      | PubSub+).                                                    |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| cloud-task                           | Allows a user to develop and run short lived microservices   | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | using Spring Cloud. Run them locally, in the cloud, and on   |                               |</span></span><br><span class="line"><span class="string">|                                      | Spring Cloud Data Flow.                                      |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| codecentric-spring-boot-admin-client | Required for your application to register with a             | &gt;=2.0.0.RELEASE and &lt;2.7.0-M1 |</span></span><br><span class="line"><span class="string">|                                      | Codecentric&#x27;</span>s Spring Boot Admin Server instance.             |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| codecentric-spring-boot-admin-server | A community project to manage and monitor your Spring Boot   | &gt;=2.0.0.RELEASE and &lt;2.7.0-M1 |</span><br><span class="line">|                                      | applications. Provides a UI on top of the Spring Boot        |                               |</span><br><span class="line">|                                      | Actuator endpoints.                                          |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| configuration-processor              | Generate metadata <span class="keyword">for</span> developers to offer contextual <span class="built_in">help</span>    |                               |</span><br><span class="line">|                                      | and <span class="string">&quot;code completion&quot;</span> when working with custom configuration |                               |</span><br><span class="line">|                                      | keys (ex.application.properties/.yml files).                 |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-cassandra                       | A free and open-source, distributed, NoSQL database          |                               |</span><br><span class="line">|                                      | management system that offers high-scalability and           |                               |</span><br><span class="line">|                                      | high-performance.                                            |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-cassandra-reactive              | Access Cassandra NoSQL Database <span class="keyword">in</span> a reactive fashion.       |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-couchbase                       | NoSQL document-oriented database that offers <span class="keyword">in</span> memory-first |                               |</span><br><span class="line">|                                      | architecture, geo-distributed deployments, and workload      |                               |</span><br><span class="line">|                                      | isolation.                                                   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-couchbase-reactive              | Access Couchbase NoSQL database <span class="keyword">in</span> a reactive fashion with   |                               |</span><br><span class="line">|                                      | Spring Data Couchbase.                                       |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-elasticsearch                   | A distributed, RESTful search and analytics engine with      |                               |</span><br><span class="line">|                                      | Spring Data Elasticsearch.                                   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-jdbc                            | Persist data <span class="keyword">in</span> SQL stores with plain JDBC using Spring      |                               |</span><br><span class="line">|                                      | Data.                                                        |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-jpa                             | Persist data <span class="keyword">in</span> SQL stores with Java Persistence API using   |                               |</span><br><span class="line">|                                      | Spring Data and Hibernate.                                   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-ldap                            | Makes it easier to build Spring based applications that use  |                               |</span><br><span class="line">|                                      | the Lightweight Directory Access Protocol.                   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-mongodb                         | Store data <span class="keyword">in</span> flexible, JSON-like documents, meaning fields  |                               |</span><br><span class="line">|                                      | can vary from document to document and data structure can be |                               |</span><br><span class="line">|                                      | changed over time.                                           |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-mongodb-reactive                | Provides asynchronous stream processing with non-blocking    |                               |</span><br><span class="line">|                                      | back pressure <span class="keyword">for</span> MongoDB.                                   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-neo4j                           | An open <span class="built_in">source</span> NoSQL database that stores data structured as |                               |</span><br><span class="line">|                                      | graphs consisting of nodes, connected by relationships.      |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-r2dbc                           | Provides Reactive Relational Database Connectivity to        |                               |</span><br><span class="line">|                                      | persist data <span class="keyword">in</span> SQL stores using Spring Data <span class="keyword">in</span> reactive     |                               |</span><br><span class="line">|                                      | applications.                                                |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-redis                           | Advanced and thread-safe Java Redis client <span class="keyword">for</span> synchronous,  |                               |</span><br><span class="line">|                                      | asynchronous, and reactive usage. Supports Cluster,          |                               |</span><br><span class="line">|                                      | Sentinel, Pipelining, Auto-Reconnect, Codecs and much more.  |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-redis-reactive                  | Access Redis key-value data stores <span class="keyword">in</span> a reactive fashion     |                               |</span><br><span class="line">|                                      | with Spring Data Redis.                                      |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-rest                            | Exposing Spring Data repositories over REST via Spring Data  |                               |</span><br><span class="line">|                                      | REST.                                                        |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| data-rest-explorer                   | Browsing Spring Data REST repositories <span class="keyword">in</span> your browser.      |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| datadog                              | Publish Micrometer metrics to Datadog, a dimensional         |                               |</span><br><span class="line">|                                      | time-series SaaS with built-in dashboarding and alerting.    |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| db2                                  | A JDBC driver that provides access to IBM DB2.               | &gt;=2.2.0.M6                    |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| derby                                | An open <span class="built_in">source</span> relational database implemented entirely <span class="keyword">in</span>   |                               |</span><br><span class="line">|                                      | Java.                                                        |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| devtools                             | Provides fast application restarts, LiveReload, and          |                               |</span><br><span class="line">|                                      | configurations <span class="keyword">for</span> enhanced development experience.          |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| flapdoodle-mongo                     | Provides a platform neutral way <span class="keyword">for</span> running MongoDB <span class="keyword">in</span> unit  | &gt;=2.0.0.RELEASE and &lt;3.0.0-M1 |</span><br><span class="line">|                                      | tests.                                                       |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| flyway                               | Version control <span class="keyword">for</span> your database so you can migrate from    |                               |</span><br><span class="line">|                                      | any version (incl. an empty database) to the latest version  |                               |</span><br><span class="line">|                                      | of the schema.                                               |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| freemarker                           | Java library to generate text output (HTML web pages,        |                               |</span><br><span class="line">|                                      | e-mails, configuration files, <span class="built_in">source</span> code, etc.) based on    |                               |</span><br><span class="line">|                                      | templates and changing data.                                 |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| geode                                | Apache Geode is a data management platform that helps <span class="built_in">users</span>  | &gt;=2.3.0.M1 and &lt;3.1.0-M1      |</span><br><span class="line">|                                      | build real-time, highly concurrent, highly performant and    |                               |</span><br><span class="line">|                                      | reliable Spring Boot applications at scale that is           |                               |</span><br><span class="line">|                                      | compatible with Pivotal Cloud Cache.                         |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| graphite                             | Publish Micrometer metrics to Graphite, a hierarchical       |                               |</span><br><span class="line">|                                      | metrics system backed by a fixed-size database.              |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| graphql                              | Build GraphQL applications with Spring <span class="keyword">for</span> GraphQL and       | &gt;=2.7.0.M1 and &lt;3.0.0-M1      |</span><br><span class="line">|                                      | GraphQL Java.                                                |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| groovy-templates                     | Groovy templating engine.                                    |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| h2                                   | Provides a fast in-memory database that supports JDBC API    |                               |</span><br><span class="line">|                                      | and R2DBC access, with a small (2mb) footprint. Supports     |                               |</span><br><span class="line">|                                      | embedded and server modes as well as a browser based console |                               |</span><br><span class="line">|                                      | application.                                                 |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| hateoas                              | Eases the creation of RESTful APIs that follow the HATEOAS   |                               |</span><br><span class="line">|                                      | principle when working with Spring / Spring MVC.             |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| hsql                                 | Lightweight 100% Java SQL Database Engine.                   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| influx                               | Publish Micrometer metrics to InfluxDB, a dimensional        |                               |</span><br><span class="line">|                                      | time-series server that support real-time stream processing  |                               |</span><br><span class="line">|                                      | of data.                                                     |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| integration                          | Adds support <span class="keyword">for</span> Enterprise Integration Patterns. Enables    |                               |</span><br><span class="line">|                                      | lightweight messaging and supports integration with external |                               |</span><br><span class="line">|                                      | systems via declarative adapters.                            |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| jdbc                                 | Database Connectivity API that defines how a client may      |                               |</span><br><span class="line">|                                      | connect and query a database.                                |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| jersey                               | Framework <span class="keyword">for</span> developing RESTful Web Services <span class="keyword">in</span> Java that   | &gt;=2.0.0.RELEASE and &lt;3.0.0-M1 |</span><br><span class="line">|                                      | provides support <span class="keyword">for</span> JAX-RS APIs.                            |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| jooq                                 | Generate Java code from your database and build <span class="built_in">type</span> safe    |                               |</span><br><span class="line">|                                      | SQL queries through a fluent API.                            |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| kafka                                | Publish, subscribe, store, and process streams of records.   |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| kafka-streams                        | Building stream processing applications with Apache Kafka    |                               |</span><br><span class="line">|                                      | Streams.                                                     |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| liquibase                            | Liquibase database migration and <span class="built_in">source</span> control library.     |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| lombok                               | Java annotation library <span class="built_in">which</span> helps to reduce boilerplate    |                               |</span><br><span class="line">|                                      | code.                                                        |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| mail                                 | Send email using Java Mail and Spring Framework<span class="string">&#x27;s            |                               |</span></span><br><span class="line"><span class="string">|                                      | JavaMailSender.                                              |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| mariadb                              | MariaDB JDBC and R2DBC driver.                               |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| mustache                             | Logic-less Templates. There are no if statements, else       |                               |</span></span><br><span class="line"><span class="string">|                                      | clauses, or for loops. Instead there are only tags.          |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| mybatis                              | Persistence framework with support for custom SQL, stored    | &gt;=2.0.0.RELEASE and &lt;3.1.0-M1 |</span></span><br><span class="line"><span class="string">|                                      | procedures and advanced mappings. MyBatis couples objects    |                               |</span></span><br><span class="line"><span class="string">|                                      | with stored procedures or SQL statements using a XML         |                               |</span></span><br><span class="line"><span class="string">|                                      | descriptor or annotations.                                   |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| mysql                                | MySQL JDBC and R2DBC driver.                                 |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| native                               | Incubating support for compiling Spring applications to      | &gt;=2.4.3 and &lt;3.0.0-M1         |</span></span><br><span class="line"><span class="string">|                                      | native executables using the GraalVM native-image compiler.  |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| new-relic                            | Publish Micrometer metrics to New Relic, a SaaS offering     |                               |</span></span><br><span class="line"><span class="string">|                                      | with a full UI and a query language called NRQL.             |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| oauth2-client                        | Spring Boot integration for Spring Security&#x27;</span>s OAuth2/OpenID  |                               |</span><br><span class="line">|                                      | Connect client features.                                     |                               |</span><br><span class="line">|                                      |                                                              |                               |</span><br><span class="line">| oauth2-resource-server               | Spring Boot integration <span class="keyword">for</span> Spring Security<span class="string">&#x27;s OAuth2         | &gt;=2.1.0.M2                    |</span></span><br><span class="line"><span class="string">|                                      | resource server features.                                    |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| okta                                 | Okta specific configuration for Spring Security/Spring Boot  | &gt;=2.1.2.RELEASE and &lt;2.7.0-M1 |</span></span><br><span class="line"><span class="string">|                                      | OAuth2 features. Enable your Spring Boot application to work |                               |</span></span><br><span class="line"><span class="string">|                                      | with Okta via OAuth 2.0/OIDC.                                |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| open-service-broker                  | Framework for building Spring Boot apps that implement the   | &gt;=2.0.0.RELEASE and &lt;2.7.0-M1 |</span></span><br><span class="line"><span class="string">|                                      | Open Service Broker API, which can deliver services to       |                               |</span></span><br><span class="line"><span class="string">|                                      | applications running within cloud native platforms such as   |                               |</span></span><br><span class="line"><span class="string">|                                      | Cloud Foundry, Kubernetes and OpenShift.                     |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| oracle                               | A JDBC driver that provides access to Oracle.                |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| picocli                              | Build command line applications with picocli.                | &gt;=2.4.0.RELEASE and &lt;3.0.0-M1 |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| postgresql                           | A JDBC and R2DBC driver that allows Java programs to connect |                               |</span></span><br><span class="line"><span class="string">|                                      | to a PostgreSQL database using standard, database            |                               |</span></span><br><span class="line"><span class="string">|                                      | independent Java code.                                       |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| prometheus                           | Expose Micrometer metrics in Prometheus format, an in-memory |                               |</span></span><br><span class="line"><span class="string">|                                      | dimensional time series database with a simple built-in UI,  |                               |</span></span><br><span class="line"><span class="string">|                                      | a custom query language, and math operations.                |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| quartz                               | Schedule jobs using Quartz.                                  |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| restdocs                             | Document RESTful services by combining hand-written with     |                               |</span></span><br><span class="line"><span class="string">|                                      | Asciidoctor and auto-generated snippets produced with Spring |                               |</span></span><br><span class="line"><span class="string">|                                      | MVC Test.                                                    |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| rsocket                              | RSocket.io applications with Spring Messaging and Netty.     | &gt;=2.2.0.M2                    |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| scs-config-client                    | Config client on VMware Tanzu Application Service.           | &gt;=2.0.0.RELEASE and &lt;2.7.0-M1 |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| scs-service-registry                 | Eureka service discovery client on VMware Tanzu Application  | &gt;=2.0.0.RELEASE and &lt;2.7.0-M1 |</span></span><br><span class="line"><span class="string">|                                      | Service.                                                     |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| security                             | Highly customizable authentication and access-control        |                               |</span></span><br><span class="line"><span class="string">|                                      | framework for Spring applications.                           |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| session                              | Provides an API and implementations for managing user        |                               |</span></span><br><span class="line"><span class="string">|                                      | session information.                                         |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| solace                               | Connect to a Solace PubSub+ Advanced Event Broker to         | &gt;=2.2.0.RELEASE and &lt;2.7.0-M1 |</span></span><br><span class="line"><span class="string">|                                      | publish, subscribe, request/reply and store/replay messages  |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| sqlserver                            | A JDBC and R2DBC driver that provides access to Microsoft    |                               |</span></span><br><span class="line"><span class="string">|                                      | SQL Server and Azure SQL Database from any Java application. |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| testcontainers                       | Provide lightweight, throwaway instances of common           |                               |</span></span><br><span class="line"><span class="string">|                                      | databases, Selenium web browsers, or anything else that can  |                               |</span></span><br><span class="line"><span class="string">|                                      | run in a Docker container.                                   |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| thymeleaf                            | A modern server-side Java template engine for both web and   |                               |</span></span><br><span class="line"><span class="string">|                                      | standalone environments. Allows HTML to be correctly         |                               |</span></span><br><span class="line"><span class="string">|                                      | displayed in browsers and as static prototypes.              |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| unboundid-ldap                       | Provides a platform neutral way for running a LDAP server in |                               |</span></span><br><span class="line"><span class="string">|                                      | unit tests.                                                  |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| vaadin                               | A web framework that allows you to write UI in pure Java     | &gt;=2.0.0.RELEASE and &lt;2.8.0-M1 |</span></span><br><span class="line"><span class="string">|                                      | without getting bogged down in JS, HTML, and CSS.            |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| validation                           | Bean Validation with Hibernate validator.                    |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| wavefront                            | Publish Micrometer metrics to Tanzu Observability by         | &gt;=2.3.0.M1 and &lt;2.7.0-M1      |</span></span><br><span class="line"><span class="string">|                                      | Wavefront, a SaaS-based metrics monitoring and analytics     |                               |</span></span><br><span class="line"><span class="string">|                                      | platform that lets you visualize, query, and alert over data |                               |</span></span><br><span class="line"><span class="string">|                                      | from across your entire stack.                               |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| web                                  | Build web, including RESTful, applications using Spring MVC. |                               |</span></span><br><span class="line"><span class="string">|                                      | Uses Apache Tomcat as the default embedded container.        |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| web-services                         | Facilitates contract-first SOAP development. Allows for the  |                               |</span></span><br><span class="line"><span class="string">|                                      | creation of flexible web services using one of the many ways |                               |</span></span><br><span class="line"><span class="string">|                                      | to manipulate XML payloads.                                  |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| webflux                              | Build reactive web applications with Spring WebFlux and      |                               |</span></span><br><span class="line"><span class="string">|                                      | Netty.                                                       |                               |</span></span><br><span class="line"><span class="string">|                                      |                                                              |                               |</span></span><br><span class="line"><span class="string">| websocket                            | Build WebSocket applications with SockJS and STOMP.          |                               |</span></span><br><span class="line"><span class="string">+--------------------------------------+--------------------------------------------------------------+-------------------------------+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Project types (* denotes the default)</span></span><br><span class="line"><span class="string">+-----------------+------------------------------------------+-----------------------------+</span></span><br><span class="line"><span class="string">| Id              | Description                              | Tags                        |</span></span><br><span class="line"><span class="string">+-----------------+------------------------------------------+-----------------------------+</span></span><br><span class="line"><span class="string">| gradle-build    | Generate a Gradle build file.            | build:gradle,format:build   |</span></span><br><span class="line"><span class="string">| gradle-project  | Generate a Gradle based project archive. | build:gradle,format:project |</span></span><br><span class="line"><span class="string">| maven-build     | Generate a Maven pom.xml.                | build:maven,format:build    |</span></span><br><span class="line"><span class="string">| maven-project * | Generate a Maven based project archive.  | build:maven,format:project  |</span></span><br><span class="line"><span class="string">+-----------------+------------------------------------------+-----------------------------+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Parameters</span></span><br><span class="line"><span class="string">+-------------+------------------------------------------+------------------------------+</span></span><br><span class="line"><span class="string">| Id          | Description                              | Default value                |</span></span><br><span class="line"><span class="string">+-------------+------------------------------------------+------------------------------+</span></span><br><span class="line"><span class="string">| artifactId  | project coordinates (infer archive name) | demo                         |</span></span><br><span class="line"><span class="string">| bootVersion | spring boot version                      | 2.7.0                        |</span></span><br><span class="line"><span class="string">| description | project description                      | Demo project for Spring Boot |</span></span><br><span class="line"><span class="string">| groupId     | project coordinates                      | com.example                  |</span></span><br><span class="line"><span class="string">| javaVersion | language level                           | 17                           |</span></span><br><span class="line"><span class="string">| language    | programming language                     | java                         |</span></span><br><span class="line"><span class="string">| name        | project name (infer application name)    | demo                         |</span></span><br><span class="line"><span class="string">| packageName | root package                             | com.example.demo             |</span></span><br><span class="line"><span class="string">| packaging   | project packaging                        | jar                          |</span></span><br><span class="line"><span class="string">| type        | project type                             | maven-project                |</span></span><br><span class="line"><span class="string">| version     | project version                          | 0.0.1-SNAPSHOT               |</span></span><br><span class="line"><span class="string">+-------------+------------------------------------------+------------------------------+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Using-the-Embedded-Shell"><a href="#Using-the-Embedded-Shell" class="headerlink" title="Using the Embedded Shell"></a>Using the Embedded Shell</h2><p>Spring Boot 提供了 BASH 和 zsh shell 的命令行补全脚本</p>
+<p>使用 <code>shell</code> 命令可以启动一个内置 shell:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">╭─daisy at thinkpad <span class="keyword">in</span> ~/Desktop/wallet-server</span><br><span class="line">╰─○ spring shell</span><br><span class="line">Spring Boot (v2.7.0)</span><br><span class="line">Hit TAB to complete. Type <span class="string">&#x27;help&#x27;</span> and hit RETURN <span class="keyword">for</span> <span class="built_in">help</span>, and <span class="string">&#x27;exit&#x27;</span> to quit.</span><br><span class="line">$ <span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-Extensions-to-the-CLI"><a href="#Adding-Extensions-to-the-CLI" class="headerlink" title="Adding Extensions to the CLI"></a>Adding Extensions to the CLI</h2><p>通过使用 <code>install</code> 命令可以添加扩展到 CLI 中</p>
+<p><code>install</code> 接收一个或多个格式为 <code>group:artifact:version</code> 的构件坐标</p>
+<p>例如: <code>$ spring install com.example:spring-boot-cli-extension:1.0.0.RELEASE</code></p>
+<p>除了通过坐标安装你提供的构件, 这个构件所有的依赖也会被安装</p>
+<p>使用 <code>uninstall</code> 命令来卸载依赖: <code>$ spring uninstall com.example:spring-boot-cli-extension:1.0.0.RELEASE</code></p>
+<p>将会卸载这个构件和它的依赖项</p>
+<p>使用 <code>--all</code> 选项来卸载所有的依赖: <code>spring uninstall --all</code></p>
+<h2 id="Developing-Applications-with-the-Groovy-Beans-DSL"><a href="#Developing-Applications-with-the-Groovy-Beans-DSL" class="headerlink" title="Developing Applications with the Groovy Beans DSL"></a>Developing Applications with the Groovy Beans DSL</h2><p>Spring Framework 4.0 已经原生支持 <code>beans&#123;&#125;</code> “DSL” (从 <a class="link"   target="_blank" rel="noopener" href="https://grails.org/" >Grails<i class="fas fa-external-link-alt"></i></a> 中借鉴的), 可以使用相同的格式在 Groovy 应用脚本中嵌入 bean 定义</p>
+<p>有时是一个好方法来包含额外功能, 例如中间件定义:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span>(proxyBeanMethods = <span class="literal">false</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Application</span> implement CommandLineRunner &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    SharedService service</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="type">void</span> run(String... args) &#123; println service.message &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">beans &#123;</span><br><span class="line">    service(SharedService) &#123;</span><br><span class="line">        message = <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以在相同的文件中使用 <code>beans&#123;&#125;</code> 混合类定义, 只要它们放置在 top level</p>
+<p>如果你喜欢, 你可以放置 <code>beans DSL</code> 到不同的文件中</p>
+<h2 id="Configuring-the-CLI-with-settings-xml"><a href="#Configuring-the-CLI-with-settings-xml" class="headerlink" title="Configuring the CLI with settings.xml"></a>Configuring the CLI with settings.xml</h2><p>Spring Boot CLI 使用 Maven 解析器, Maven 的依赖解析引擎, 来解析依赖</p>
+<p>CLI 使用 <code>~/.m2/settings.xml</code> Maven 配置来配置 Maven 解析器</p>
+<p>CLI 支持一下配置:</p>
+<ul>
+<li>Offline</li>
+<li>Mirrors</li>
+<li>Servers</li>
+<li>Proxies</li>
+<li>Profiles<ul>
+<li>Activation</li>
+<li>Repositories</li>
+</ul>
+</li>
+<li>Active profiles</li>
+</ul>
+<h2 id="What-to-Read-Next"><a href="#What-to-Read-Next" class="headerlink" title="What to Read Next"></a>What to Read Next</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tree/v2.7.0/spring-boot-project/spring-boot-cli/samples" >Groovy 脚本例子<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tree/v2.7.0/spring-boot-project/spring-boot-cli/src/main/java/org/springframework/boot/cli" >源代码<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins.html#build-tool-plugins" >Build tool plugins<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/cli.html" >Spring Boot CLI<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Spring Boot CLI</li>
+        <li>本文作者：林威羽</li>
+        <li>创建时间：2022-06-01 15:34:18</li>
+        <li>
+            本文链接：https://linweiyu21.github.io/spring/spring-boot-cli/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Notes/">#Notes</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/CLI/">#CLI</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/spring/use-groovy-beans-dsl-in-spring-boot/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">在 SpringBoot 中使用 Groovy beans dsl 来定义 Bean</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/docker/run-your-app-in-production/configure-containers/logging/configure-logging-drivers/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Configure logging drivers</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8xWQ0WFbKUNN4h8ixIO12etk-gzGzoHsz',
+                    appKey: '7cLjTvkIsF6aIuIVSd0um89m',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请开始你的表演',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '林威羽';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">林威羽</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-the-CLI"><span class="nav-number">1.</span> <span class="nav-text">Using the CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%AE%8C%E6%95%B4%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">创建项目完整例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Running-Applications-with-the-CLI"><span class="nav-number">1.2.</span> <span class="nav-text">Running Applications with the CLI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deduced-%E2%80%9Cgrab%E2%80%9D-Dependencies"><span class="nav-number">1.3.</span> <span class="nav-text">Deduced “grab” Dependencies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deduced-%E2%80%9Cgrab%E2%80%9D-Coordinates"><span class="nav-number">1.4.</span> <span class="nav-text">Deduced “grab” Coordinates</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Default-Import-Statements"><span class="nav-number">1.5.</span> <span class="nav-text">Default Import Statements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Automatic-Main-Method"><span class="nav-number">1.6.</span> <span class="nav-text">Automatic Main Method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom-Dependency-Management"><span class="nav-number">1.7.</span> <span class="nav-text">Custom Dependency Management</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Applications-with-Multiple-Source-Files"><span class="nav-number">2.</span> <span class="nav-text">Applications with Multiple Source Files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Packaging-Your-Application"><span class="nav-number">3.</span> <span class="nav-text">Packaging Your Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Initialize-a-New-Project"><span class="nav-number">4.</span> <span class="nav-text">Initialize a New Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-the-Embedded-Shell"><span class="nav-number">5.</span> <span class="nav-text">Using the Embedded Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adding-Extensions-to-the-CLI"><span class="nav-number">6.</span> <span class="nav-text">Adding Extensions to the CLI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Developing-Applications-with-the-Groovy-Beans-DSL"><span class="nav-number">7.</span> <span class="nav-text">Developing Applications with the Groovy Beans DSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuring-the-CLI-with-settings-xml"><span class="nav-number">8.</span> <span class="nav-text">Configuring the CLI with settings.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-to-Read-Next"><span class="nav-number">9.</span> <span class="nav-text">What to Read Next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

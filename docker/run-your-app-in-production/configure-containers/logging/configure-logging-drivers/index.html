@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Micronaut,Groovy,Gradle,Java,文档,中文">
+    <meta name="description" content="Micronaut Groovy Gradle Java 文档 中文">
+    <meta name="author" content="林威羽">
+    
+    <title>
+        
+            Configure logging drivers |
+        
+        林威羽的笔记
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"rgb(153,153,0)","avatar":"/images/avatar.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"400px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"def contains🚀 = ['Micronaut', 'Groovy', 'Gradle', 'etc']"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                林威羽的笔记
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/linweiyu21/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
+        viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+        aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg></a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+
+      @keyframes octocat-wave {
+
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Configure logging drivers</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">林威羽</span>
+                        
+                            <span class="author-label">Lv8</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-31 16:48:38</span>
+        <span class="mobile">2022-05-31 16:48</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Docker-Run-your-app-in-production-Configure-containers-Logging/">Docker - Run your app in production - Configure containers - Logging</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Notes/">Notes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>Docker 默认使用 <code>json-file</code> 日志驱动</p>
+<p><code>json-file</code> 默认不进行日志转储</p>
+<blockquote>
+<p>Docker keeps the json-file logging driver (without log-rotation) as a default to remain backward compatibility with older versions of Docker, and for situations where Docker is used as runtime for Kubernetes</p>
+</blockquote>
+<p>可以使用 <a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/local/" >local<i class="fas fa-external-link-alt"></i></a> 日志驱动, 它默认进行日志转储</p>
+<h2 id="Configure-the-default-logging-driver"><a href="#Configure-the-default-logging-driver" class="headerlink" title="Configure the default logging driver"></a>Configure the default logging driver</h2><p>在 <code>/etc/docker/daemon.json</code> 配置文件中配置 Docker daemon 使用的配置日志驱动</p>
+<p>配置 <code>json-file</code>:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;log-driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;json-file&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;log-opts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;max-size&quot;</span><span class="punctuation">:</span> <span class="string">&quot;10m&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;max-file&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;labels&quot;</span><span class="punctuation">:</span> <span class="string">&quot;production_status&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="string">&quot;os,customer&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>设置默认日志驱动为 <code>local</code>:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;log-driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;local&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>修改配置之后需要重新启动 Docker daemon, 否则只有新创建的的容器会受影响, 已存在的容器不会使用到新的日志配置</p>
+<p>查看当前使用的日志驱动: <code>$ docker info --format &#39;&#123;&#123;.LoggingDriver&#125;&#125;&#39;</code></p>
+<h2 id="Configure-the-logging-driver-for-a-container"><a href="#Configure-the-logging-driver-for-a-container" class="headerlink" title="Configure the logging driver for a container"></a>Configure the logging driver for a container</h2><p>创建容器或运行容器时可以使用 <code>--log-driver</code> 标志来指定要使用的日志驱动</p>
+<p>可以使用多个 <code>--log-opt &lt;NAME&gt;=&lt;VALUE&gt;</code> 来指定日志配置</p>
+<p>Example - 使用 <code>none</code> 作为日志驱动:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -ti --log-driver none alpine ash</span><br></pre></td></tr></table></figure>
+
+<p>查看当前运行的容器使用的日志驱动:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect -f <span class="string">&#x27;&#123;&#123;.HostConfig.LogConfig.Type&#125;&#125;&#x27;</span> &lt;CONTAINER&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Configure-the-delivery-mode-of-log-messages-from-container-to-log-driver"><a href="#Configure-the-delivery-mode-of-log-messages-from-container-to-log-driver" class="headerlink" title="Configure the delivery mode of log messages from container to log driver"></a>Configure the delivery mode of log messages from container to log driver</h2><p>Docker 提供了两种模式来从容器中传输信息到日志驱动中:</p>
+<ul>
+<li><code>direct</code> - 默认模式, 阻塞从容器到日志驱动的传输</li>
+<li><code>non-blocking</code> - 将日志信息保存在每个容器的中间 ring buffer 中, 以供日志驱动使用</li>
+</ul>
+<p><code>non-blocking</code> 模式防止应用因为日志背压而阻塞</p>
+<p>警告: 当 buffer 满了且有新的信息入队, 内存中最旧的信息将会被丢弃. 丢弃信息通常比阻止应用程序日志写入进程更加推荐</p>
+<p>使用 <code>mode</code> 日志选项控制使用 <code>blocking</code> (默认) 还是 <code>non-blocking</code> 消息传递</p>
+<p><code>max-buffer-size</code> 日志选项控制 ring buffer 的大小, 默认为 1M</p>
+<p>Example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it --log-opt mode=non-blocking --log-opt max-buffer-size=4m alpine ping 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Use-environment-variables-or-labels-with-logging-drivers"><a href="#Use-environment-variables-or-labels-with-logging-drivers" class="headerlink" title="Use environment variables or labels with logging drivers"></a>Use environment variables or labels with logging drivers</h3><p>一些日志驱动添加容器的 <code>--env|-e</code> 或 <code>--label</code> 标志的值到容器日志中</p>
+<p>Example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -dit --label production_status=testing -e os=ubuntu alpine sh</span><br></pre></td></tr></table></figure>
+
+<p>如果日志驱动支持这个, 它将添加额外字段到日志输出中</p>
+<p>Example - <code>json-file</code> 生成如下日志输出:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;attrs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;production_status&quot;</span><span class="punctuation">:</span><span class="string">&quot;testing&quot;</span><span class="punctuation">,</span><span class="attr">&quot;os&quot;</span><span class="punctuation">:</span><span class="string">&quot;ubuntu&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Supported-logging-drivers"><a href="#Supported-logging-drivers" class="headerlink" title="Supported logging drivers"></a>Supported logging drivers</h2><p>使用 <a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/gelf/"><code>gelf</code></a> 将日志发送到 Logstash 中</p>
+<table>
+<thead>
+<tr>
+<th align="left">Driver</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>none</code></td>
+<td align="left">没有可用于容器的日志且 <code>docker logs</code> 不会返回任何输出</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/local/"><code>local</code></a></td>
+<td align="left">日志以旨在将开销降至最低的定制格式存储</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/json-file/"><code>json-file</code></a></td>
+<td align="left">日志格式化为 JSON. Docker 默认的日志驱动</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/syslog/"><code>syslog</code></a></td>
+<td align="left">将日志写入到 <code>syslog</code> 设备. <code>syslog</code> 守护进程必须运行在宿主机上</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/journald/"><code>journald</code></a></td>
+<td align="left">将日志写入到 <code>journald</code>. <code>journald</code> 守护进程必须运行在宿主机上</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/gelf/"><code>gelf</code></a></td>
+<td align="left">将日志写入到 Graylog Extended Log Format (GELF) 端点, 例如 Graylog 或 Logstash</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/fluentd/"><code>fluentd</code></a></td>
+<td align="left">将日志写入到 <code>fluentd</code> (forward input). <code>fluentd</code> 守护进程必须运行在宿主机上</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/awslogs/"><code>awslogs</code></a></td>
+<td align="left">将日志写入到 Amazon CloudWatch Logs</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/splunk/"><code>splunk</code></a></td>
+<td align="left">使用 HTTP Event Collector 将日志写入到 <code>splunk</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/etwlogs/"><code>etwlogs</code></a></td>
+<td align="left">将日志作为 Event Tracing for Windows (ETW) events 进行写入. 只在 Windows 平台生效</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/gcplogs/"><code>gcplogs</code></a></td>
+<td align="left">将日志写入到 Google Cloud Platform (GCP) Logging</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/logentries/"><code>logentries</code></a></td>
+<td align="left">将日志写入到 Rapid7 Logentries</td>
+</tr>
+</tbody></table>
+<p>如果使用的是 Docker Engine 19.03 或更旧的版本, <code>docker logs</code> 命令只会作用于 <code>local</code>,<code>json-file</code>,<code>journald</code> 日志驱动</p>
+<p>Docker 20.10 及之后提供了 “dual logging”, “dual logging” 使用一个本地 buffer, 这个 buffer 使得可以在任何日志驱动下使用 <code>docker logs</code></p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/dual-logging/" >reading logs when using remote logging drivers<i class="fas fa-external-link-alt"></i></a> 获取更多细节</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/logging/configure/" >Configure logging drivers<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Configure logging drivers</li>
+        <li>本文作者：林威羽</li>
+        <li>创建时间：2022-05-31 16:48:38</li>
+        <li>
+            本文链接：https://linweiyu21.github.io/docker/run-your-app-in-production/configure-containers/logging/configure-logging-drivers/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Docker/">#Docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Notes/">#Notes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/spring/spring-boot-cli/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Spring Boot CLI</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/docker/develop-with-docker/build-images/create-a-base-image/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Create a base image</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8xWQ0WFbKUNN4h8ixIO12etk-gzGzoHsz',
+                    appKey: '7cLjTvkIsF6aIuIVSd0um89m',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请开始你的表演',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '林威羽';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">林威羽</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Configure-the-default-logging-driver"><span class="nav-number">1.</span> <span class="nav-text">Configure the default logging driver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configure-the-logging-driver-for-a-container"><span class="nav-number">2.</span> <span class="nav-text">Configure the logging driver for a container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configure-the-delivery-mode-of-log-messages-from-container-to-log-driver"><span class="nav-number">3.</span> <span class="nav-text">Configure the delivery mode of log messages from container to log driver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-environment-variables-or-labels-with-logging-drivers"><span class="nav-number">3.1.</span> <span class="nav-text">Use environment variables or labels with logging drivers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Supported-logging-drivers"><span class="nav-number">4.</span> <span class="nav-text">Supported logging drivers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

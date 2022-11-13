@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Micronaut,Groovy,Gradle,Java,文档,中文">
+    <meta name="description" content="Micronaut Groovy Gradle Java 文档 中文">
+    <meta name="author" content="林威羽">
+    
+    <title>
+        
+            Kubernetes 入门 |
+        
+        林威羽的笔记
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"rgb(153,153,0)","avatar":"/images/avatar.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"400px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"def contains🚀 = ['Micronaut', 'Groovy', 'Gradle', 'etc']"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                林威羽的笔记
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/linweiyu21/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
+        viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+        aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg></a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+
+      @keyframes octocat-wave {
+
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Kubernetes 入门</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">林威羽</span>
+                        
+                            <span class="author-label">Lv8</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-06-15 16:40:35</span>
+        <span class="mobile">2022-06-15 16:40</span>
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Notes/">Notes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <!-- TOC -->
+
+<ul>
+<li><a href="#kubernetes-%E6%98%AF%E4%BB%80%E4%B9%88">Kubernetes 是什么</a></li>
+<li><a href="#kubernetes-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD">Kubernetes 的基本概念和术语</a><ul>
+<li><a href="#master">Master</a></li>
+<li><a href="#node">Node</a></li>
+<li><a href="#pod">Pod</a></li>
+<li><a href="#label">Label</a></li>
+<li><a href="#replicationcontroller">ReplicationController</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#horizontal-pod-autoscaler">Horizontal Pod Autoscaler</a></li>
+<li><a href="#statefulset">StatefulSet</a></li>
+<li><a href="#service">Service</a><br>  - <a href="#%E5%A4%96%E9%83%A8%E7%B3%BB%E7%BB%9F%E8%AE%BF%E9%97%AE-service-%E7%9A%84%E9%97%AE%E9%A2%98">外部系统访问 Service 的问题</a></li>
+<li><a href="#job">Job</a></li>
+<li><a href="#volume">Volume</a><ul>
+<li><a href="#volume-%E7%B1%BB%E5%9E%8B">Volume 类型</a><ul>
+<li><a href="#emptydir"><code>emptyDir</code></a></li>
+<li><a href="#hostpath"><code>hostPath</code></a></li>
+<li><a href="#nfs"><code>NFS</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#persistent-volume">Persistent Volume</a></li>
+<li><a href="#namespace">Namespace</a></li>
+<li><a href="#annotation">Annotation</a></li>
+<li><a href="#configmap">ConfigMap</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="Kubernetes-是什么"><a href="#Kubernetes-是什么" class="headerlink" title="Kubernetes 是什么"></a>Kubernetes 是什么</h2><p>Kubernetes 将集群中的机器分为一个 <code>Master</code> 和一些 <code>Node</code></p>
+<p>在 Master 上运行着集群管理相关的一组进程:</p>
+<ul>
+<li><code>kube-apiserver</code></li>
+<li><code>kube-controller-manager</code></li>
+<li><code>kube-scheduler</code></li>
+</ul>
+<p><code>Node</code> 作为集群中的工作节点, 运行真正的应用程序</p>
+<p>在 <code>Node</code> 上 Kubernetes 管理的最小运行单元是 Pod</p>
+<p>在 <code>Node</code> 上运行着 Kubernetes 的 <code>kubelet</code>,<code>kube-proxy</code></p>
+<h2 id="Kubernetes-的基本概念和术语"><a href="#Kubernetes-的基本概念和术语" class="headerlink" title="Kubernetes 的基本概念和术语"></a>Kubernetes 的基本概念和术语</h2><h3 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h3><p><code>Master</code> 指的是集群控制节点</p>
+<p>所有控制命令都发给它, 它负责具体的执行过程</p>
+<p>在 <code>Master</code> 上运行着以下关键进程:</p>
+<ul>
+<li>Kubernetes API Server (<code>kube-apiserver</code>)<ul>
+<li>集群控制的入口进程</li>
+<li>集群资源的增删改查操作入口</li>
+</ul>
+</li>
+<li>Kubernetes Controller Manager (<code>kube-controller-manager</code>)<ul>
+<li>所有资源对象的<strong>自动化控制中心</strong></li>
+</ul>
+</li>
+<li>Kubernetes Scheduler (<code>kube-scheduler</code>)<ul>
+<li>负责资源<strong>调度</strong>的进程</li>
+</ul>
+</li>
+</ul>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>在每个 <code>Node</code> 上运行以下关键进程:</p>
+<ul>
+<li><code>kubelet</code><ul>
+<li>负责 Pod 对应的<strong>容器</strong>的创建, 启停等任务</li>
+</ul>
+</li>
+<li><code>kube-proxy</code><ul>
+<li>实现 Services 的通信与负载均衡机制</li>
+</ul>
+</li>
+<li>容器运行时</li>
+</ul>
+<h3 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h3><p>每个 Pod 都有一个特殊的”根容器” <code>Pause容器</code></p>
+<p><code>Pause容器</code> 对应的镜像术语 Kubernetes 平台的一部分</p>
+<p>每个 Pod 还包含一个或多个紧密相关的用户业务容器</p>
+<p>引入业务无关的 <code>Pause容器</code> 作为 Pod 的根容器, 以它的状态代表整个容器组的状态</p>
+<p>多个业务容器共享 <code>Pause容器</code> 的 IP, 共享 <code>Pause容器</code> 挂载的 Volume. 简化了关联的容器之间的通信问题, 解决了它们之间的文件共享问题</p>
+<p>Kubernetes 为每个 Pod 都分配了唯一的 IP 地址, 称之为 <code>Pod IP</code></p>
+<p>一个 Pod 中的多个容器共享 <code>Pod IP</code> 地址</p>
+<p>Kubernetes 要求底层网络支持集群内<strong>任意两个</strong> Pod 之间的 TCP&#x2F;IP 直接通信</p>
+<p>这通常采用虚拟二层网络技术来实现</p>
+<p>在 Kubernetes 中, 一个 Pod 里的容器与另外主机上的 Pod 容器能够直接通信</p>
+<p>Pod 有两种类型:</p>
+<ul>
+<li>普通 Pod</li>
+<li>静态 Pod (<code>Static Pod</code>)</li>
+</ul>
+<p><code>Static Pod</code> 没有被存储在 etcd 中, 而是被存放在某个具体的 Node 中一个具体文件上, 并且只在此 Node 上启动, 运行</p>
+<p>当 Pod 里的某个容器停止时, Kubernetes 会自动检测到这个问题并且重新启动这个 Pod (<strong>重启 Pod 里的所有容器</strong>)</p>
+<h3 id="Label"><a href="#Label" class="headerlink" title="Label"></a>Label</h3><p><code>Deployment</code>, <code>ReplicaSet</code>, <code>DaemonSet</code>, <code>Job</code> 可以在 <code>Selector</code> 中使用<strong>基于集合</strong>的筛选条件定义:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">selector:</span></span><br><span class="line">  <span class="attr">matchLabels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myweb</span></span><br><span class="line">  <span class="attr">matchExpressions:</span></span><br><span class="line">    <span class="bullet">-</span> &#123;<span class="attr">key:</span> <span class="string">tier</span>, <span class="attr">operator:</span> <span class="string">In</span>, <span class="attr">values:</span> [<span class="string">frontend</span>]&#125;</span><br><span class="line">    <span class="bullet">-</span> &#123;<span class="attr">key:</span> <span class="string">environment</span>, <span class="attr">operator:</span> <span class="string">NotIn</span>, <span class="attr">values:</span> [<span class="string">dev</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可用运算符包括:</p>
+<ul>
+<li><code>In</code></li>
+<li><code>NotIn</code></li>
+<li><code>Exists</code></li>
+<li><code>DoesNotExist</code></li>
+</ul>
+<p>Label Selector 的重要使用场景:</p>
+<ul>
+<li><code>kube-controller-manager</code> 通过 Label Selector 来筛选要监控的 Pod 副本数量</li>
+<li><code>kube-proxy</code> 通过 Service 的 Label Selector 来选择对应的 Pod</li>
+<li><code>kube-scheduler</code> 可以实现 Pod 定向调度的特性</li>
+</ul>
+<h3 id="ReplicationController"><a href="#ReplicationController" class="headerlink" title="ReplicationController"></a>ReplicationController</h3><p>在 Kubernetes 1.2 中, <code>ReplicationController</code> 升级为另外一个新概念: <code>ReplicaSet</code></p>
+<p><code>ReplicaSet</code> 支持基于集合的 Label Selector</p>
+<p><code>ReplicationController</code> 只支持基于等式的 Label Selector</p>
+<p>很少单独使用 <code>ReplicaSet</code>, 它主要被 <code>Deployment</code> 这个更高层的资源对象所使用</p>
+<h3 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h3><p><code>Deployment</code> 内部使用了 <code>ReplicaSet</code></p>
+<p><code>Deployment</code> 随时知道当前 Pod “部署”的进度</p>
+<h3 id="Horizontal-Pod-Autoscaler"><a href="#Horizontal-Pod-Autoscaler" class="headerlink" title="Horizontal Pod Autoscaler"></a>Horizontal Pod Autoscaler</h3><p>横向 Pod 自动扩容</p>
+<p>HPA</p>
+<p>HPA 也是一种资源对象</p>
+<p>HPA 通过跟踪分析指定 <code>ReplicaSet</code> 控制的所有目标 Pod 的负载变化情况, 来确定是否需要有针对性地调整目标 Pod 的<strong>副本数量</strong></p>
+<p>HPA 有如下 Pod 负载度量指标:</p>
+<ul>
+<li><code>CPUUtilizationPercentage</code></li>
+<li>应用程序自定义度量指标, 如 TPS, QPS</li>
+</ul>
+<p><code>CPUUtilizationPercentage</code> 是一个算数平均值, 即目标 Pod 所有副本自身的 CPU 利用率的平均值</p>
+<p>一个 Pod 自身的 CPU 利用率是该 Pod 当前 CPU 的使用量除以它的 Pod Request 的值</p>
+<p>如果目标 Pod 没有定义 Pod Request 的值, 则无法使用 <code>CPUUtilizationPercentage</code> 实现 Pod 的横向自动扩容</p>
+<p>在 <code>CPUUtilizationPercentage</code> 计算过程中使用到的 Pod 的 CPU 使用量通常是 1 min 内的平均值</p>
+<p>可以从 Kubernetes Monitoring Architecture 来获取目标资源对象的性能数据</p>
+<p>HPA 定义例子:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">autoscaling/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">HorizontalPodAutoscaler</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">php-apache</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">maxReplicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">minReplicas:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">scaleTargetRef:</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">php-apache</span></span><br><span class="line">  <span class="attr">targetCPUUtilizationPercentage:</span> <span class="number">90</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h3><p><code>StatefulSet</code> 里的每个 Pod 都有稳定的, 唯一的网络标识</p>
+<p><code>StatefulSet</code> 控制的 Pod 副本的启停顺序是受控的</p>
+<p><code>StatefulSet</code> 里的 Pod 采用稳定的持久化存储卷, 通过 PV 或 PVC 来实现</p>
+<p><code>StatefulSet</code> 除了要与 PV 卷捆绑使用以存储 Pod 的状态数据, 还要与 <code>Headless Service</code> 配合使用</p>
+<p>在每个 <code>StatefulSet</code> 定义中, 都要声明它属于哪个 <code>Headless Service</code></p>
+<p><code>Headless Service</code> 与普通 Service 的关键区别在于, 它没有 Cluster IP</p>
+<p>如果解析 <code>Headless Service</code> 的 DNS 域名, 则返回的是该 Service 对应的全部 Pod 的 Endpoint 列表</p>
+<p><code>StatefulSet</code> 在 <code>Headless Service</code> 的基础上又为 <code>StatefulSet</code> 控制的每个 Pod 实例都创建了一个 DNS 域名</p>
+<p>这个域名格式为: <code>$&#123;podname&#125;.$&#123;headless service name&#125;</code></p>
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>运行在每个 Node 上的 <code>kube-proxy</code> 进程负责把对 Service 的请求转发到后端的某个 Pod 实例上, 并在内部实现服务的负载均衡与会话保持机制</p>
+<p>每个 Service 都被分配了一个全局唯一的虚拟 IP 地址, 这个虚拟 IP 被称为 <code>Cluster IP</code></p>
+<p>在 Service 的整个生命周期中, 它的 <code>Cluster IP</code> 不会发生改变</p>
+<h5 id="外部系统访问-Service-的问题"><a href="#外部系统访问-Service-的问题" class="headerlink" title="外部系统访问 Service 的问题"></a>外部系统访问 Service 的问题</h5><ul>
+<li><code>Node IP</code>: Node 的 IP 地址</li>
+<li><code>Pod IP</code>: Pod 的 IP 地址</li>
+<li><code>Cluster IP</code>: Service 的 IP 地址</li>
+</ul>
+<p><code>Node IP</code> 是 Kubernetes 集群中每个节点的物理网卡的 IP 地址, 是一个真实存在的物理网络</p>
+<p><code>Pod IP</code>:</p>
+<ul>
+<li>是每个 Pod 的 IP 地址</li>
+<li>根据 docker0 网桥的 IP 地址段进行分配</li>
+<li>通常是一个虚拟的二层网络</li>
+<li>Kubernetes 要求位于不同 Node 上的 Pod 能够彼此直接通信, 所以 Kubernetes 里的一个 Pod 里的容器访问另一个 Pod 里的容器时, 就是通过 Pod IP 所在的虚拟二层网络进行通信的, 而真实的 TCP&#x2F;IP 流量是通过 Node IP 所在的物理网卡流出的</li>
+</ul>
+<p><code>Cluster IP</code>:</p>
+<ul>
+<li><code>Cluster IP</code> 仅作用于 Kubernetes Service 对象, 并由 Kubernetes 管理和分配 IP 地址</li>
+<li><code>Cluster IP</code> 无法被 Ping, 因为没有一个”实体网络对象”来响应</li>
+<li><code>Cluster IP</code> 只能结果 Service Port 组成一个具体的通信端口, 单独的 <code>Cluster IP</code> 不具备 TCP&#x2F;IP 通信的基础</li>
+<li>在 Kubernetes 集群内, <code>Node IP</code>,<code>Pod IP</code>,<code>Cluster IP</code> 之间的通信, 采用的是 Kubernetes 自己设计的一种编程方式的特殊路由规则</li>
+</ul>
+<p>Service 的 <code>Cluster IP</code> 属于 Kubernetes 集群内部的地址, 无法在集群外部直接使用这个地址</p>
+<p>可以采用 <code>NodePort</code> 来解决这个问题:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tomcat-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line">    <span class="attr">nodePort:</span> <span class="number">31002</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">tier:</span> <span class="string">frontend</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>http://&lt;nodePort IP&gt;:31002</code> 即可访问</p>
+<p><code>NodePort</code> 的实现方式是在 Kubernetes 集群里的每个 Node 上都为需要外部访问的 Service 开启一个对应的 TCP 监听端口, 外部系统只要用任意一个 Node 的 IP 地址加上具体的 NodePort 端口号即可访问此服务</p>
+<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><p>Job 生成的 Pod 副本是不能自动重启的, 对应的 Pod 副本的 <code>RestartPolicy</code> 都被设置成 <code>Never</code></p>
+<p>Job 所控制的 Pod 副本的工作模式能够多实例并行计算</p>
+<h3 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h3><p>Volume (存储卷) 是<strong>Pod 中</strong>能够被多个容器访问的共享目录</p>
+<p>Volume 被定义在 Pod 上</p>
+<p>使用:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">datavol</span></span><br><span class="line">      <span class="attr">emptyDir:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tomcat-demo</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">tomcat</span></span><br><span class="line">      <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/mydata-data</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">datavol</span></span><br><span class="line">      <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Volume-类型"><a href="#Volume-类型" class="headerlink" title="Volume 类型"></a>Volume 类型</h4><h5 id="emptyDir"><a href="#emptyDir" class="headerlink" title="emptyDir"></a><code>emptyDir</code></h5><p>一个 <code>emptyDir</code> Volume 是在 Pod 分配到 Node 时创建的</p>
+<p>初始内容为空, 无须指定宿主机上对应的目录文件</p>
+<p>因为这是 Kubernetes 自动分配的一个目录</p>
+<p>当 Pod 从 Node 移除时, <code>emptyDir</code> 中的数据也会被永久删除</p>
+<p><code>emptyDir</code> 的一些用途:</p>
+<ul>
+<li>临时空间</li>
+<li>CheckPoint 的临时保存目录</li>
+<li>多容器共享目录</li>
+</ul>
+<p>目前, 用户无法控制 <code>emptyDir</code> 使用的介质种类</p>
+<h5 id="hostPath"><a href="#hostPath" class="headerlink" title="hostPath"></a><code>hostPath</code></h5><p><code>hostPath</code> 为<strong>在 Pod 上</strong>挂载宿主机上的文件或目录</p>
+<p>用途:</p>
+<ul>
+<li>容器应用程序生成的日志文件需要永久保存时</li>
+<li>需要访问宿主机上 Docker 引擎内部数据结构的容器应用时, 可以通过定义 <code>hostPath</code> 为宿主机 <code>/var/lib/docker</code> 目录, 使容器内部应用可以直接访问 Docker 的文件系统</li>
+</ul>
+<p>注意:</p>
+<ul>
+<li>可能会因为宿主机上的目录和文件不同, 导致对 Volume 上目录和文件的访问结果不一致</li>
+<li>如果使用了资源配额管理, 则 Kubernetes 无法将 <code>hostPath</code> 在宿主机上使用的资源纳入管理</li>
+</ul>
+<h5 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a><code>NFS</code></h5><p>使用 NFS 网络文件系统提供的共享目录存储数据时, 需要在系统中部署一个 NFS Server</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs</span></span><br><span class="line">    <span class="attr">nfs:</span></span><br><span class="line">      <span class="attr">server:</span> <span class="string">nfs-server.localhost</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">&quot;/&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Persistent-Volume"><a href="#Persistent-Volume" class="headerlink" title="Persistent Volume"></a>Persistent Volume</h3><p>PV 可以理解为 Kubernetes 集群中的某个网络存储对应的一块存储</p>
+<ul>
+<li>PV 只能是网络存储, <strong>不属于</strong>任何 Node, 但可以在每个 Node 上访问</li>
+<li>PV 并不是被定义在 Pod 上的, 而是独立于 Pod 之外定义的</li>
+<li>PV 目前支持的类型包括<ul>
+<li>FC (Fibre Channel)</li>
+<li>Flocker</li>
+<li>NFS</li>
+<li>GlusterFS</li>
+<li>HostPath (仅供单机测试)</li>
+</ul>
+</li>
+</ul>
+<p>Example - NFS 类型的 PV 定义:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pv0003</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">5Gi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">nfs:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/somepath</span></span><br><span class="line">    <span class="attr">server:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+
+<p>PV 的 <code>accessModes</code> 属性:</p>
+<ul>
+<li><code>ReadWriteOnce</code>: 读写权限, 并且只能被单个 Node 挂载</li>
+<li><code>ReadOnlyMany</code>: 只读权限, 允许被多个 Node 挂载</li>
+<li><code>ReadWriteMany</code>: 读写权限, 允许被多个 Node 挂载</li>
+</ul>
+<p>如果某个 Pod 想申请某种类型的 PV, 则首先需要定义一个 <code>PersistentVolumeClaim</code> 对象:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myclaim</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">8Gi</span></span><br></pre></td></tr></table></figure>
+
+<p>然后, 在 Pod 的 Volume 定义中引用上述 <code>PersistentVolumeClaim</code> 即可:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">mypd</span></span><br><span class="line">    <span class="attr">persistentVolumeClaim:</span></span><br><span class="line">      <span class="attr">claimName:</span> <span class="string">myclaim</span></span><br></pre></td></tr></table></figure>
+
+<p>PV 是有状态的对象:</p>
+<ul>
+<li><code>Available</code>: 空闲状态</li>
+<li><code>Bound</code>: 已经绑定到某个 PVC 上</li>
+<li><code>Released</code>: 对应的 PVC 已经被删除, 但资源还没有被集群回收</li>
+<li><code>Failed</code>: PV 自动回收失败</li>
+</ul>
+<h3 id="Namespace"><a href="#Namespace" class="headerlink" title="Namespace"></a>Namespace</h3><p>用于实现多租户的资源隔离</p>
+<p>默认会创建并使用一个名称为 <code>default</code> 的 Namespace</p>
+<p>使用 <code>--namespace</code> 参数来指定 Namespace</p>
+<h3 id="Annotation"><a href="#Annotation" class="headerlink" title="Annotation"></a>Annotation</h3><p>用户任意定义的附加信息</p>
+<h3 id="ConfigMap"><a href="#ConfigMap" class="headerlink" title="ConfigMap"></a>ConfigMap</h3><p>配置项可以作为 Map 表中的一个项, 整个 Map 的数据可以被持久化存储在 Kubernetes 的 Etcd 数据库中, 然后提供 API 以方便 Kubernetes 相关组件或客户应用 CRUD 操作这些数据</p>
+<p>这个专门用来保存配置参数的 Map 就是 Kubernetes ConfigMap 资源对象</p>
+<p>Kubernetes 提供了一种内建机制, 将存储在 etcd 中的 ConfigMap 通过 Volume 映射的方式变成目标 Pod 内的配置文件</p>
+<p>不管目标 Pod 被调度到哪台服务器上, 都会完成自动映射</p>
+<p>如果 ConfigMap 中的 key-value 数据被修改, 则映射到 Pod 中的”配置文件”也会随之自动更新</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Kubernetes 入门</li>
+        <li>本文作者：林威羽</li>
+        <li>创建时间：2022-06-15 16:40:35</li>
+        <li>
+            本文链接：https://linweiyu21.github.io/k8s/kubernetes-权威指南/kubernetes-入门/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Notes/">#Notes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/k8s/kubernetes-%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/kubectl-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">kubectl 命令工具</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/k8s/common-kubectl-command/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">常用的 kubectl 命令</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8xWQ0WFbKUNN4h8ixIO12etk-gzGzoHsz',
+                    appKey: '7cLjTvkIsF6aIuIVSd0um89m',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请开始你的表演',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '林威羽';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">林威羽</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD"><span class="nav-number">2.</span> <span class="nav-text">Kubernetes 的基本概念和术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master"><span class="nav-number">2.1.</span> <span class="nav-text">Master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node"><span class="nav-number">2.2.</span> <span class="nav-text">Node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod"><span class="nav-number">2.3.</span> <span class="nav-text">Pod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Label"><span class="nav-number">2.4.</span> <span class="nav-text">Label</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReplicationController"><span class="nav-number">2.5.</span> <span class="nav-text">ReplicationController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deployment"><span class="nav-number">2.6.</span> <span class="nav-text">Deployment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Horizontal-Pod-Autoscaler"><span class="nav-number">2.7.</span> <span class="nav-text">Horizontal Pod Autoscaler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StatefulSet"><span class="nav-number">2.8.</span> <span class="nav-text">StatefulSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Service"><span class="nav-number">2.9.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%B3%BB%E7%BB%9F%E8%AE%BF%E9%97%AE-Service-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.9.0.1.</span> <span class="nav-text">外部系统访问 Service 的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Job"><span class="nav-number">2.10.</span> <span class="nav-text">Job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Volume"><span class="nav-number">2.11.</span> <span class="nav-text">Volume</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Volume-%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.11.1.</span> <span class="nav-text">Volume 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#emptyDir"><span class="nav-number">2.11.1.1.</span> <span class="nav-text">emptyDir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hostPath"><span class="nav-number">2.11.1.2.</span> <span class="nav-text">hostPath</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NFS"><span class="nav-number">2.11.1.3.</span> <span class="nav-text">NFS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Persistent-Volume"><span class="nav-number">2.12.</span> <span class="nav-text">Persistent Volume</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Namespace"><span class="nav-number">2.13.</span> <span class="nav-text">Namespace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Annotation"><span class="nav-number">2.14.</span> <span class="nav-text">Annotation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigMap"><span class="nav-number">2.15.</span> <span class="nav-text">ConfigMap</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

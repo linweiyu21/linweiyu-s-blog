@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Micronaut,Groovy,Gradle,Java,文档,中文">
+    <meta name="description" content="Micronaut Groovy Gradle Java 文档 中文">
+    <meta name="author" content="林威羽">
+    
+    <title>
+        
+            Micronaut 中文文档 Configurations |
+        
+        林威羽的笔记
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"rgb(153,153,0)","avatar":"/images/avatar.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"400px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"def contains🚀 = ['Micronaut', 'Groovy', 'Gradle', 'etc']"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                林威羽的笔记
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/linweiyu21/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
+        viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+        aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg></a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+
+      @keyframes octocat-wave {
+
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Micronaut 中文文档 Configurations</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">林威羽</span>
+                        
+                            <span class="author-label">Lv8</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-04-29 09:47:42</span>
+        <span class="mobile">2022-04-29 09:47</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Micronaut-%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/">Micronaut 中文文档</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Micronaut/">Micronaut</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Groovy/">Groovy</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%B8%AD%E6%96%87/">中文</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <!-- TOC -->
+
+<ul>
+<li><a href="#configurations">Configurations</a><ul>
+<li><a href="#configurations-for-reactive-programming-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%9A%84%E9%85%8D%E7%BD%AE">Configurations for Reactive Programming (响应式编程的配置)</a><ul>
+<li><a href="#reactor-support-reactor-%E6%94%AF%E6%8C%81">Reactor Support (Reactor 支持)</a></li>
+<li><a href="#rxjava-3-support-rxjava-3-%E6%94%AF%E6%8C%81">RxJava 3 Support (RxJava 3 支持)</a></li>
+<li><a href="#rxjava-2-support-rxjava-2-%E6%94%AF%E6%8C%81">RxJava 2 Support (RxJava 2 支持)</a></li>
+</ul>
+</li>
+<li><a href="#configurations-for-data-access-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E7%9A%84%E9%85%8D%E7%BD%AE">Configurations for Data Access (数据访问的配置)</a><ul>
+<li><a href="#configuring-a-sql-data-source-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA-sql-%E6%95%B0%E6%8D%AE%E6%BA%90">Configuring a SQL Data Source (配置一个 SQL 数据源)</a><ul>
+<li><a href="#configuring-a-jdbc-datasource-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA-jdbc-%E6%95%B0%E6%8D%AE%E6%BA%90">Configuring a JDBC DataSource (配置一个 JDBC 数据源)</a></li>
+</ul>
+</li>
+<li><a href="#configuring-hibernate-%E9%85%8D%E7%BD%AE-hibernate">Configuring Hibernate (配置 Hibernate)</a><ul>
+<li><a href="#setting-up-a-hibernatejpa-entitymanager-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA-hibernatejpa-entitymanager">Setting up a Hibernate&#x2F;JPA EntityManager (配置一个 Hibernate&#x2F;JPA EntityManager)</a></li>
+<li><a href="#using-gorm-for-hibernate-%E4%B8%BA-hibernate-%E4%BD%BF%E7%94%A8-gorm">Using GORM for Hibernate (为 Hibernate 使用 GORM)</a></li>
+</ul>
+</li>
+<li><a href="#configuring-mongodb-%E9%85%8D%E7%BD%AE-mongodb">Configuring MongoDB (配置 MongoDB)</a><ul>
+<li><a href="#setting-up-the-native-mongodb-driver-%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%94%9F-mongodb-%E9%A9%B1%E5%8A%A8">Setting up the Native MongoDB Driver (配置原生 MongoDB 驱动)</a></li>
+</ul>
+</li>
+<li><a href="#configuring-neo4j-%E9%85%8D%E7%BD%AE-neo4j">Configuring Neo4j (配置 Neo4j)</a></li>
+<li><a href="#configuring-postgres-%E9%85%8D%E7%BD%AE-postgres">Configuring Postgres (配置 Postgres)</a><ul>
+<li><a href="#configuring-the-reactive-postgres-client-%E9%85%8D%E7%BD%AE%E6%B5%81%E5%BC%8F-postgres-%E5%AE%A2%E6%88%B7%E7%AB%AF">Configuring the Reactive Postgres Client (配置流式 Postgres 客户端)</a></li>
+</ul>
+</li>
+<li><a href="#configuring-redis-%E9%85%8D%E7%BD%AE-redis">Configuring Redis (配置 Redis)</a><ul>
+<li><a href="#configuring-lettuce">Configuring Lettuce</a></li>
+</ul>
+</li>
+<li><a href="#configuring-cassandra-%E9%85%8D%E7%BD%AE-cassandra">Configuring Cassandra (配置 Cassandra)</a></li>
+<li><a href="#configuring-liquibase-%E9%85%8D%E7%BD%AE-liquibase">Configuring Liquibase (配置 Liquibase)</a></li>
+<li><a href="#configuring-flyway-%E9%85%8D%E7%BD%AE-flyway">Configuring Flyway (配置 Flyway)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+
+<h1 id="Configurations"><a href="#Configurations" class="headerlink" title="Configurations"></a>Configurations</h1><p><strong>声明</strong>:</p>
+<ul>
+<li>本文由本人翻译自<a class="link"   target="_blank" rel="noopener" href="https://docs.micronaut.io/latest/guide" >官方文档<i class="fas fa-external-link-alt"></i></a></li>
+<li>部分内容可能会有修改或删减, 一切以官方文档为准.</li>
+<li>本文翻译时 Micronaut 版本为 3.4.2</li>
+</ul>
+<p>Micronaut 提供了许多内置配置来开启与常见数据库或其他 servers 的集成</p>
+<h2 id="Configurations-for-Reactive-Programming-响应式编程的配置"><a href="#Configurations-for-Reactive-Programming-响应式编程的配置" class="headerlink" title="Configurations for Reactive Programming (响应式编程的配置)"></a>Configurations for Reactive Programming (响应式编程的配置)</h2><p><a class="link"   target="_blank" rel="noopener" href="https://projectreactor.io/" >Project Reactor<i class="fas fa-external-link-alt"></i></a> 被 Micronaut 内置使用</p>
+<p>但是要在 Controller 或 HTTP client 方法中使用 Reactor 或其他响应式库 (例如 RxJava) 类型, 需要包含对应的依赖到你的构建中</p>
+<h3 id="Reactor-Support-Reactor-支持"><a href="#Reactor-Support-Reactor-支持" class="headerlink" title="Reactor Support (Reactor 支持)"></a>Reactor Support (Reactor 支持)</h3><p>要添加 Reactor 的支持 添加如下模块:</p>
+<p><code>implementation(&quot;io.micronaut.reactor:micronaut-reactor&quot;)</code></p>
+<p>要使用 Reactor HTTP client, 添加如下依赖:</p>
+<p><code>implementation(&quot;io.micronaut.reactor:micronaut-reactor-http-client&quot;)</code></p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-reactor/latest/guide/" >Micronaut Reactor<i class="fas fa-external-link-alt"></i></a> 获取更多信息</p>
+<h3 id="RxJava-3-Support-RxJava-3-支持"><a href="#RxJava-3-Support-RxJava-3-支持" class="headerlink" title="RxJava 3 Support (RxJava 3 支持)"></a>RxJava 3 Support (RxJava 3 支持)</h3><p>要添加 RxJava3 的支持 添加如下模块:</p>
+<p><code>implementation(&quot;io.micronaut.rxjava3:micronaut-rxjava3&quot;)</code></p>
+<p>要使用 RxJava3 HTTP client, 添加如下依赖:</p>
+<p><code>implementation(&quot;io.micronaut.rxjava3:micronaut-rxjava3-http-client&quot;)</code></p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-rxjava3/latest/guide/" >Micronaut RxJava 3<i class="fas fa-external-link-alt"></i></a> 获取更多信息</p>
+<h3 id="RxJava-2-Support-RxJava-2-支持"><a href="#RxJava-2-Support-RxJava-2-支持" class="headerlink" title="RxJava 2 Support (RxJava 2 支持)"></a>RxJava 2 Support (RxJava 2 支持)</h3><p>对 RxJava 1 的遗留支持通过添加如下模块:</p>
+<p><code>implementation(&quot;io.micronaut.rxjava1:micronaut-rxjava1&quot;)</code></p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-rxjava1/latest/guide/" >Micronaut RxJava 1<i class="fas fa-external-link-alt"></i></a> 获取更多信息</p>
+<h2 id="Configurations-for-Data-Access-数据访问的配置"><a href="#Configurations-for-Data-Access-数据访问的配置" class="headerlink" title="Configurations for Data Access (数据访问的配置)"></a>Configurations for Data Access (数据访问的配置)</h2><p>下表总结了要添加到构建以启用它们的配置模块和依赖</p>
+<p>Table - Data Access Configuration Modules:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Dependency</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">io.micronaut.sql:micronaut-jdbc-dbcp</td>
+<td align="left">Configures SQL DataSources using <a class="link"   target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-dbcp/" >Commons DBCP<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.sql:micronaut-jdbc-hikari</td>
+<td align="left">Configures SQL DataSources using <a class="link"   target="_blank" rel="noopener" href="https://github.com/brettwooldridge/HikariCP" >Hikari Connection Pool<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.sql:micronaut-jdbc-tomcat</td>
+<td align="left">Configures SQL DataSources using <a class="link"   target="_blank" rel="noopener" href="https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html" >Tomcat Connection Pool<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.sql:micronaut-hibernate-jpa</td>
+<td align="left">Configures Hibernate&#x2F;JPA EntityManagerFactory beans</td>
+</tr>
+<tr>
+<td align="left">io.micronaut.groovy:micronaut-hibernate-gorm</td>
+<td align="left">Configures <a class="link"   target="_blank" rel="noopener" href="https://gorm.grails.org/latest/hibernate/manual" >GORM for Hibernate<i class="fas fa-external-link-alt"></i></a> for Groovy applications</td>
+</tr>
+<tr>
+<td align="left">io.micronaut.mongodb:micronaut-mongo-reactive</td>
+<td align="left">Configures the <a class="link"   target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver-reactivestreams" >MongoDB Reactive Driver<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.groovy:micronaut-mongo-gorm</td>
+<td align="left">Configures <a class="link"   target="_blank" rel="noopener" href="https://gorm.grails.org/latest/mongodb/manual" >GORM for MongoDB<i class="fas fa-external-link-alt"></i></a> for Groovy applications</td>
+</tr>
+<tr>
+<td align="left">io.micronaut.neo4j:micronaut-neo4j-bolt</td>
+<td align="left">Configures the <a class="link"   target="_blank" rel="noopener" href="https://github.com/neo4j/neo4j-java-driver" >Bolt Java Driver<i class="fas fa-external-link-alt"></i></a> for <a class="link"   target="_blank" rel="noopener" href="https://neo4j.com/" >Neo4j<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.groovy:micronaut-neo4j-gorm</td>
+<td align="left">Configures <a class="link"   target="_blank" rel="noopener" href="https://gorm.grails.org/latest/neo4j/manual" >GORM for Neo4j<i class="fas fa-external-link-alt"></i></a> for Groovy applications</td>
+</tr>
+<tr>
+<td align="left">io.micronaut.sql:micronaut-vertx-mysql-client</td>
+<td align="left">Configures the <a class="link"   target="_blank" rel="noopener" href="https://github.com/eclipse-vertx/vertx-sql-client/tree/master/vertx-mysql-client" >Reactive MySQL Client<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.sql:micronaut-vertx-pg-client</td>
+<td align="left">Configures the <a class="link"   target="_blank" rel="noopener" href="https://github.com/eclipse-vertx/vertx-sql-client/tree/master/vertx-pg-client" >Reactive Postgres Client<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.redis:micronaut-redis-lettuce</td>
+<td align="left">Configures the <a class="link"   target="_blank" rel="noopener" href="https://lettuce.io/" >Lettuce<i class="fas fa-external-link-alt"></i></a> driver for <a class="link"   target="_blank" rel="noopener" href="https://redis.io/" >Redis<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td align="left">io.micronaut.cassandra:micronaut-cassandra</td>
+<td align="left">Configures the <a class="link"   target="_blank" rel="noopener" href="https://github.com/datastax/java-driver" >Datastax Java Driver<i class="fas fa-external-link-alt"></i></a> for <a class="link"   target="_blank" rel="noopener" href="https://cassandra.apache.org/" >Cassandra<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+</tbody></table>
+<p>例如, 要添加 MongoDB 的支持, 添加如下依赖:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// build.gradle</span></span><br><span class="line"><span class="keyword">compile</span> <span class="string">&quot;io.micronaut.mongodb:micronaut-mongo-reactive&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>对于 Groovy 用户, Micronaut 对 <a class="link"   target="_blank" rel="noopener" href="https://gorm.grails.org/" >GORM<i class="fas fa-external-link-alt"></i></a> 提供了额外支持</p>
+<p>对于 Hibernate 的 GORM, 你不能同时有 hibernate-jpa 和 hibernate-gorm 依赖</p>
+<p>下面的章节更加深入每个实现的配置选项的细节和暴露出来的 Beans</p>
+<h3 id="Configuring-a-SQL-Data-Source-配置一个-SQL-数据源"><a href="#Configuring-a-SQL-Data-Source-配置一个-SQL-数据源" class="headerlink" title="Configuring a SQL Data Source (配置一个 SQL 数据源)"></a>Configuring a SQL Data Source (配置一个 SQL 数据源)</h3><p>可以使用当前默认支持的三种实现之一来配置 JDBC 数据源 - Apache DBCP2, Hikari 和 Tomcat</p>
+<h4 id="Configuring-a-JDBC-DataSource-配置一个-JDBC-数据源"><a href="#Configuring-a-JDBC-DataSource-配置一个-JDBC-数据源" class="headerlink" title="Configuring a JDBC DataSource (配置一个 JDBC 数据源)"></a>Configuring a JDBC DataSource (配置一个 JDBC 数据源)</h4><p>如果你使用 Micronaut CLI 来创建你的项目, 那么你可以添加 <code>jdbc-tomcat</code>,<code>jdbc-hikari</code>,<code>jdbc-dbcp</code> 中的一个特性来预配置一个简单的 JDBC 连接池以及一个默认的 H2 数据库驱动到你的项目中:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mn create-app my-app --features jdbc-tomcat</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>To get started, add a dependency for one of the JDBC configurations that corresponds to the implementation you will use. Choose one of the following:</p>
+</blockquote>
+<p>首先, 为其中一个 对应你要使用的实现的 JDBC 配置添加一个依赖, 选择下面中的一个:</p>
+<p><code>runtimeOnly(&quot;io.micronaut.sql:micronaut-jdbc-tomcat&quot;)</code></p>
+<p><code>runtimeOnly(&quot;io.micronaut.sql:micronaut-jdbc-hikari&quot;)</code></p>
+<p><code>runtimeOnly(&quot;io.micronaut.sql:micronaut-jdbc-dbcp&quot;)</code></p>
+<p><code>runtimeOnly(&quot;io.micronaut.sql:micronaut-jdbc-ucp&quot;)</code></p>
+<p>然后, 添加一个 JDBC 驱动依赖到你的构建中. 例如, 添加 <a class="link"   target="_blank" rel="noopener" href="https://www.h2database.com/" >H2 In-Memory Database<i class="fas fa-external-link-alt"></i></a>:</p>
+<p><code>runtimeOnly(&quot;com.h2database:h2&quot;)</code></p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://github.com/micronaut-projects/micronaut-sql" >Micronuat SQL libraries<i class="fas fa-external-link-alt"></i></a> 项目的 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc" >Configuration JDBC<i class="fas fa-external-link-alt"></i></a> 章节获取更多信息</p>
+<h3 id="Configuring-Hibernate-配置-Hibernate"><a href="#Configuring-Hibernate-配置-Hibernate" class="headerlink" title="Configuring Hibernate (配置 Hibernate)"></a>Configuring Hibernate (配置 Hibernate)</h3><h4 id="Setting-up-a-Hibernate-x2F-JPA-EntityManager-配置一个-Hibernate-x2F-JPA-EntityManager"><a href="#Setting-up-a-Hibernate-x2F-JPA-EntityManager-配置一个-Hibernate-x2F-JPA-EntityManager" class="headerlink" title="Setting up a Hibernate&#x2F;JPA EntityManager (配置一个 Hibernate&#x2F;JPA EntityManager)"></a>Setting up a Hibernate&#x2F;JPA EntityManager (配置一个 Hibernate&#x2F;JPA EntityManager)</h4><p>如果你使用 Micronaut CLI 创建你的项目, 添加 <code>hibernate-jpa</code> 功能来包含一个 Hibernate JPA 配置到你的项目中:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mn create-app my-app --features hibernate-jpa</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Micronaut includes support for configuring a Hibernate &#x2F; JPA EntityManager that builds on the SQL DataSource support.</p>
+</blockquote>
+<p>Micronaut 包括了配置一个构建在 <a class="link"   target="_blank" rel="noopener" href="https://docs.micronaut.io/latest/guide/#sqlSupport" >SQL DataSource support<i class="fas fa-external-link-alt"></i></a> 上的 <a class="link"   target="_blank" rel="noopener" href="https://hibernate.org/" >Hibernate<i class="fas fa-external-link-alt"></i></a>&#x2F;JPA <code>EntityManager</code> 的支持</p>
+<p>Micronaut 可以配置一个构建于 <a class="link"   target="_blank" rel="noopener" href="https://docs.micronaut.io/latest/guide/#sqlSupport" >SQL DataSource support<i class="fas fa-external-link-alt"></i></a> 的<a class="link"   target="_blank" rel="noopener" href="https://hibernate.org/" >Hibernate<i class="fas fa-external-link-alt"></i></a>&#x2F;JPA <code>EntityManager</code></p>
+<p>一旦你已经 <a class="link"   target="_blank" rel="noopener" href="https://docs.micronaut.io/latest/guide/#sqlSupport" >配置一个或多个数据源<i class="fas fa-external-link-alt"></i></a> 来使用 Hibernate, 那就添加 <code>hibernate-jpa</code> 依赖到你的构建中:</p>
+<p><code>implementation(&quot;io.micronaut.sql:micronaut-hibernate-jpa&quot;)</code></p>
+<h4 id="Using-GORM-for-Hibernate-为-Hibernate-使用-GORM"><a href="#Using-GORM-for-Hibernate-为-Hibernate-使用-GORM" class="headerlink" title="Using GORM for Hibernate (为 Hibernate 使用 GORM)"></a>Using GORM for Hibernate (为 Hibernate 使用 GORM)</h4><p>对于 Groovy 用户和熟悉 Grails 框架的用户, 可以使用对 <a class="link"   target="_blank" rel="noopener" href="https://gorm.grails.org/" >GORM for Hibernate<i class="fas fa-external-link-alt"></i></a> 的特殊支持</p>
+<p>要为 Hibernate 使用 GORM 不要包含 Micronaut 内置的 <a class="link"   target="_blank" rel="noopener" href="https://docs.micronaut.io/latest/guide/#sqlSupport" >SQL Support<i class="fas fa-external-link-alt"></i></a> 和 <code>hibernate-jpa</code> 依赖, 因为 GORM 本身负责创建 &#96;&#96;DataSource<code>,</code>SessionFactory&#96;等</p>
+<p>如果你使用 Micronaut CLI 创建项目, 添加 <code>hibernate-gorm</code> 功能来包含 GORM, 一个基础的连接池配置和一个默认的 H2 数据库驱动到你的项目中:</p>
+<p><code>mn create-app my-app --features hibernate-gorm</code></p>
+<h3 id="Configuring-MongoDB-配置-MongoDB"><a href="#Configuring-MongoDB-配置-MongoDB" class="headerlink" title="Configuring MongoDB (配置 MongoDB)"></a>Configuring MongoDB (配置 MongoDB)</h3><h4 id="Setting-up-the-Native-MongoDB-Driver-配置原生-MongoDB-驱动"><a href="#Setting-up-the-Native-MongoDB-Driver-配置原生-MongoDB-驱动" class="headerlink" title="Setting up the Native MongoDB Driver (配置原生 MongoDB 驱动)"></a>Setting up the Native MongoDB Driver (配置原生 MongoDB 驱动)</h4><p>如果你使用 Micronaut CLI 创建项目, 添加 <code>mongo-reactive</code> 功能来配置原生 MongoDB 驱动到你的项目中:</p>
+<p><code>mn create-app my-app --features mongo-reactive</code></p>
+<p>Micronaut 可以自动配置原生 MongoDB Java 驱动. 要使用这个, 添加如下依赖到你的构建中:</p>
+<p><code>implementation(&quot;io.micronaut.mongodb:micronaut-mongo-reactive&quot;)</code></p>
+<p>然后在 <code>application.yml</code> 中配置 MongoDB server 的 URI:</p>
+<p>Example - Configuring a MongoDB server:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mongodb:</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">mongodb://username:password@localhost:27017/databaseName</span></span><br></pre></td></tr></table></figure>
+
+<p><code>mongodb.uri</code> 使用 <a class="link"   target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/connection-string/" >MongoDB Connection String<i class="fas fa-external-link-alt"></i></a> 格式</p>
+<p>然后一个非阻塞的响应式流 <a class="link"   target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver-reactivestreams/1.8/javadoc/com/mongodb/reactivestreams/client/MongoClient.html" >MongoClient<i class="fas fa-external-link-alt"></i></a> 就可以在依赖注入中使用</p>
+<p>要使用阻塞驱动, 在 mongo-java-driver 上为您的构建添加依赖项:</p>
+<p><code>compile &quot;org.mongodb:mongo-java-client&quot;</code></p>
+<p>然后阻塞的 <a class="link"   target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.7/javadoc/com/mongodb/MongoClient.html" >MongoDB<i class="fas fa-external-link-alt"></i></a> 将会在注入中可用</p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-mongodb/latest/guide/" >Micronaut MongoDB<i class="fas fa-external-link-alt"></i></a> 文档获取更多配置与在 Micronaut 中使用 MongoDB 的信息</p>
+<h3 id="Configuring-Neo4j-配置-Neo4j"><a href="#Configuring-Neo4j-配置-Neo4j" class="headerlink" title="Configuring Neo4j (配置 Neo4j)"></a>Configuring Neo4j (配置 Neo4j)</h3><p>Micronaut 支持为流行的 <a class="link"   target="_blank" rel="noopener" href="https://neo4j.com/" >Neo4j<i class="fas fa-external-link-alt"></i></a> 图形数据库自动配置 <a class="link"   target="_blank" rel="noopener" href="https://neo4j.com/docs/developer-manual/current/drivers/" >Neo4j Bolt 驱动<i class="fas fa-external-link-alt"></i></a></p>
+<p>如果你使用 Micronaut CLI 创建项目, 添加 <code>neo4j-bolt</code> 功能来配置 Neo4j Bolt 驱动到你的项目中:</p>
+<p><code>mn create-app my-app --features neo4j-bolt</code></p>
+<p>要配置 Neo4j Bolt 驱动, 首先添加 <code>neo4j-bolt</code> 模块到你的构建中:</p>
+<p><code>implementation(&quot;io.micronaut:micronaut-neo4j-bolt&quot;)</code></p>
+<p>然后在 <code>application.yml</code> 中配置 Neo4j server 的 URI:</p>
+<p>Example - Configuring <code>neo4j.uri</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">neo4j:</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">bolt://localhost</span></span><br></pre></td></tr></table></figure>
+
+<p><code>neo4j.uri</code> 设置的格式必须是 Neo4j 文档的 <a class="link"   target="_blank" rel="noopener" href="https://neo4j.com/docs/developer-manual/current/drivers/client-applications/#driver-connection-uris" >Connection URIs<i class="fas fa-external-link-alt"></i></a> 章节中描述的格式</p>
+<p>一旦上面的配置就绪, 你就可以注入一个 <code>org.neo4j.driver.v1.Driver</code> Bean 实例, 这个 bean 同时提供同步阻塞 API 和基于 <code>CompletableFuture</code> 的非阻塞 API</p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-neo4j/latest/guide/" >Micronaut Neo4j<i class="fas fa-external-link-alt"></i></a> 文档获取更多关于配置和在 Micronaut 中使用 Neo4j 的信息</p>
+<h3 id="Configuring-Postgres-配置-Postgres"><a href="#Configuring-Postgres-配置-Postgres" class="headerlink" title="Configuring Postgres (配置 Postgres)"></a>Configuring Postgres (配置 Postgres)</h3><p>Micronaut 通过 <a class="link"   target="_blank" rel="noopener" href="https://github.com/eclipse-vertx/vertx-sql-client/tree/master/vertx-pg-client" >vertx-pg-client<i class="fas fa-external-link-alt"></i></a> 支持流式的非阻塞 client 来连接 Postgres, 这个 client 可以使用一个线程来处理多个数据库连接</p>
+<h4 id="Configuring-the-Reactive-Postgres-Client-配置流式-Postgres-客户端"><a href="#Configuring-the-Reactive-Postgres-Client-配置流式-Postgres-客户端" class="headerlink" title="Configuring the Reactive Postgres Client (配置流式 Postgres 客户端)"></a>Configuring the Reactive Postgres Client (配置流式 Postgres 客户端)</h4><p>如果你使用 Micronaut CLI 创建项目, 添加 <code>vertx-pg-client</code> 功能来配置响应式 Postgres 客户端到你的项目中:</p>
+<p><code>mn create-app my-app --features vertx-pg-client</code></p>
+<p>要配置流式 Postgres 客户端, 首先添加 <code>vertx-pg-client</code> 模块到你的构建中:</p>
+<p><code>compile &quot;io.micronaut.sql:micronaut-vertx-pg-client&quot;</code></p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://github.com/micronaut-projects/micronaut-sql" >Micronaut SQL libraries<i class="fas fa-external-link-alt"></i></a> 项目的 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#pgclient" >Configuring Reactive Postgres<i class="fas fa-external-link-alt"></i></a> 章节获取更多信息</p>
+<h3 id="Configuring-Redis-配置-Redis"><a href="#Configuring-Redis-配置-Redis" class="headerlink" title="Configuring Redis (配置 Redis)"></a>Configuring Redis (配置 Redis)</h3><p>Micronaut 通过 <code>redis-lettuce</code> 模块为 <a class="link"   target="_blank" rel="noopener" href="https://redis.io/" >Redis<i class="fas fa-external-link-alt"></i></a> 自动配置 <a class="link"   target="_blank" rel="noopener" href="https://lettuce.io/" >Lettuce<i class="fas fa-external-link-alt"></i></a> 驱动</p>
+<h4 id="Configuring-Lettuce"><a href="#Configuring-Lettuce" class="headerlink" title="Configuring Lettuce"></a>Configuring Lettuce</h4><p>如果你使用 Micronaut CLI 创建项目, 添加 <code>redis-lettuce</code> 功能来配置 Lettuce 驱动到你的项目中:</p>
+<p><code>mn create-app my-app --features redis-lettuce</code></p>
+<p>要配置 Lettuce 驱动, 首先添加 <code>redis-lettuce</code> 模块到你的项目中:</p>
+<p><code>compile &quot;io.micronaut.redis:micronaut-redis-lettuce&quot;</code></p>
+<p>然后在 <code>application.yml</code> 中配置 Redis server 的 URI:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">redis:</span></span><br><span class="line">    <span class="attr">uri:</span> <span class="string">redis://localhost</span></span><br></pre></td></tr></table></figure>
+
+<p><code>redis.uri</code> 配置必须是 Lettuce wiki 的 <a class="link"   target="_blank" rel="noopener" href="https://github.com/lettuce-io/lettuce-core/wiki/Redis-URI-and-connection-details" >Connection URIs<i class="fas fa-external-link-alt"></i></a> 章节中描述的格式</p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-redis/latest/guide" >Micronaut Redis<i class="fas fa-external-link-alt"></i></a> 获取更多信息</p>
+<h3 id="Configuring-Cassandra-配置-Cassandra"><a href="#Configuring-Cassandra-配置-Cassandra" class="headerlink" title="Configuring Cassandra (配置 Cassandra)"></a>Configuring Cassandra (配置 Cassandra)</h3><p>如果你使用 Micronaut CLI 创建项目, 添加 <code>cassandra</code> 功能来包含 Cassandra 配置到你的项目中:</p>
+<p><code>mn create-app my-app --features cassandra</code></p>
+<p>查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-cassandra/latest/guide/" >Micronaut Cassandra Module<i class="fas fa-external-link-alt"></i></a> 文档获取更多信息</p>
+<h3 id="Configuring-Liquibase-配置-Liquibase"><a href="#Configuring-Liquibase-配置-Liquibase" class="headerlink" title="Configuring Liquibase (配置 Liquibase)"></a>Configuring Liquibase (配置 Liquibase)</h3><p>要配置 Micronaut 集成 <a class="link"   target="_blank" rel="noopener" href="https://www.liquibase.org/" >Liquibase<i class="fas fa-external-link-alt"></i></a>, 查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-liquibase/latest/guide/index.html" >these instructions<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="Configuring-Flyway-配置-Flyway"><a href="#Configuring-Flyway-配置-Flyway" class="headerlink" title="Configuring Flyway (配置 Flyway)"></a>Configuring Flyway (配置 Flyway)</h3><p>要配置 Micronaut 集成 <a class="link"   target="_blank" rel="noopener" href="https://flywaydb.org/" >Flyway<i class="fas fa-external-link-alt"></i></a>, 查看 <a class="link"   target="_blank" rel="noopener" href="https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html" >these instructions<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Micronaut 中文文档 Configurations</li>
+        <li>本文作者：林威羽</li>
+        <li>创建时间：2022-04-29 09:47:42</li>
+        <li>
+            本文链接：https://linweiyu21.github.io/micronaut/micronaut-configurations/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Micronaut/">#Micronaut</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Groovy/">#Groovy</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E4%B8%AD%E6%96%87/">#中文</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/micronaut/micronaut-logging/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Micronaut 中文文档 Logging</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/micronaut/micronaut-standalone-command-line-applications/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Micronaut 中文文档 Standalone Command Line Applications</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8xWQ0WFbKUNN4h8ixIO12etk-gzGzoHsz',
+                    appKey: '7cLjTvkIsF6aIuIVSd0um89m',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请开始你的表演',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '林威羽';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">林威羽</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Configurations"><span class="nav-number">1.</span> <span class="nav-text">Configurations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Configurations-for-Reactive-Programming-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">Configurations for Reactive Programming (响应式编程的配置)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reactor-Support-Reactor-%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.1.</span> <span class="nav-text">Reactor Support (Reactor 支持)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RxJava-3-Support-RxJava-3-%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">RxJava 3 Support (RxJava 3 支持)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RxJava-2-Support-RxJava-2-%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">RxJava 2 Support (RxJava 2 支持)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configurations-for-Data-Access-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">Configurations for Data Access (数据访问的配置)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-a-SQL-Data-Source-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA-SQL-%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">Configuring a SQL Data Source (配置一个 SQL 数据源)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configuring-a-JDBC-DataSource-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA-JDBC-%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Configuring a JDBC DataSource (配置一个 JDBC 数据源)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Hibernate-%E9%85%8D%E7%BD%AE-Hibernate"><span class="nav-number">1.2.2.</span> <span class="nav-text">Configuring Hibernate (配置 Hibernate)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Setting-up-a-Hibernate-x2F-JPA-EntityManager-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA-Hibernate-x2F-JPA-EntityManager"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Setting up a Hibernate&#x2F;JPA EntityManager (配置一个 Hibernate&#x2F;JPA EntityManager)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-GORM-for-Hibernate-%E4%B8%BA-Hibernate-%E4%BD%BF%E7%94%A8-GORM"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Using GORM for Hibernate (为 Hibernate 使用 GORM)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-MongoDB-%E9%85%8D%E7%BD%AE-MongoDB"><span class="nav-number">1.2.3.</span> <span class="nav-text">Configuring MongoDB (配置 MongoDB)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Setting-up-the-Native-MongoDB-Driver-%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%94%9F-MongoDB-%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">Setting up the Native MongoDB Driver (配置原生 MongoDB 驱动)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Neo4j-%E9%85%8D%E7%BD%AE-Neo4j"><span class="nav-number">1.2.4.</span> <span class="nav-text">Configuring Neo4j (配置 Neo4j)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Postgres-%E9%85%8D%E7%BD%AE-Postgres"><span class="nav-number">1.2.5.</span> <span class="nav-text">Configuring Postgres (配置 Postgres)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configuring-the-Reactive-Postgres-Client-%E9%85%8D%E7%BD%AE%E6%B5%81%E5%BC%8F-Postgres-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">Configuring the Reactive Postgres Client (配置流式 Postgres 客户端)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Redis-%E9%85%8D%E7%BD%AE-Redis"><span class="nav-number">1.2.6.</span> <span class="nav-text">Configuring Redis (配置 Redis)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configuring-Lettuce"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">Configuring Lettuce</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Cassandra-%E9%85%8D%E7%BD%AE-Cassandra"><span class="nav-number">1.2.7.</span> <span class="nav-text">Configuring Cassandra (配置 Cassandra)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Liquibase-%E9%85%8D%E7%BD%AE-Liquibase"><span class="nav-number">1.2.8.</span> <span class="nav-text">Configuring Liquibase (配置 Liquibase)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-Flyway-%E9%85%8D%E7%BD%AE-Flyway"><span class="nav-number">1.2.9.</span> <span class="nav-text">Configuring Flyway (配置 Flyway)</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
